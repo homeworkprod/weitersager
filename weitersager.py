@@ -173,11 +173,6 @@ class Channel(namedtuple('Channel', 'name password')):
         return super(Channel, cls).__new__(cls, name, password)
 
 
-def get_channel_names(channels):
-    """Return the names of the channels, in alphabetical order."""
-    return sorted(c.name for c in channels)
-
-
 class Bot(SingleServerIRCBot):
     """An IRC bot to forward messages to IRC channels."""
 
@@ -197,7 +192,7 @@ class Bot(SingleServerIRCBot):
         print('Connected to {}:{:d}.'
               .format(*conn.socket.getpeername()))
 
-        channel_names = get_channel_names(self.channels_to_join)
+        channel_names = sorted(c.name for c in self.channels_to_join)
         print('Channels to join: {}'.format(', '.join(channel_names)))
 
         for channel in self.channels_to_join:
