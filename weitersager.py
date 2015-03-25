@@ -311,16 +311,16 @@ class Processor(object):
         """Log and announce an incoming message."""
         source = '{0[0]}:{0[1]:d}'.format(source_address)
 
-        channel_names = get_channel_names(message.channels)
+        channel_names = message.channels
         print('Received message from {} for channels {} with text "{}"'
               .format(source, ', '.join(channel_names), message.text))
 
-        for channel in message.channels:
-            if channel.name in self.enabled_channel_names:
+        for channel_name in channel_names:
+            if channel_name in self.enabled_channel_names:
                 self.announcer.announce(channel_name, message.text)
             else:
                 print('Could not send message to channel {}, not joined.'
-                      .format(channel.name))
+                      .format(channel_name))
 
     def handle_shutdown_requested(self, sender):
         self.shutdown = True
