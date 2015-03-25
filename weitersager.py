@@ -126,7 +126,8 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         port = self.server.get_port()
-        message_received.send(message=message,
+        message_received.send(channel_names=message.channels,
+                              text=message.text,
                               source_address=self.client_address)
 
 
@@ -307,17 +308,17 @@ class Processor(object):
         print('Enabled forwarding to channel {}.'.format(channel_name))
         self.enabled_channel_names.add(channel_name)
 
-    def handle_message(self, sender, message=message, source_address=None):
+    def handle_message(self, sender, channel_names=None, text=None,
+                       source_address=None):
         """Log and announce an incoming message."""
         source = '{0[0]}:{0[1]:d}'.format(source_address)
 
-        channel_names = message.channels
         print('Received message from {} for channels {} with text "{}"'
-              .format(source, ', '.join(channel_names), message.text))
+              .format(source, ', '.join(channel_names), text))
 
         for channel_name in channel_names:
             if channel_name in self.enabled_channel_names:
-                self.announcer.announce(channel_name, message.text)
+                self.announcer.announce(channel_name, text)
             else:
                 print('Could not send message to channel {}, not joined.'
                       .format(channel_name))
