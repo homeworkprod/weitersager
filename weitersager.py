@@ -84,6 +84,14 @@ DEFAULT_IRC_PORT = ServerSpec('').port
 
 
 # -------------------------------------------------------------------- #
+# logging
+
+
+def log(message, *args, **kwargs):
+    print(message.format(*args, **kwargs))
+
+
+# -------------------------------------------------------------------- #
 # signals
 
 
@@ -117,8 +125,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             data = self.rfile.read(content_length).decode('utf-8')
             message = Message.from_json(data)
         except (KeyError, ValueError):
-            print('Invalid message received from {}:{:d}.'
-                  .format(*self.client_address))
+            log('Invalid message received from {}:{:d}.', *self.client_address)
             self.send_error(400)
             return
 
@@ -177,8 +184,7 @@ class Bot(SingleServerIRCBot):
     """An IRC bot to forward messages to IRC channels."""
 
     def __init__(self, server_spec, nickname, realname, channels):
-        print('Connecting to IRC server {0.host}:{0.port:d} ...'
-              .format(server_spec))
+        log('Connecting to IRC server {0.host}:{0.port:d} ...', server_spec)
         SingleServerIRCBot.__init__(self, [server_spec], nickname,
             realname)
         # Note: `self.channels` already exists in super class.
@@ -189,14 +195,13 @@ class Bot(SingleServerIRCBot):
 
     def on_welcome(self, conn, event):
         """Join channels after connect."""
-        print('Connected to {}:{:d}.'
-              .format(*conn.socket.getpeername()))
+        log('Connected to {}:{:d}.', *conn.socket.getpeername())
 
         channel_names = sorted(c.name for c in self.channels_to_join)
-        print('Channels to join: {}'.format(', '.join(channel_names)))
+        log('Channels to join: {}', ', '.join(channel_names))
 
         for channel in self.channels_to_join:
-            print('Joining channel {} ...'.format(channel.name))
+            log('Joining channel {} ...', channel.name)
             conn.join(channel.name, channel.password or '')
 
     def on_nicknameinuse(self, conn, event):
@@ -210,13 +215,13 @@ class Bot(SingleServerIRCBot):
         channel_name = event.target
 
         if joined_nick == self._nickname:
-            print('Joined IRC channel: {}'.format(channel_name))
+            log('Joined IRC channel: {}', channel_name)
             channel_joined.send(channel_name=channel_name)
 
     def on_badchannelkey(self, conn, event):
         """Channel could not be joined due to wrong password."""
         channel = event.arguments[0]
-        print('Cannot join channel {} (bad key).'.format(channel))
+        log('Cannot join channel {} (bad key).', channel)
 
     def on_privmsg(self, conn, event):
         """React on private messages.
@@ -226,8 +231,7 @@ class Bot(SingleServerIRCBot):
         whonick = event.source.nick
         message = event.arguments[0]
         if message == 'shutdown!':
-            print('Shutdown requested on IRC by user {}.'
-                  .format(whonick))
+            log('Shutdown requested on IRC by user {}.', whonick)
             shutdown_requested.send()
             self.die('Shutting down.')  # Joins IRC bot thread.
 
@@ -260,13 +264,13 @@ class StdoutAnnouncer(object):
         pass
 
     def announce(self, channel, message):
-        print('{}> {}'.format(channel, message))
+        log('{}> {}', channel, message)
 
 
 def create_announcer(args, channels):
     """Create and return an announcer according to the configuration."""
     if not args.irc_server:
-        print('No IRC server specified; will write to STDOUT instead.')
+        log('No IRC server specified; will write to STDOUT instead.')
         return StdoutAnnouncer()
 
     return Announcer(args.irc_server, args.irc_nickname,
@@ -300,7 +304,7 @@ class Processor(object):
         shutdown_requested.connect(self.handle_shutdown_requested)
 
     def enable_channel(self, sender, channel_name=None):
-        print('Enabled forwarding to channel {}.'.format(channel_name))
+        log('Enabled forwarding to channel {}.', channel_name)
         self.enabled_channel_names.add(channel_name)
 
     def handle_message(self, sender, channel_names=None, text=None,
@@ -308,15 +312,15 @@ class Processor(object):
         """Log and announce an incoming message."""
         source = '{0[0]}:{0[1]:d}'.format(source_address)
 
-        print('Received message from {} for channels {} with text "{}"'
-              .format(source, ', '.join(channel_names), text))
+        log('Received message from {} for channels {} with text "{}"',
+            source, ', '.join(channel_names), text)
 
         for channel_name in channel_names:
             if channel_name in self.enabled_channel_names:
                 self.announcer.announce(channel_name, text)
             else:
-                print('Could not send message to channel {}, not joined.'
-                      .format(channel_name))
+                log('Could not send message to channel {}, not joined.',
+                    channel_name)
 
     def handle_shutdown_requested(self, sender):
         self.shutdown = True
@@ -326,7 +330,7 @@ class Processor(object):
         while not self.shutdown:
             sleep(0.5)
 
-        print('Shutting down ...')
+        log('Shutting down ...')
 
 
 # -------------------------------------------------------------------- #
