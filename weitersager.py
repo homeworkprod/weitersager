@@ -177,7 +177,7 @@ def start_message_receiver(port):
 class Channel(namedtuple('Channel', 'name password')):
     """An IRC channel with optional password."""
 
-    def __new__(cls, name, password=None):
+    def __new__(cls, name, *, password=None):
         return super(Channel, cls).__new__(cls, name, password)
 
 
@@ -308,11 +308,11 @@ class Processor(object):
         message_received.connect(self.handle_message)
         shutdown_requested.connect(self.handle_shutdown_requested)
 
-    def enable_channel(self, sender, channel_name=None):
+    def enable_channel(self, sender, *, channel_name=None):
         log('Enabled forwarding to channel {}.', channel_name)
         self.enabled_channel_names.add(channel_name)
 
-    def handle_message(self, sender, channel_names=None, text=None,
+    def handle_message(self, sender, *, channel_names=None, text=None,
                        source_address=None):
         """Log and announce an incoming message."""
         source = '{0[0]}:{0[1]:d}'.format(source_address)
