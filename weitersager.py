@@ -98,6 +98,7 @@ def log(message, *args, **kwargs):
 
 channel_joined = signal('channel-joined')
 message_received = signal('message-received')
+message_approved = signal('message-approved')
 shutdown_requested = signal('shutdown-requested')
 
 
@@ -259,8 +260,8 @@ class Announcer(object):
     def start(self):
         start_thread(self.bot.start, 'Announcer')
 
-    def announce(self, channel, message):
-        self.bot.say(channel, message)
+    def announce(self, sender, *, channel_name=None, text=None):
+        self.bot.say(channel_name, text)
 
 
 class StdoutAnnouncer(object):
@@ -269,8 +270,8 @@ class StdoutAnnouncer(object):
     def start(self):
         pass
 
-    def announce(self, channel, message):
-        log('{}> {}', channel, message)
+    def announce(self, sender, *, channel_name=None, text=None):
+        log('{}> {}', channel_name, text)
 
 
 def create_announcer(server, nickname, realname, channels):
@@ -298,8 +299,7 @@ def start_thread(target, name):
 
 class Processor(object):
 
-    def __init__(self, announcer):
-        self.announcer = announcer
+    def __init__(self):
         self.enabled_channel_names = set()
         self.shutdown = False
 
@@ -322,7 +322,8 @@ class Processor(object):
 
         for channel_name in channel_names:
             if channel_name in self.enabled_channel_names:
-                self.announcer.announce(channel_name, text)
+                message_approved.send(channel_name=channel_name,
+                                      text=text)
             else:
                 log('Could not send message to channel {}, not joined.',
                     channel_name)
@@ -388,7 +389,9 @@ def main(channels, receiver_port):
                                  args.irc_nickname,
                                  args.irc_realname,
                                  channels)
-    processor = Processor(announcer)
+    message_approved.connect(announcer.announce)
+
+    processor = Processor()
 
     # Up to this point, no signals must have been sent.
 
