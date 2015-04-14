@@ -273,14 +273,13 @@ class StdoutAnnouncer(object):
         log('{}> {}', channel, message)
 
 
-def create_announcer(args, channels):
+def create_announcer(server, nickname, realname, channels):
     """Create and return an announcer according to the configuration."""
-    if not args.irc_server:
+    if not server:
         log('No IRC server specified; will write to STDOUT instead.')
         return StdoutAnnouncer()
 
-    return Announcer(args.irc_server, args.irc_nickname,
-        args.irc_realname, channels)
+    return Announcer(server, nickname, realname, channels)
 
 
 # -------------------------------------------------------------------- #
@@ -385,7 +384,10 @@ def main(channels, receiver_port):
     """Application entry point"""
     args = parse_args()
 
-    announcer = create_announcer(args, channels)
+    announcer = create_announcer(args.irc_server,
+                                 args.irc_nickname,
+                                 args.irc_realname,
+                                 channels)
     processor = Processor(announcer)
 
     # Up to this point, no signals must have been sent.
