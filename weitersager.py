@@ -55,6 +55,7 @@ from time import sleep
 
 from blinker import signal
 from irc.bot import ServerSpec, SingleServerIRCBot
+from irc.buffer import LenientDecodingLineBuffer
 
 
 DEFAULT_IRC_PORT = ServerSpec('').port
@@ -185,8 +186,13 @@ class Bot(SingleServerIRCBot):
 
     def __init__(self, server_spec, nickname, realname, channels):
         log('Connecting to IRC server {0.host}:{0.port:d} ...', server_spec)
+
         SingleServerIRCBot.__init__(self, [server_spec], nickname,
             realname)
+
+        # Avoid `UnicodeDecodeError` on non-UTF-8 messages.
+        self.connection.buffer_class = LenientDecodingLineBuffer
+
         # Note: `self.channels` already exists in super class.
         self.channels_to_join = channels
 
