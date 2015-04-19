@@ -40,7 +40,7 @@ exit.
 
 
 :Copyright: 2007-2015 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
-:Date: 23-Mar-2015
+:Date: 19-Apr-2015
 :License: MIT, see LICENSE for details.
 :Version: 0.0
 """
