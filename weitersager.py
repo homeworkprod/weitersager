@@ -58,6 +58,7 @@ from irc.bot import ServerSpec, SingleServerIRCBot
 from irc.buffer import LenientDecodingLineBuffer
 
 
+DEFAULT_HTTP_PORT = 8080
 DEFAULT_IRC_PORT = ServerSpec('').port
 
 
@@ -144,6 +145,7 @@ class ReceiveServer(HTTPServer):
 
     def __init__(self, port):
         HTTPServer.__init__(self, ('', port), RequestHandler)
+        log('Listening for HTTP requests on port {:d}.', port)
 
     @classmethod
     def start(cls, port):
@@ -356,6 +358,14 @@ def parse_args():
             + ' default port: {:d}]'.format(DEFAULT_IRC_PORT),
         metavar='SERVER')
 
+    parser.add_argument('--http-port',
+        dest='http_port',
+        type=int,
+        default=DEFAULT_HTTP_PORT,
+        help='the port to listen on for HTTP requests [default: {:d}]'
+             .format(DEFAULT_HTTP_PORT),
+        metavar='PORT')
+
     return parser.parse_args()
 
 
@@ -370,7 +380,7 @@ def parse_irc_server_arg(value):
 # -------------------------------------------------------------------- #
 
 
-def main(channels, receiver_port):
+def main(channels):
     """Application entry point"""
     args = parse_args()
 
@@ -388,7 +398,7 @@ def main(channels, receiver_port):
 
     # Signals are allowed be sent from here on.
 
-    start_message_receiver(receiver_port)
+    start_message_receiver(args.http_port)
     bot.start()
 
     processor.run()
@@ -401,7 +411,4 @@ if __name__ == '__main__':
         Channel('#examplechannel2', password='zePassword'),
     ]
 
-    # the port the HTTP server listens on
-    receiver_port = 8080
-
-    main(channels, receiver_port)
+    main(channels)
