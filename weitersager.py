@@ -77,8 +77,8 @@ DEFAULT_IRC_PORT = ServerSpec('').port
 # the main loop to stop. As the message receiver thread is the only one
 # left, but runs as a daemon, the application exits.
 #
-# The STDOUT announcer, on the other hand, does not run in a thread. The
-# user has to manually interrupt the application to exit.
+# The dummy bot, on the other hand, does not run in a thread. The user
+# has to manually interrupt the application to exit.
 #
 # For details, see the documentation on the `threading` module that is
 # part of Python's standard library.
@@ -193,6 +193,10 @@ class Bot(SingleServerIRCBot):
         # Note: `self.channels` already exists in super class.
         self.channels_to_join = channels
 
+    def start(self):
+        """Connect to the server, in a separate thread."""
+        start_thread(super().start, self.__class__.__name__)
+
     def get_version(self):
         return 'Weitersager'
 
@@ -238,45 +242,27 @@ class Bot(SingleServerIRCBot):
             shutdown_requested.send()
             self.die('Shutting down.')  # Joins IRC bot thread.
 
-    def say(self, channel, message):
+    def say(self, sender, *, channel_name=None, text=None):
         """Say message on channel."""
-        self.connection.privmsg(channel, message)
+        self.connection.privmsg(channel_name, text)
 
 
-# -------------------------------------------------------------------- #
-# announcing
-
-
-class Announcer(object):
-    """Announce messages on IRC."""
-
-    def __init__(self, server, nickname, realname, channels):
-        self.bot = Bot(server, nickname, realname, channels)
-
-    def start(self):
-        start_thread(self.bot.start, 'Announcer')
-
-    def announce(self, sender, *, channel_name=None, text=None):
-        self.bot.say(channel_name, text)
-
-
-class StdoutAnnouncer(object):
-    """Announce messages on STDOUT."""
+class DummyBot(object):
 
     def start(self):
         pass
 
-    def announce(self, sender, *, channel_name=None, text=None):
+    def say(self, sender, *, channel_name=None, text=None):
         log('{}> {}', channel_name, text)
 
 
-def create_announcer(server, nickname, realname, channels):
-    """Create and return an announcer according to the configuration."""
-    if not server:
+def create_bot(server, nickname, realname, channels):
+    """Create and return an IRC bot according to the configuration."""
+    if server:
+        return Bot(server, nickname, realname, channels)
+    else:
         log('No IRC server specified; will write to STDOUT instead.')
-        return StdoutAnnouncer()
-
-    return Announcer(server, nickname, realname, channels)
+        return DummyBot()
 
 
 # -------------------------------------------------------------------- #
@@ -381,11 +367,11 @@ def main(channels, receiver_port):
     """Application entry point"""
     args = parse_args()
 
-    announcer = create_announcer(args.irc_server,
-                                 args.irc_nickname,
-                                 args.irc_realname,
-                                 channels)
-    message_approved.connect(announcer.announce)
+    bot = create_bot(args.irc_server,
+                     args.irc_nickname,
+                     args.irc_realname,
+                     channels)
+    message_approved.connect(bot.say)
 
     processor = Processor()
 
@@ -396,7 +382,7 @@ def main(channels, receiver_port):
     # Signals are allowed be sent from here on.
 
     start_message_receiver(receiver_port)
-    announcer.start()
+    bot.start()
 
     if not args.irc_server:
         # Fake channel joins.
