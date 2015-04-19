@@ -249,8 +249,13 @@ class Bot(SingleServerIRCBot):
 
 class DummyBot(object):
 
+    def __init__(self, server_spec, nickname, realname, channels):
+        self.channels = channels
+
     def start(self):
-        pass
+        # Fake channel joins.
+        for channel in self.channels:
+            channel_joined.send(channel_name=channel.name)
 
     def say(self, sender, *, channel_name=None, text=None):
         log('{}> {}', channel_name, text)
@@ -259,10 +264,12 @@ class DummyBot(object):
 def create_bot(server, nickname, realname, channels):
     """Create and return an IRC bot according to the configuration."""
     if server:
-        return Bot(server, nickname, realname, channels)
+        bot_class = Bot
     else:
         log('No IRC server specified; will write to STDOUT instead.')
-        return DummyBot()
+        bot_class = DummyBot
+
+    return bot_class(server, nickname, realname, channels)
 
 
 # -------------------------------------------------------------------- #
@@ -383,11 +390,6 @@ def main(channels, receiver_port):
 
     start_message_receiver(receiver_port)
     bot.start()
-
-    if not args.irc_server:
-        # Fake channel joins.
-        for channel in channels:
-            channel_joined.send(channel_name=channel.name)
 
     processor.run()
 
