@@ -134,7 +134,6 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
-        port = self.server.get_port()
         message_received.send(channel_names=message.channels,
                               text=message.text,
                               source_address=self.client_address)
@@ -162,9 +161,6 @@ class ReceiveServer(HTTPServer):
 
         thread_name = cls.__name__
         start_thread(receiver.serve_forever, thread_name)
-
-    def get_port(self):
-        return self.server_address[1]
 
 
 def start_message_receiver(port):
