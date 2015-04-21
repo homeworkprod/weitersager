@@ -58,6 +58,7 @@ from irc.bot import ServerSpec, SingleServerIRCBot
 from irc.buffer import LenientDecodingLineBuffer
 
 
+DEFAULT_HTTP_IP_ADDRESS = '0.0.0.0'
 DEFAULT_HTTP_PORT = 8080
 DEFAULT_IRC_PORT = ServerSpec('').port
 
@@ -143,15 +144,16 @@ class RequestHandler(BaseHTTPRequestHandler):
 class ReceiveServer(HTTPServer):
     """HTTP server that waits for messages."""
 
-    def __init__(self, port):
-        HTTPServer.__init__(self, ('', port), RequestHandler)
-        log('Listening for HTTP requests on port {:d}.', port)
+    def __init__(self, ip_address, port):
+        address = (ip_address, port)
+        HTTPServer.__init__(self, address, RequestHandler)
+        log('Listening for HTTP requests on {}:{:d}.', *address)
 
     @classmethod
-    def start(cls, port):
+    def start(cls, ip_address, port):
         """Start in a separate thread."""
         try:
-            receiver = cls(port)
+            receiver = cls(ip_address, port)
         except Exception as e:
             sys.stderr.write(
                 'Error {0.errno:d}: {0.strerror}\n'.format(e))
@@ -165,8 +167,8 @@ class ReceiveServer(HTTPServer):
         start_thread(receiver.serve_forever, thread_name)
 
 
-def start_message_receiver(port):
-    ReceiveServer.start(port)
+def start_message_receiver(ip_address, port):
+    ReceiveServer.start(ip_address, port)
 
 
 # -------------------------------------------------------------------- #
@@ -358,6 +360,13 @@ def parse_args():
             + ' default port: {:d}]'.format(DEFAULT_IRC_PORT),
         metavar='SERVER')
 
+    parser.add_argument('--http-ip-address',
+        dest='http_ip_address',
+        default=DEFAULT_HTTP_IP_ADDRESS,
+        help='the IP address to listen on for HTTP requests [default: {}]'
+             .format(DEFAULT_HTTP_IP_ADDRESS),
+        metavar='IP_ADDRESS')
+
     parser.add_argument('--http-port',
         dest='http_port',
         type=int,
@@ -398,7 +407,7 @@ def main(channels):
 
     # Signals are allowed be sent from here on.
 
-    start_message_receiver(args.http_port)
+    start_message_receiver(args.http_ip_address, args.http_port)
     bot.start()
 
     processor.run()
