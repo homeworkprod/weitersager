@@ -356,14 +356,14 @@ def parse_args():
             + ' default port: {:d}]'.format(DEFAULT_IRC_PORT),
         metavar='SERVER')
 
-    parser.add_argument('--http-ip-address',
+    parser.add_argument('--http-listen-ip-address',
         dest='http_ip_address',
         default=DEFAULT_HTTP_IP_ADDRESS,
         help='the IP address to listen on for HTTP requests [default: {}]'
              .format(DEFAULT_HTTP_IP_ADDRESS),
         metavar='IP_ADDRESS')
 
-    parser.add_argument('--http-port',
+    parser.add_argument('--http-listen-port',
         dest='http_port',
         type=int,
         default=DEFAULT_HTTP_PORT,
