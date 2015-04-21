@@ -167,10 +167,6 @@ class ReceiveServer(HTTPServer):
         start_thread(receiver.serve_forever, thread_name)
 
 
-def start_message_receiver(ip_address, port):
-    ReceiveServer.start(ip_address, port)
-
-
 # -------------------------------------------------------------------- #
 # IRC
 
@@ -407,7 +403,7 @@ def main(channels):
 
     # Signals are allowed be sent from here on.
 
-    start_message_receiver(args.http_ip_address, args.http_port)
+    ReceiveServer.start(args.http_ip_address, args.http_port)
     bot.start()
 
     processor.run()
