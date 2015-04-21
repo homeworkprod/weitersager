@@ -388,7 +388,7 @@ def parse_irc_server_arg(value):
 def start(irc_server, irc_nickname, irc_realname, irc_channels,
           http_ip_address, http_port):
     """Start the IRC bot and HTTP listen server."""
-    bot = create_bot(irc_server, irc_nickname, irc_realname, channels)
+    bot = create_bot(irc_server, irc_nickname, irc_realname, irc_channels)
     message_approved.connect(bot.say)
 
     processor = Processor()
