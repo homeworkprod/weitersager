@@ -385,14 +385,10 @@ def parse_irc_server_arg(value):
 # -------------------------------------------------------------------- #
 
 
-def main(channels):
-    """Application entry point"""
-    args = parse_args()
-
-    bot = create_bot(args.irc_server,
-                     args.irc_nickname,
-                     args.irc_realname,
-                     channels)
+def start(irc_server, irc_nickname, irc_realname, irc_channels,
+          http_ip_address, http_port):
+    """Start the IRC bot and HTTP listen server."""
+    bot = create_bot(irc_server, irc_nickname, irc_realname, channels)
     message_approved.connect(bot.say)
 
     processor = Processor()
@@ -403,17 +399,28 @@ def main(channels):
 
     # Signals are allowed be sent from here on.
 
-    ReceiveServer.start(args.http_ip_address, args.http_port)
+    ReceiveServer.start(http_ip_address, http_port)
     bot.start()
 
     processor.run()
 
 
+# -------------------------------------------------------------------- #
+
+
 if __name__ == '__main__':
+    args = parse_args()
+
     # IRC channels to join and to announce messages to
     channels = [
         Channel('#examplechannel1'),
         Channel('#examplechannel2', password='zePassword'),
     ]
 
-    main(channels)
+    start(
+        args.irc_server,
+        args.irc_nickname,
+        args.irc_realname,
+        channels,
+        args.http_ip_address,
+        args.http_port)
