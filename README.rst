@@ -36,6 +36,6 @@ exit.
 
 
 :Copyright: 2007-2015 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
-:Date: 19-Apr-2015
+:Date: 22-Apr-2015
 :License: MIT, see LICENSE for details.
 :Version: 0.0
