@@ -47,6 +47,7 @@ exit.
 
 import argparse
 from collections import namedtuple
+from datetime import datetime
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import sys
@@ -91,7 +92,8 @@ DEFAULT_IRC_PORT = ServerSpec('').port
 
 
 def log(message, *args, **kwargs):
-    print(message.format(*args, **kwargs))
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(timestamp, message.format(*args, **kwargs))
 
 
 # -------------------------------------------------------------------- #
