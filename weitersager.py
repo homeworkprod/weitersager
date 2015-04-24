@@ -40,9 +40,9 @@ exit.
 
 
 :Copyright: 2007-2015 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
-:Date: 22-Apr-2015
+:Date: 24-Apr-2015
 :License: MIT, see LICENSE for details.
-:Version: 0.0
+:Version: 0.1
 """
 
 import argparse
