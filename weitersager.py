@@ -51,11 +51,12 @@ import json
 import sys
 from time import sleep
 
-from blinker import signal
 from irc.bot import SingleServerIRCBot
 from irc.buffer import LenientDecodingLineBuffer
 
 from weitersager.argparser import parse_args
+from weitersager.signals import channel_joined, message_approved, \
+    message_received, shutdown_requested
 from weitersager.util import log, start_thread
 
 
@@ -80,16 +81,6 @@ from weitersager.util import log, start_thread
 #
 # For details, see the documentation on the `threading` module that is
 # part of Python's standard library.
-
-
-# -------------------------------------------------------------------- #
-# signals
-
-
-channel_joined = signal('channel-joined')
-message_received = signal('message-received')
-message_approved = signal('message-approved')
-shutdown_requested = signal('shutdown-requested')
 
 
 # -------------------------------------------------------------------- #
