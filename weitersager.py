@@ -46,11 +46,9 @@ exit.
 """
 
 from collections import namedtuple
-from datetime import datetime
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import sys
-from threading import Thread
 from time import sleep
 
 from blinker import signal
@@ -58,6 +56,7 @@ from irc.bot import SingleServerIRCBot
 from irc.buffer import LenientDecodingLineBuffer
 
 from weitersager.argparser import parse_args
+from weitersager.util import log, start_thread
 
 
 # A note on threads (implementation detail):
@@ -81,15 +80,6 @@ from weitersager.argparser import parse_args
 #
 # For details, see the documentation on the `threading` module that is
 # part of Python's standard library.
-
-
-# -------------------------------------------------------------------- #
-# logging
-
-
-def log(message, *args, **kwargs):
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print(timestamp, message.format(*args, **kwargs))
 
 
 # -------------------------------------------------------------------- #
@@ -268,16 +258,6 @@ def create_bot(server, nickname, realname, channels):
         bot_class = DummyBot
 
     return bot_class(server, nickname, realname, channels)
-
-
-# -------------------------------------------------------------------- #
-# threads
-
-
-def start_thread(target, name):
-    """Create, configure, and start a new thread."""
-    t = Thread(target=target, name=name, daemon=True)
-    t.start()
 
 
 # -------------------------------------------------------------------- #
