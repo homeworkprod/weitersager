@@ -45,9 +45,8 @@ exit.
 :Version: 0.1
 """
 
-from weitersager.argparser import parse_args
 from weitersager.irc import Channel
-from weitersager.processor import start
+from weitersager.processor import start_with_args
 
 
 # A note on threads (implementation detail):
@@ -74,18 +73,10 @@ from weitersager.processor import start
 
 
 if __name__ == '__main__':
-    args = parse_args()
-
     # IRC channels to join and to announce messages to
     channels = [
         Channel('#examplechannel1'),
         Channel('#examplechannel2', password='zePassword'),
     ]
 
-    start(
-        args.irc_server,
-        args.irc_nickname,
-        args.irc_realname,
-        channels,
-        args.http_ip_address,
-        args.http_port)
+    start_with_args(channels)
