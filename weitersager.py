@@ -45,17 +45,14 @@ exit.
 :Version: 0.1
 """
 
-from collections import namedtuple
-from http.server import BaseHTTPRequestHandler, HTTPServer
-import json
-import sys
 from time import sleep
 
 from weitersager.argparser import parse_args
+from weitersager.httpreceiver import ReceiveServer
 from weitersager.irc import Channel, create_bot
 from weitersager.signals import channel_joined, message_approved, \
     message_received, shutdown_requested
-from weitersager.util import log, start_thread
+from weitersager.util import log
 
 
 # A note on threads (implementation detail):
@@ -79,69 +76,6 @@ from weitersager.util import log, start_thread
 #
 # For details, see the documentation on the `threading` module that is
 # part of Python's standard library.
-
-
-# -------------------------------------------------------------------- #
-# HTTP message receiver
-
-
-class Message(namedtuple('Message', 'channels text')):
-
-    @classmethod
-    def from_json(cls, json_data):
-        data = json.loads(json_data)
-
-        channels = frozenset(map(str, data['channels']))
-        text = data['text']
-
-        return cls(channels=channels, text=text)
-
-
-class RequestHandler(BaseHTTPRequestHandler):
-    """Handler for messages submitted via HTTP."""
-
-    def do_POST(self):
-        try:
-            content_length = int(self.headers.get('Content-Length', 0))
-            data = self.rfile.read(content_length).decode('utf-8')
-            message = Message.from_json(data)
-        except (KeyError, ValueError):
-            log('Invalid message received from {}:{:d}.', *self.client_address)
-            self.send_error(400)
-            return
-
-        self.send_response(200)
-        self.end_headers()
-
-        message_received.send(channel_names=message.channels,
-                              text=message.text,
-                              source_address=self.client_address)
-
-
-class ReceiveServer(HTTPServer):
-    """HTTP server that waits for messages."""
-
-    def __init__(self, ip_address, port):
-        address = (ip_address, port)
-        HTTPServer.__init__(self, address, RequestHandler)
-        log('Listening for HTTP requests on {}:{:d}.', *address)
-
-    @classmethod
-    def start(cls, ip_address, port):
-        """Start in a separate thread."""
-        try:
-            receiver = cls(ip_address, port)
-        except Exception as e:
-            sys.stderr.write(
-                'Error {0.errno:d}: {0.strerror}\n'.format(e))
-            sys.stderr.write(
-                'Probably no permission to open port {}. '
-                'Try to specify a port number above 1,024 (or even '
-                '4,096) and up to 65,535.\n'.format(port))
-            sys.exit(1)
-
-        thread_name = cls.__name__
-        start_thread(receiver.serve_forever, thread_name)
 
 
 # -------------------------------------------------------------------- #
