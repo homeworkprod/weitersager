@@ -15,7 +15,7 @@ from argparse import ArgumentParser
 from irc.bot import ServerSpec
 
 
-DEFAULT_HTTP_IP_ADDRESS = '0.0.0.0'
+DEFAULT_HTTP_IP_ADDRESS = '127.0.0.1'
 DEFAULT_HTTP_PORT = 8080
 DEFAULT_IRC_PORT = ServerSpec('').port
 
