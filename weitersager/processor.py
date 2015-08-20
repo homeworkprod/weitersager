@@ -63,9 +63,10 @@ class Processor(object):
 
 
 def start(irc_server, irc_nickname, irc_realname, irc_channels,
-          http_ip_address, http_port):
+          http_ip_address, http_port, **options):
     """Start the IRC bot and HTTP listen server."""
-    bot = create_bot(irc_server, irc_nickname, irc_realname, irc_channels)
+    bot = create_bot(irc_server, irc_nickname, irc_realname, irc_channels,
+                     **options)
     message_approved.connect(bot.say)
 
     processor = Processor()
@@ -82,7 +83,7 @@ def start(irc_server, irc_nickname, irc_realname, irc_channels,
     processor.run()
 
 
-def start_with_args(irc_channels):
+def start_with_args(irc_channels, **options):
     """Start the IRC bot and HTTP listen server,
 
     Most arguments (except for the IRC channels to join) are read from
@@ -96,4 +97,5 @@ def start_with_args(irc_channels):
         args.irc_realname,
         irc_channels,
         args.http_ip_address,
-        args.http_port)
+        args.http_port,
+        **options)

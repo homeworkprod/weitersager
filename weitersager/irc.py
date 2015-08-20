@@ -29,7 +29,8 @@ class Channel(namedtuple('Channel', 'name password')):
 class Bot(SingleServerIRCBot):
     """An IRC bot to forward messages to IRC channels."""
 
-    def __init__(self, server_spec, nickname, realname, channels):
+    def __init__(self, server_spec, nickname, realname, channels, *,
+                 shutdown_predicate=None):
         log('Connecting to IRC server {0.host}:{0.port:d} ...', server_spec)
 
         SingleServerIRCBot.__init__(self, [server_spec], nickname,
@@ -40,6 +41,8 @@ class Bot(SingleServerIRCBot):
 
         # Note: `self.channels` already exists in super class.
         self.channels_to_join = channels
+
+        self.shutdown_predicate = shutdown_predicate
 
     def start(self):
         """Connect to the server, in a separate thread."""
@@ -82,7 +85,7 @@ class Bot(SingleServerIRCBot):
         """React on private messages."""
         nickmask = event.source
         text = event.arguments[0]
-        if text == 'shutdown!':
+        if self.shutdown_predicate and self.shutdown_predicate(nickmask, text):
             self.shutdown(nickmask)
 
     def shutdown(self, nickmask):
@@ -98,7 +101,7 @@ class Bot(SingleServerIRCBot):
 
 class DummyBot(object):
 
-    def __init__(self, server_spec, nickname, realname, channels):
+    def __init__(self, server_spec, nickname, realname, channels, **options):
         self.channels = channels
 
     def start(self):
@@ -110,7 +113,7 @@ class DummyBot(object):
         log('{}> {}', channel_name, text)
 
 
-def create_bot(server, nickname, realname, channels):
+def create_bot(server, nickname, realname, channels, **options):
     """Create and return an IRC bot according to the configuration."""
     if server:
         bot_class = Bot
@@ -118,4 +121,9 @@ def create_bot(server, nickname, realname, channels):
         log('No IRC server specified; will write to STDOUT instead.')
         bot_class = DummyBot
 
-    return bot_class(server, nickname, realname, channels)
+    return bot_class(server, nickname, realname, channels, **options)
+
+
+def default_shutdown_predicate(nickmask, text):
+    """Determine if this is a valid shutdown request."""
+    return text == 'shutdown!'
