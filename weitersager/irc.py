@@ -79,16 +79,17 @@ class Bot(SingleServerIRCBot):
         log('Cannot join channel {} (bad key).', channel)
 
     def on_privmsg(self, conn, event):
-        """React on private messages.
+        """React on private messages."""
+        nickmask = event.source
+        text = event.arguments[0]
+        if text == 'shutdown!':
+            self.shutdown(nickmask)
 
-        Shut down, for example.
-        """
-        whonick = event.source.nick
-        message = event.arguments[0]
-        if message == 'shutdown!':
-            log('Shutdown requested on IRC by user {}.', whonick)
-            shutdown_requested.send()
-            self.die('Shutting down.')  # Joins IRC bot thread.
+    def shutdown(self, nickmask):
+        """Shut the bot down."""
+        log('Shutdown requested by {}.', nickmask)
+        shutdown_requested.send()
+        self.die('Shutting down.')  # Joins IRC bot thread.
 
     def say(self, sender, *, channel_name=None, text=None):
         """Say message on channel."""
