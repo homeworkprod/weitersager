@@ -16,7 +16,7 @@ from irc.bot import SingleServerIRCBot
 from irc.buffer import LenientDecodingLineBuffer
 
 from .signals import channel_joined, shutdown_requested
-from .util import log
+from .util import log, start_thread
 
 
 class Channel(namedtuple('Channel', 'name password')):
