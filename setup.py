@@ -34,4 +34,12 @@ setup(
         'Topic :: System :: Systems Administration',
         'Topic :: Utilities',
     ],
+    packages=['weitersager'],
+    install_requires=[
+        'blinker>=1.3',
+        'irc>=12.3',
+    ],
+    extras_require={
+        'test': ['nose2'],
+    },
 )
