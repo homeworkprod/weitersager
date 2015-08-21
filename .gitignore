@@ -2,4 +2,12 @@
 __pycache__
 
 # virtual environment
-venv
+venv/
+
+# packaging/distribution
+build/
+dist/
+*.egg-info/
+
+# testing
+.tox/
