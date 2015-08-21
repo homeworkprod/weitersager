@@ -14,7 +14,7 @@ setup(
     version='0.1',
     description='A proxy to forward messages received via HTTP to to IRC',
     long_description=long_description,
+    url='http://homework.nwsnet.de/releases/1cda/#weitersager',
     author='Jochen Kupperschmidt',
     author_email='homework@nwsnet.de',
-    url='http://homework.nwsnet.de/',
 )
