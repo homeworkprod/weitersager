@@ -37,24 +37,24 @@ def parse_args():
     parser.add_argument('--irc-server',
         dest='irc_server',
         type=parse_irc_server_arg,
-        help='IRC server (host and, optionally, port) to connect to'
-            + ' [e.g. "irc.example.com" or "irc.example.com:6669";'
-            + ' default port: {:d}]'.format(DEFAULT_IRC_PORT),
+        help='IRC server (host and, optionally, port) to connect to '
+        + '[e.g. "irc.example.com" or "irc.example.com:6669"; '
+        + f'default port: {DEFAULT_IRC_PORT:d}]',
         metavar='SERVER')
 
     parser.add_argument('--http-listen-ip-address',
         dest='http_ip_address',
         default=DEFAULT_HTTP_IP_ADDRESS,
-        help='the IP address to listen on for HTTP requests [default: {}]'
-             .format(DEFAULT_HTTP_IP_ADDRESS),
+        help='the IP address to listen on for HTTP requests '
+        + f'[default: {DEFAULT_HTTP_IP_ADDRESS}]',
         metavar='IP_ADDRESS')
 
     parser.add_argument('--http-listen-port',
         dest='http_port',
         type=int,
         default=DEFAULT_HTTP_PORT,
-        help='the port to listen on for HTTP requests [default: {:d}]'
-             .format(DEFAULT_HTTP_PORT),
+        help='the port to listen on for HTTP requests '
+        + f'[default: {DEFAULT_HTTP_PORT:d}]',
         metavar='PORT')
 
     return parser.parse_args()

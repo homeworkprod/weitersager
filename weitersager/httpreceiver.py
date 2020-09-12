@@ -68,12 +68,12 @@ class ReceiveServer(HTTPServer):
         try:
             receiver = cls(ip_address, port)
         except Exception as e:
+            sys.stderr.write(f'Error {e.errno:d}: {e.strerror}\n')
             sys.stderr.write(
-                'Error {0.errno:d}: {0.strerror}\n'.format(e))
-            sys.stderr.write(
-                'Probably no permission to open port {}. '
+                f'Probably no permission to open port {port}. '
                 'Try to specify a port number above 1,024 (or even '
-                '4,096) and up to 65,535.\n'.format(port))
+                '4,096) and up to 65,535.\n'
+            )
             sys.exit(1)
 
         thread_name = cls.__name__

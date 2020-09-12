@@ -36,7 +36,7 @@ class Processor:
     def handle_message(self, sender, *, channel_names=None, text=None,
                        source_address=None):
         """Log and announce an incoming message."""
-        source = '{0[0]}:{0[1]:d}'.format(source_address)
+        source = f'{source_address[0]}:{source_address[1]:d}'
 
         log('Received message from {} for channels {} with text "{}"',
             source, ', '.join(channel_names), text)
