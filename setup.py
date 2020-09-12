@@ -34,7 +34,7 @@ setup(
     ],
     packages=['weitersager'],
     install_requires=[
-        'blinker==1.3',
+        'blinker==1.4',
         'irc==12.3',
     ],
     extras_require={
