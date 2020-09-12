@@ -58,5 +58,5 @@ For details, see the documentation on the `threading` module that is
 part of Python's standard library.
 
 
-:Copyright: 2007-2015 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
+:Copyright: 2007-2020 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
 :License: MIT, see LICENSE for details.
