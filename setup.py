@@ -11,7 +11,7 @@ with codecs.open('README.rst', encoding='utf-8') as f:
 
 setup(
     name='Weitersager',
-    version='0.1',
+    version='0.2-dev',
     description='A proxy to forward messages received via HTTP to to IRC',
     long_description=long_description,
     url='http://homework.nwsnet.de/releases/1cda/#weitersager',
