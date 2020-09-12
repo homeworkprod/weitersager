@@ -82,6 +82,21 @@ To see the available command line options:
 
    $ ./run_weitersager.py --help
 
+To send messages to IRC, send an HTTP POST request to URL path ``/`` at
+the address and port the application is listening on.
+
+The body has to be in JSON_ format and contain two keys, ``channel`` and
+``text``, with string values:
+
+.. code:: json
+
+   {
+     "channel": "#party",
+     "text": "Oh yeah!"
+   }
+
+.. _JSON: https://www.json.org/
+
 
 Shutdown
 --------
