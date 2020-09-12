@@ -3,8 +3,12 @@ import codecs
 from setuptools import setup
 
 
-with codecs.open('README.rst', encoding='utf-8') as f:
-    long_description = f.read()
+def read_lines_from_file(filename):
+    with codecs.open(filename, encoding='utf-8') as f:
+        return [line.rstrip('\n') for line in f]
+
+
+long_description = read_lines_from_file('README.rst')
 
 
 setup(
