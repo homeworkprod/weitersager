@@ -39,7 +39,4 @@ setup(
         'blinker==1.4',
         'irc==12.3',
     ],
-    extras_require={
-        'test': ['nose2'],
-    },
 )
