@@ -8,6 +8,3 @@ venv/
 build/
 dist/
 *.egg-info/
-
-# testing
-.tox/

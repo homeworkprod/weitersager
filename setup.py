@@ -38,6 +38,6 @@ setup(
         'irc==12.3',
     ],
     extras_require={
-        'test': ['nose2', 'tox'],
+        'test': ['nose2'],
     },
 )
