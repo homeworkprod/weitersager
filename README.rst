@@ -59,6 +59,4 @@ part of Python's standard library.
 
 
 :Copyright: 2007-2015 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
-:Date: 24-Apr-2015
 :License: MIT, see LICENSE for details.
-:Version: 0.1
