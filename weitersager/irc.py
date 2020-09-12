@@ -11,7 +11,7 @@ Internet Relay Chat
 from collections import namedtuple
 
 from irc.bot import SingleServerIRCBot
-from irc.buffer import LenientDecodingLineBuffer
+from jaraco.stream.buffer import LenientDecodingLineBuffer
 
 from .signals import channel_joined, shutdown_requested
 from .util import log, start_thread

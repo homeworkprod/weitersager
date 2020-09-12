@@ -10,6 +10,7 @@ Unreleased
 - Raise minimum Python version to 3.6.
 - Divided code base into separate modules in a package.
 - Dependency versions have been pinned.
+- Updated irc version to 19.0.1 (from 12.3).
 - Updated blinker to 1.4 (from 1.3).
 - Do not use tox for tests anymore.
 - Allowed for custom shutdown predicate.
