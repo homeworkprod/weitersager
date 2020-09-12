@@ -13,6 +13,7 @@ Unreleased
 - Updated irc version to 19.0.1 (from 12.3).
 - Updated blinker to 1.4 (from 1.3).
 - Do not use tox for tests anymore.
+- Use `dataclass` instead of `namedtuple` for value objects.
 - Allowed for custom shutdown predicate.
 
 

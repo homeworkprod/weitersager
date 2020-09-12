@@ -8,7 +8,8 @@ Internet Relay Chat
 :License: MIT, see LICENSE for details.
 """
 
-from collections import namedtuple
+from dataclasses import dataclass
+from typing import Optional
 
 from irc.bot import SingleServerIRCBot
 from jaraco.stream.buffer import LenientDecodingLineBuffer
@@ -17,11 +18,11 @@ from .signals import channel_joined, shutdown_requested
 from .util import log, start_thread
 
 
-class Channel(namedtuple('Channel', 'name password')):
+@dataclass(frozen=True)
+class Channel:
     """An IRC channel with optional password."""
-
-    def __new__(cls, name, *, password=None):
-        return super(Channel, cls).__new__(cls, name, password)
+    name: str
+    password: Optional[str] = None
 
 
 class Bot(SingleServerIRCBot):

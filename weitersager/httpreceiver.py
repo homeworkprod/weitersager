@@ -8,16 +8,20 @@ HTTP server to receive messages
 :License: MIT, see LICENSE for details.
 """
 
-from collections import namedtuple
+from dataclasses import dataclass
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import sys
+from typing import Set
 
 from .signals import message_received
 from .util import log, start_thread
 
 
-class Message(namedtuple('Message', 'channels text')):
+@dataclass(frozen=True)
+class Message:
+    channels: Set[str]
+    text: str
 
     @classmethod
     def from_json(cls, json_data):
