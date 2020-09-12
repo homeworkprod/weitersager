@@ -97,7 +97,7 @@ class Bot(SingleServerIRCBot):
         self.connection.privmsg(channel_name, text)
 
 
-class DummyBot(object):
+class DummyBot:
 
     def __init__(self, server_spec, nickname, realname, channels, **options):
         self.channels = channels

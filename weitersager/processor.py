@@ -18,7 +18,7 @@ from .signals import channel_joined, message_approved, \
 from .util import log
 
 
-class Processor(object):
+class Processor:
 
     def __init__(self):
         self.enabled_channel_names = set()
