@@ -17,11 +17,11 @@ Requirements
 Installation
 ------------
 
-irc_ and blinker_ can be installed via pip_:
+The required dependencies can be installed via pip_:
 
 .. code:: sh
 
-    $ pip install irc blinker
+    $ pip install -r requirements.txt
 
 In order to shut down Weitersager, send a query message with the text
 "shutdown!" to the IRC bot. It should then quit, and Weitersager should
