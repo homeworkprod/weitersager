@@ -9,6 +9,7 @@ def read_lines_from_file(filename):
 
 
 long_description = read_lines_from_file('README.rst')
+requirements = read_lines_from_file('requirements.txt')
 
 
 setup(
@@ -39,8 +40,5 @@ setup(
         'Topic :: Utilities',
     ],
     packages=['weitersager'],
-    install_requires=[
-        'blinker==1.4',
-        'irc==12.3',
-    ],
+    install_requires=requirements,
 )
