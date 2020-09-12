@@ -5,6 +5,7 @@ __pycache__
 venv/
 
 # testing
+.coverage
 .pytest_cache
 
 # packaging/distribution
