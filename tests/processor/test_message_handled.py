@@ -1,3 +1,8 @@
+"""
+:Copyright: 2007-2015 Jochen Kupperschmidt
+:License: MIT, see LICENSE for details.
+"""
+
 from weitersager.processor import Processor
 from weitersager.signals import channel_joined, message_approved, \
     message_received

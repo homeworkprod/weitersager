@@ -1,3 +1,8 @@
+"""
+:Copyright: 2007-2015 Jochen Kupperschmidt
+:License: MIT, see LICENSE for details.
+"""
+
 import json
 
 import pytest
