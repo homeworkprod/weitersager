@@ -34,8 +34,8 @@ setup(
     ],
     packages=['weitersager'],
     install_requires=[
-        'blinker>=1.3',
-        'irc>=12.3',
+        'blinker==1.3',
+        'irc==12.3',
     ],
     extras_require={
         'test': ['nose2', 'tox'],

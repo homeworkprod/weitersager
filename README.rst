@@ -9,9 +9,9 @@ Based on syslog2IRC_.
 Requirements
 ------------
 
-- Python 3.4+ (tested with 3.4.2)
-- irc_ (tested with 12.1.1)
-- blinker_ (tested with 1.3)
+- Python 3.4+
+- irc_
+- blinker_
 
 
 Installation
