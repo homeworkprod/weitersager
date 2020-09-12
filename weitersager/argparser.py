@@ -22,40 +22,50 @@ def parse_args():
     """Setup and apply the command line arguments parser."""
     parser = ArgumentParser()
 
-    parser.add_argument('--irc-nickname',
+    parser.add_argument(
+        '--irc-nickname',
         dest='irc_nickname',
         default='Weitersager',
         help='the IRC nickname the bot should use',
-        metavar='NICKNAME')
+        metavar='NICKNAME',
+    )
 
-    parser.add_argument('--irc-realname',
+    parser.add_argument(
+        '--irc-realname',
         dest='irc_realname',
         default='Weitersager',
         help='the IRC realname the bot should use',
-        metavar='REALNAME')
+        metavar='REALNAME',
+    )
 
-    parser.add_argument('--irc-server',
+    parser.add_argument(
+        '--irc-server',
         dest='irc_server',
         type=parse_irc_server_arg,
         help='IRC server (host and, optionally, port) to connect to '
         + '[e.g. "irc.example.com" or "irc.example.com:6669"; '
         + f'default port: {DEFAULT_IRC_PORT:d}]',
-        metavar='SERVER')
+        metavar='SERVER',
+    )
 
-    parser.add_argument('--http-listen-ip-address',
+    parser.add_argument(
+        '--http-listen-ip-address',
         dest='http_ip_address',
         default=DEFAULT_HTTP_IP_ADDRESS,
         help='the IP address to listen on for HTTP requests '
         + f'[default: {DEFAULT_HTTP_IP_ADDRESS}]',
-        metavar='IP_ADDRESS')
+        metavar='IP_ADDRESS',
+    )
 
-    parser.add_argument('--http-listen-port',
+    parser.add_argument(
+        '--http-listen-port',
         dest='http_port',
         type=int,
         default=DEFAULT_HTTP_PORT,
         help='the port to listen on for HTTP requests '
         + f'[default: {DEFAULT_HTTP_PORT:d}]',
-        metavar='PORT')
+        metavar='PORT',
+    )
 
     return parser.parse_args()
 

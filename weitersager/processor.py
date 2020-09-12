@@ -13,8 +13,12 @@ from time import sleep
 from .argparser import parse_args
 from .httpreceiver import ReceiveServer
 from .irc import create_bot
-from .signals import channel_joined, message_approved, \
-    message_received, shutdown_requested
+from .signals import (
+    channel_joined,
+    message_approved,
+    message_received,
+    shutdown_requested,
+)
 from .util import log
 
 
@@ -33,21 +37,27 @@ class Processor:
         log('Enabled forwarding to channel {}.', channel_name)
         self.enabled_channel_names.add(channel_name)
 
-    def handle_message(self, sender, *, channel_names=None, text=None,
-                       source_address=None):
+    def handle_message(
+        self, sender, *, channel_names=None, text=None, source_address=None
+    ):
         """Log and announce an incoming message."""
         source = f'{source_address[0]}:{source_address[1]:d}'
 
-        log('Received message from {} for channels {} with text "{}"',
-            source, ', '.join(channel_names), text)
+        log(
+            'Received message from {} for channels {} with text "{}"',
+            source,
+            ', '.join(channel_names),
+            text,
+        )
 
         for channel_name in channel_names:
             if channel_name in self.enabled_channel_names:
-                message_approved.send(channel_name=channel_name,
-                                      text=text)
+                message_approved.send(channel_name=channel_name, text=text)
             else:
-                log('Could not send message to channel {}, not joined.',
-                    channel_name)
+                log(
+                    'Could not send message to channel {}, not joined.',
+                    channel_name,
+                )
 
     def handle_shutdown_requested(self, sender):
         self.shutdown = True
@@ -60,11 +70,19 @@ class Processor:
         log('Shutting down ...')
 
 
-def start(irc_server, irc_nickname, irc_realname, irc_channels,
-          http_ip_address, http_port, **options):
+def start(
+    irc_server,
+    irc_nickname,
+    irc_realname,
+    irc_channels,
+    http_ip_address,
+    http_port,
+    **options,
+):
     """Start the IRC bot and HTTP listen server."""
-    bot = create_bot(irc_server, irc_nickname, irc_realname, irc_channels,
-                     **options)
+    bot = create_bot(
+        irc_server, irc_nickname, irc_realname, irc_channels, **options
+    )
     message_approved.connect(bot.say)
 
     processor = Processor()
@@ -96,4 +114,5 @@ def start_with_args(irc_channels, **options):
         irc_channels,
         args.http_ip_address,
         args.http_port,
-        **options)
+        **options,
+    )

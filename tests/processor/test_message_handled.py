@@ -4,8 +4,11 @@
 """
 
 from weitersager.processor import Processor
-from weitersager.signals import channel_joined, message_approved, \
-    message_received
+from weitersager.signals import (
+    channel_joined,
+    message_approved,
+    message_received,
+)
 
 
 def test_message_handled():

@@ -49,9 +49,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
-        message_received.send(channel_names=message.channels,
-                              text=message.text,
-                              source_address=self.client_address)
+        message_received.send(
+            channel_names=message.channels,
+            text=message.text,
+            source_address=self.client_address,
+        )
 
 
 class ReceiveServer(HTTPServer):

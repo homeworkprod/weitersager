@@ -28,12 +28,18 @@ class Channel:
 class Bot(SingleServerIRCBot):
     """An IRC bot to forward messages to IRC channels."""
 
-    def __init__(self, server_spec, nickname, realname, channels, *,
-                 shutdown_predicate=None):
+    def __init__(
+        self,
+        server_spec,
+        nickname,
+        realname,
+        channels,
+        *,
+        shutdown_predicate=None,
+    ):
         log('Connecting to IRC server {0.host}:{0.port:d} ...', server_spec)
 
-        SingleServerIRCBot.__init__(self, [server_spec], nickname,
-            realname)
+        SingleServerIRCBot.__init__(self, [server_spec], nickname, realname)
 
         # Avoid `UnicodeDecodeError` on non-UTF-8 messages.
         self.connection.buffer_class = LenientDecodingLineBuffer
