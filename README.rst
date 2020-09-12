@@ -12,6 +12,26 @@ Based on syslog2IRC_.
 .. _syslog2IRC: http://homework.nwsnet.de/releases/c474/#syslog2irc
 
 
+Code Status
+-----------
+
+|badge_travis-ci_build|
+|badge_scrutinizer-ci_coverage|
+|badge_scrutinizer-ci_quality-score|
+
+.. |badge_travis-ci_build| image:: https://travis-ci.org/homeworkprod/weitersager.svg?branch=main
+   :alt: Build Status
+   :target: https://travis-ci.org/homeworkprod/weitersager
+
+.. |badge_scrutinizer-ci_coverage| image:: https://scrutinizer-ci.com/g/homeworkprod/weitersager/badges/coverage.png?b=main
+   :alt: Scrutinizer Code Coverage
+   :target: https://scrutinizer-ci.com/g/homeworkprod/weitersager/?branch=main
+
+.. |badge_scrutinizer-ci_quality-score| image:: https://scrutinizer-ci.com/g/homeworkprod/weitersager/badges/quality-score.png?b=main
+   :alt: Scrutinizer Code Quality
+   :target: https://scrutinizer-ci.com/g/homeworkprod/weitersager/?branch=main
+
+
 Requirements
 ------------
 
