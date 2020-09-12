@@ -38,26 +38,23 @@ class Processor:
         self.enabled_channel_names.add(channel_name)
 
     def handle_message(
-        self, sender, *, channel_names=None, text=None, source_address=None
+        self, sender, *, channel_name=None, text=None, source_address=None
     ):
         """Log and announce an incoming message."""
         source = f'{source_address[0]}:{source_address[1]:d}'
 
         log(
-            'Received message from {} for channels {} with text "{}"',
+            'Received message from {} for channel {} with text "{}"',
             source,
-            ', '.join(channel_names),
+            channel_name,
             text,
         )
 
-        for channel_name in channel_names:
-            if channel_name in self.enabled_channel_names:
-                message_approved.send(channel_name=channel_name, text=text)
-            else:
-                log(
-                    'Could not send message to channel {}, not joined.',
-                    channel_name,
-                )
+        if channel_name not in self.enabled_channel_names:
+            log('Could not send message to channel {}, not joined.', channel_name)
+            return
+
+        message_approved.send(channel_name=channel_name, text=text)
 
     def handle_shutdown_requested(self, sender):
         self.shutdown = True

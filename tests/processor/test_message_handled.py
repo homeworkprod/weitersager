@@ -12,7 +12,7 @@ from weitersager.signals import (
 
 
 def test_message_handled():
-    channel_names = ['#foo', '#bar']
+    channel_name = '#foo'
     text = 'Knock, knock.'
 
     received_signal_data = []
@@ -24,32 +24,27 @@ def test_message_handled():
     processor = Processor()
     processor.connect_to_signals()
 
-    fake_channel_joins(channel_names)
+    fake_channel_join(channel_name)
 
-    send_message_received_signal(channel_names, text)
+    send_message_received_signal(channel_name, text)
 
     assert received_signal_data == [
         {
             'channel_name': '#foo',
             'text': text,
         },
-        {
-            'channel_name': '#bar',
-            'text': text,
-        },
     ]
 
 
-def fake_channel_joins(channel_names):
-    for channel_name in channel_names:
-        channel_joined.send(channel_name=channel_name)
+def fake_channel_join(channel_name):
+    channel_joined.send(channel_name=channel_name)
 
 
-def send_message_received_signal(channel_names, text):
+def send_message_received_signal(channel_name, text):
     source_address = ('127.0.0.1', 12345)
     message_received.send(
         None,
-        channel_names=channel_names,
+        channel_name=channel_name,
         text=text,
         source_address=source_address,
     )

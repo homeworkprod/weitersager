@@ -7,7 +7,9 @@ Version 0.2
 
 Unreleased
 
-- Raise minimum Python version to 3.7.
+- Raised minimum Python version to 3.7.
+- HTTP protocol was changed: only a single channel is allowed per
+  message.
 - Divided code base into separate modules in a package.
 - Dependency versions have been pinned.
 - Updated irc version to 19.0.1 (from 12.3).

@@ -11,20 +11,20 @@ from weitersager.httpreceiver import Message
 
 
 @pytest.mark.parametrize(
-    'channels, text',
+    'channel, text',
     [
-        (['#example'             ], 'ohai, kthxbye!'                  ),
-        (['#partyline', '#idlers'], 'Nothing to see here, move along.'),
+        ('#example', 'ohai, kthxbye!'                  ),
+        ('#idlers' , 'Nothing to see here, move along.'),
     ],
 )
-def test_from_json(channels, text):
+def test_from_json(channel, text):
     data = {
-        'channels': channels,
+        'channel': channel,
         'text': text,
     }
     json_data = json.dumps(data)
 
     message = Message.from_json(json_data)
 
-    assert message.channels == frozenset(channels)
+    assert message.channel == channel
     assert message.text == text

@@ -12,7 +12,6 @@ from dataclasses import dataclass
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import sys
-from typing import Set
 
 from .signals import message_received
 from .util import log, start_thread
@@ -20,17 +19,17 @@ from .util import log, start_thread
 
 @dataclass(frozen=True)
 class Message:
-    channels: Set[str]
+    channel: str
     text: str
 
     @classmethod
     def from_json(cls, json_data):
         data = json.loads(json_data)
 
-        channels = frozenset(map(str, data['channels']))
+        channel = data['channel']
         text = data['text']
 
-        return cls(channels=channels, text=text)
+        return cls(channel=channel, text=text)
 
 
 class RequestHandler(BaseHTTPRequestHandler):
@@ -50,7 +49,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         message_received.send(
-            channel_names=message.channels,
+            channel_name=message.channel,
             text=message.text,
             source_address=self.client_address,
         )
