@@ -2,8 +2,10 @@ Weitersager Changelog
 =====================
 
 
-Version 0.2 (not yet released)
-------------------------------
+Version 0.2
+-----------
+
+Unreleased
 
 - Raise minimum Python version to 3.6.
 - Divided code base into separate modules in a package.
@@ -13,7 +15,9 @@ Version 0.2 (not yet released)
 - Allowed for custom shutdown predicate.
 
 
-Version 0.1 (released on 24-Apr-2015 at LANresort 2015)
--------------------------------------------------------
+Version 0.1
+-----------
 
-- First official release.
+Released 2015-04-24 at LANresort 2015
+
+- First official release
