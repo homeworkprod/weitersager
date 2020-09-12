@@ -25,7 +25,7 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Communications :: Chat :: Internet Relay Chat',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: System :: Logging',
