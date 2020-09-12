@@ -7,7 +7,7 @@ Version 0.2
 
 Unreleased
 
-- Raise minimum Python version to 3.6.
+- Raise minimum Python version to 3.7.
 - Divided code base into separate modules in a package.
 - Dependency versions have been pinned.
 - Updated irc version to 19.0.1 (from 12.3).

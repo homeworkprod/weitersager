@@ -9,7 +9,7 @@ Based on syslog2IRC_.
 Requirements
 ------------
 
-- Python 3.6+
+- Python 3.7+
 - irc_
 - blinker_
 
