@@ -10,9 +10,7 @@ Configuration loading
 
 import rtoml
 
-from irc.bot import ServerSpec
-
-from .irc import Channel, Config as IrcConfig
+from .irc import Channel, Config as IrcConfig, Server as IrcServer
 
 
 def load_config(path):
@@ -55,7 +53,7 @@ def _get_irc_server(data_irc):
     host = data_server['host']
     port = int(data_server['port'])
 
-    return ServerSpec(host, port)
+    return IrcServer(host, port)
 
 
 def _get_irc_channels(data_irc):

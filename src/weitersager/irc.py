@@ -19,6 +19,13 @@ from .util import log, start_thread
 
 
 @dataclass(frozen=True)
+class Server:
+    """An IRC server."""
+    host: str
+    port: int
+
+
+@dataclass(frozen=True)
 class Channel:
     """An IRC channel with optional password."""
     name: str
@@ -27,7 +34,7 @@ class Channel:
 
 @dataclass(frozen=True)
 class Config:
-    server: ServerSpec
+    server: Server
     nickname: str
     realname: str
     channels: List[Channel]
@@ -38,15 +45,16 @@ class Bot(SingleServerIRCBot):
 
     def __init__(
         self,
-        server_spec,
+        server,
         nickname,
         realname,
         channels,
         *,
         shutdown_predicate=None,
     ):
-        log('Connecting to IRC server {0.host}:{0.port:d} ...', server_spec)
+        log('Connecting to IRC server {0.host}:{0.port:d} ...', server)
 
+        server_spec = ServerSpec(*server)
         SingleServerIRCBot.__init__(self, [server_spec], nickname, realname)
 
         # Avoid `UnicodeDecodeError` on non-UTF-8 messages.
@@ -114,7 +122,7 @@ class Bot(SingleServerIRCBot):
 
 class DummyBot:
 
-    def __init__(self, server_spec, nickname, realname, channels, **options):
+    def __init__(self, server, nickname, realname, channels, **options):
         self.channels = channels
 
     def start(self):
