@@ -22,6 +22,8 @@ Unreleased
 
   - Made configuration filename a required command line argument.
 
+- Turned the stray run script into an actual entry point console script.
+
 
 Version 0.2
 -----------

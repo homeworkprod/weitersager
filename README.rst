@@ -46,11 +46,11 @@ Requirements
 Installation
 ------------
 
-The required dependencies can be installed via pip_:
+Weitersager and its dependencies can be installed via pip_:
 
 .. code:: sh
 
-    $ pip install -r requirements.txt
+    $ pip install weitersager
 
 .. _pip: http://www.pip-installer.org/
 
@@ -85,23 +85,11 @@ An example configuration file ``example.toml``:
 Usage
 -----
 
-Make the command line script executable:
+Start Weitersager with a configuration file:
 
 .. code:: sh
 
-   $ chmod u+x ./run_weitersager.py
-
-Now run it:
-
-.. code:: sh
-
-   $ ./run_weitersager.py example.toml
-
-To see the available command line options:
-
-.. code:: sh
-
-   $ ./run_weitersager.py --help
+   $ weitersager example.toml
 
 To send messages to IRC, send an HTTP POST request to URL path ``/`` at
 the address and port the application is listening on.
