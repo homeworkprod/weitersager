@@ -12,7 +12,7 @@ from time import sleep
 
 from .argparser import parse_args
 from .httpreceiver import start_receive_server
-from .irc import create_bot
+from .irc import Config as IrcConfig, create_bot
 from .signals import (
     channel_joined,
     message_approved,
@@ -67,19 +67,9 @@ class Processor:
         log('Shutting down ...')
 
 
-def start(
-    irc_server,
-    irc_nickname,
-    irc_realname,
-    irc_channels,
-    http_ip_address,
-    http_port,
-    **options,
-):
+def start(irc_config, http_ip_address, http_port, **options):
     """Start the IRC bot and HTTP listen server."""
-    bot = create_bot(
-        irc_server, irc_nickname, irc_realname, irc_channels, **options
-    )
+    bot = create_bot(irc_config, **options)
     message_approved.connect(bot.say)
 
     processor = Processor()
@@ -104,12 +94,11 @@ def start_with_args(irc_channels, **options):
     """
     args = parse_args()
 
-    start(
-        args.irc_server,
-        args.irc_nickname,
-        args.irc_realname,
-        irc_channels,
-        args.http_ip_address,
-        args.http_port,
-        **options,
+    irc_config = IrcConfig(
+        server=args.irc_server,
+        nickname=args.irc_nickname,
+        realname=args.irc_realname,
+        channels=irc_channels,
     )
+
+    start(irc_config, args.http_ip_address, args.http_port, **options)

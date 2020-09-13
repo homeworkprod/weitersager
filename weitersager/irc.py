@@ -9,9 +9,9 @@ Internet Relay Chat
 """
 
 from dataclasses import dataclass
-from typing import Optional
+from typing import List, Optional
 
-from irc.bot import SingleServerIRCBot
+from irc.bot import ServerSpec, SingleServerIRCBot
 from jaraco.stream.buffer import LenientDecodingLineBuffer
 
 from .signals import channel_joined, shutdown_requested
@@ -23,6 +23,14 @@ class Channel:
     """An IRC channel with optional password."""
     name: str
     password: Optional[str] = None
+
+
+@dataclass(frozen=True)
+class Config:
+    server: ServerSpec
+    nickname: str
+    realname: str
+    channels: List[Channel]
 
 
 class Bot(SingleServerIRCBot):
@@ -118,15 +126,15 @@ class DummyBot:
         log('{}> {}', channel_name, text)
 
 
-def create_bot(server, nickname, realname, channels, **options):
+def create_bot(config, **options):
     """Create and return an IRC bot according to the configuration."""
-    if server:
+    if config.server:
         bot_class = Bot
     else:
         log('No IRC server specified; will write to STDOUT instead.')
         bot_class = DummyBot
 
-    return bot_class(server, nickname, realname, channels, **options)
+    return bot_class(config.server, config.nickname, config.realname, config.channels, **options)
 
 
 def default_shutdown_predicate(nickmask, text):
