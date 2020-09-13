@@ -30,7 +30,7 @@ def test_message_handled():
 
     assert received_signal_data == [
         {
-            'channel_name': '#foo',
+            'channel_name': channel_name,
             'text': text,
         },
     ]
