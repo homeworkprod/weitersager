@@ -46,7 +46,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_error(HTTPStatus.BAD_REQUEST)
             return
 
-        self.send_response(HTTPStatus.OK)
+        self.send_response(HTTPStatus.ACCEPTED)
         self.end_headers()
 
         message_received.send(

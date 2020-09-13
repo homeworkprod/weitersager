@@ -8,8 +8,10 @@ Version 0.2
 Unreleased
 
 - Raised minimum Python version to 3.7.
-- HTTP protocol was changed: only a single channel is allowed per
-  message.
+- HTTP protocol was changed:
+  - Only a single channel is allowed per message.
+  - Response code for successful submit was changed from 200 (OK) to
+    more appropriate 202 (Accepted).
 - Divided code base into separate modules in a package.
 - Dependency versions have been pinned.
 - Updated irc version to 19.0.1 (from 12.3).
