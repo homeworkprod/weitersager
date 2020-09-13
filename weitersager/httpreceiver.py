@@ -9,6 +9,7 @@ HTTP server to receive messages
 """
 
 from dataclasses import dataclass
+from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import sys
@@ -42,10 +43,10 @@ class RequestHandler(BaseHTTPRequestHandler):
             message = Message.from_json(data)
         except (KeyError, ValueError):
             log('Invalid message received from {}:{:d}.', *self.client_address)
-            self.send_error(400)
+            self.send_error(HTTPStatus.BAD_REQUEST)
             return
 
-        self.send_response(200)
+        self.send_response(HTTPStatus.OK)
         self.end_headers()
 
         message_received.send(
