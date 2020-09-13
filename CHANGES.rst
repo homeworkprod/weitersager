@@ -14,6 +14,9 @@ Unreleased
   - Moved IRC channel configuration from Python code to configuration
     file.
 
+  - Moved IRC server and bot name configuration from command line
+    arguments to configuration file.
+
   - Made configuration filename a required command line argument.
 
 

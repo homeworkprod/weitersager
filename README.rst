@@ -62,6 +62,14 @@ An example configuration file ``example.toml``:
 
 .. code:: toml
 
+   [irc.server]
+   host = "irc.server.example"
+   port = 6667
+
+   [irc.bot]
+   nickname = "Weitersager"
+   realname = "Weitersager"
+
    [[irc.channels]]
    name = "#party"
 
