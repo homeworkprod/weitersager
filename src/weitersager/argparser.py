@@ -9,6 +9,7 @@ Command line argument parsing
 """
 
 from argparse import ArgumentParser
+from pathlib import Path
 
 from irc.bot import ServerSpec
 
@@ -21,6 +22,8 @@ DEFAULT_IRC_PORT = 6667
 def create_parser():
     """Create the command line arguments parser."""
     parser = ArgumentParser()
+
+    parser.add_argument('config_filename', type=Path, metavar='CONFIG_FILENAME')
 
     parser.add_argument(
         '--irc-nickname',

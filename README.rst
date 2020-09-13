@@ -58,7 +58,16 @@ The required dependencies can be installed via pip_:
 Configuration
 -------------
 
-Adjust the IRC channels to join ``run_weitersager.py``.
+An example configuration file ``example.toml``:
+
+.. code:: toml
+
+   [[irc.channels]]
+   name = "#party"
+
+   [[irc.channels]]
+   name = "#secretlab"
+   password = "555-secret"
 
 
 Usage
@@ -74,7 +83,7 @@ Now run it:
 
 .. code:: sh
 
-   $ ./run_weitersager.py
+   $ ./run_weitersager.py example.toml
 
 To see the available command line options:
 

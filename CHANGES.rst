@@ -7,6 +7,15 @@ Version 0.3
 
 Unreleased
 
+- Introduced TOML-based configuration file.
+
+  - Added dependency on rtoml 0.3.0.
+
+  - Moved IRC channel configuration from Python code to configuration
+    file.
+
+  - Made configuration filename a required command line argument.
+
 
 Version 0.2
 -----------
