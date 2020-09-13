@@ -23,14 +23,15 @@ class Message:
     channel: str
     text: str
 
-    @classmethod
-    def from_json(cls, json_data):
-        data = json.loads(json_data)
 
-        channel = data['channel']
-        text = data['text']
+def parse_json_message(json_data):
+    """Extract message from JSON."""
+    data = json.loads(json_data)
 
-        return cls(channel=channel, text=text)
+    channel = data['channel']
+    text = data['text']
+
+    return Message(channel=channel, text=text)
 
 
 class RequestHandler(BaseHTTPRequestHandler):
@@ -40,7 +41,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         try:
             content_length = int(self.headers.get('Content-Length', 0))
             data = self.rfile.read(content_length).decode('utf-8')
-            message = Message.from_json(data)
+            message = parse_json_message(data)
         except (KeyError, ValueError):
             log('Invalid message received from {}:{:d}.', *self.client_address)
             self.send_error(HTTPStatus.BAD_REQUEST)
