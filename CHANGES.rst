@@ -5,7 +5,7 @@ Weitersager Changelog
 Version 0.2
 -----------
 
-Unreleased
+Released 2020-09-13
 
 - Raised minimum Python version to 3.7.
 - HTTP protocol was changed:
