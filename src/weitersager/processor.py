@@ -11,7 +11,7 @@ Connect HTTP server and IRC bot.
 from time import sleep
 
 from .argparser import parse_args
-from .config import load_irc_config
+from .config import load_config
 from .httpreceiver import start_receive_server
 from .irc import create_bot
 from .signals import (
@@ -88,13 +88,9 @@ def start(irc_config, http_ip_address, http_port, **options):
 
 
 def start_with_args(**options):
-    """Start the IRC bot and HTTP listen server,
-
-    Some arguments are read from a configuration file, others from the
-    command line.
-    """
+    """Load the configuration file, start the IRC bot and HTTP listen server."""
     args = parse_args()
 
-    irc_config = load_irc_config(args.config_filename)
+    irc_config, http_host, http_port = load_config(args.config_filename)
 
-    start(irc_config, args.http_ip_address, args.http_port, **options)
+    start(irc_config, http_host, http_port, **options)

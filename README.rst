@@ -62,6 +62,10 @@ An example configuration file ``example.toml``:
 
 .. code:: toml
 
+   [http]
+   host = "127.0.0.1"
+   port = 8080
+
    [irc.server]
    host = "irc.server.example"
    port = 6667

@@ -15,11 +15,23 @@ from irc.bot import ServerSpec
 from .irc import Channel, Config as IrcConfig
 
 
-def load_irc_config(path):
-    """Load IRC configuration from file."""
+def load_config(path):
+    """Load configuration from file."""
     data = rtoml.load(path)
 
-    return _get_irc_config(data)
+    http_host, http_port = _get_http_config(data)
+    irc_config = _get_irc_config(data)
+
+    return irc_config, http_host, http_port
+
+
+def _get_http_config(data):
+    data_http = data['http']
+
+    host = data_http['host']
+    port = int(data_http['port'])
+
+    return host, port
 
 
 def _get_irc_config(data):
