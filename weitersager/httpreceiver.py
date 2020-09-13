@@ -65,19 +65,19 @@ class ReceiveServer(HTTPServer):
         HTTPServer.__init__(self, address, RequestHandler)
         log('Listening for HTTP requests on {}:{:d}.', *address)
 
-    @classmethod
-    def start(cls, ip_address, port):
-        """Start in a separate thread."""
-        try:
-            receiver = cls(ip_address, port)
-        except Exception as e:
-            sys.stderr.write(f'Error {e.errno:d}: {e.strerror}\n')
-            sys.stderr.write(
-                f'Probably no permission to open port {port}. '
-                'Try to specify a port number above 1,024 (or even '
-                '4,096) and up to 65,535.\n'
-            )
-            sys.exit(1)
 
-        thread_name = cls.__name__
-        start_thread(receiver.serve_forever, thread_name)
+def start_receive_server(ip_address, port):
+    """Start in a separate thread."""
+    try:
+        receiver = ReceiveServer(ip_address, port)
+    except Exception as e:
+        sys.stderr.write(f'Error {e.errno:d}: {e.strerror}\n')
+        sys.stderr.write(
+            f'Probably no permission to open port {port}. '
+            'Try to specify a port number above 1,024 (or even '
+            '4,096) and up to 65,535.\n'
+        )
+        sys.exit(1)
+
+    thread_name = receiver.__class__.__name__
+    start_thread(receiver.serve_forever, thread_name)

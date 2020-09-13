@@ -11,7 +11,7 @@ Connect HTTP server and IRC bot.
 from time import sleep
 
 from .argparser import parse_args
-from .httpreceiver import ReceiveServer
+from .httpreceiver import start_receive_server
 from .irc import create_bot
 from .signals import (
     channel_joined,
@@ -90,7 +90,7 @@ def start(
 
     # Signals are allowed be sent from here on.
 
-    ReceiveServer.start(http_ip_address, http_port)
+    start_receive_server(http_ip_address, http_port)
     bot.start()
 
     processor.run()
