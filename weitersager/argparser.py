@@ -18,8 +18,8 @@ DEFAULT_HTTP_PORT = 8080
 DEFAULT_IRC_PORT = ServerSpec('').port
 
 
-def parse_args():
-    """Setup and apply the command line arguments parser."""
+def create_parser():
+    """Create the command line arguments parser."""
     parser = ArgumentParser()
 
     parser.add_argument(
@@ -67,7 +67,7 @@ def parse_args():
         metavar='PORT',
     )
 
-    return parser.parse_args()
+    return parser
 
 
 def parse_irc_server_arg(value):
@@ -76,3 +76,9 @@ def parse_irc_server_arg(value):
     if len(fragments) > 1:
         fragments[1] = int(fragments[1])
     return ServerSpec(*fragments)
+
+
+def parse_args():
+    """Parse command line arguments."""
+    parser = create_parser()
+    return parser.parse_args()
