@@ -51,3 +51,27 @@ def test_load_config():
     )
     assert http_host == '127.0.0.1'
     assert http_port == 55555
+
+
+TOML_CONFIG_WITH_DEFAULTS = '''\
+[irc.server]
+host = "irc.onlinetalk.test"
+
+[irc.bot]
+nickname = "TownCrier"
+'''
+
+
+def test_load_config_with_defaults():
+    toml = StringIO(TOML_CONFIG_WITH_DEFAULTS)
+
+    irc_config, http_host, http_port = load_config(toml)
+
+    assert irc_config == IrcConfig(
+        server=IrcServer('irc.onlinetalk.test', 6667),
+        nickname='TownCrier',
+        realname='Weitersager',
+        channels=[],
+    )
+    assert http_host == '127.0.0.1'
+    assert http_port == 8080

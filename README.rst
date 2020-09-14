@@ -63,16 +63,16 @@ An example configuration file ``example.toml``:
 .. code:: toml
 
    [http]
-   host = "127.0.0.1"
-   port = 8080
+   host = "127.0.0.1"         # optional
+   port = 8080                # optional
 
    [irc.server]
    host = "irc.server.example"
-   port = 6667
+   port = 6667                # optional
 
    [irc.bot]
    nickname = "Weitersager"
-   realname = "Weitersager"
+   realname = "Weitersager"   # optional
 
    [[irc.channels]]
    name = "#party"
