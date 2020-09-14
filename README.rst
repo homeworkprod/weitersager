@@ -75,12 +75,11 @@ An example configuration file, ``example.toml``, in TOML_ format:
    nickname = "Weitersager"
    realname = "Weitersager"   # optional
 
-   [[irc.channels]]
-   name = "#party"
-
-   [[irc.channels]]
-   name = "#secretlab"
-   password = "555-secret"
+   [irc]
+   channels = [
+       { name = "#party" },
+       { name = "#secretlab", password = "555-secret" },
+   ]
 
 .. _TOML: https://toml.io/
 

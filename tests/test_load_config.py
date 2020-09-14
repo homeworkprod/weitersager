@@ -23,15 +23,12 @@ password = "ToTheStars!"
 nickname = "SpaceCowboy"
 realname = "Monsieur Weitersager"
 
-[[irc.channels]]
-name = "#skyscreeners"
-
-[[irc.channels]]
-name = "#elite-astrology"
-password = "twinkle-twinkle"
-
-[[irc.channels]]
-name = "#hubblebubble"
+[irc]
+channels = [
+    { name = "#skyscreeners" },
+    { name = "#elite-astrology", password = "twinkle-twinkle" },
+    { name = "#hubblebubble" },
+]
 '''
 
 
