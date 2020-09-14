@@ -69,6 +69,7 @@ An example configuration file ``example.toml``:
    [irc.server]
    host = "irc.server.example"
    port = 6667                # optional
+   password = "secret"        # optional
 
    [irc.bot]
    nickname = "Weitersager"

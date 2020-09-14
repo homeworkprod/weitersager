@@ -24,6 +24,8 @@ Unreleased
 
 - Turned the stray run script into an actual entry point console script.
 
+- Added support for IRC server password.
+
 
 Version 0.2
 -----------

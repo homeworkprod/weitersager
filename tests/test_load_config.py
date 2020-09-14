@@ -17,6 +17,7 @@ port = 55555
 [irc.server]
 host = "orion.astrochat.test"
 port = 6669
+password = "ToTheStars!"
 
 [irc.bot]
 nickname = "SpaceCowboy"
@@ -40,7 +41,7 @@ def test_load_config():
     irc_config, http_host, http_port = load_config(toml)
 
     assert irc_config == IrcConfig(
-        server=IrcServer('orion.astrochat.test', 6669),
+        server=IrcServer('orion.astrochat.test', 6669, 'ToTheStars!'),
         nickname='SpaceCowboy',
         realname='Monsieur Weitersager',
         channels=[

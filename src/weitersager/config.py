@@ -58,8 +58,9 @@ def _get_irc_server(data_irc):
     data_server = data_irc['server']
     host = data_server['host']
     port = int(data_server.get('port', DEFAULT_IRC_SERVER_PORT))
+    password = data_server.get('password')
 
-    return IrcServer(host, port)
+    return IrcServer(host, port, password)
 
 
 def _get_irc_channels(data_irc):

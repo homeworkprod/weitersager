@@ -23,6 +23,7 @@ class Server:
     """An IRC server."""
     host: str
     port: int
+    password: Optional[str] = None
 
 
 @dataclass(frozen=True)
