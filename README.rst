@@ -58,7 +58,7 @@ Weitersager and its dependencies can be installed via pip_:
 Configuration
 -------------
 
-An example configuration file ``example.toml``:
+An example configuration file, ``example.toml``, in TOML_ format:
 
 .. code:: toml
 
@@ -81,6 +81,8 @@ An example configuration file ``example.toml``:
    [[irc.channels]]
    name = "#secretlab"
    password = "555-secret"
+
+.. _TOML: https://toml.io/
 
 
 Usage
