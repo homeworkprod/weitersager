@@ -5,7 +5,7 @@ Weitersager Changelog
 Version 0.3
 -----------
 
-Unreleased
+Released 2020-09-16
 
 - Introduced TOML-based configuration file.
 
