@@ -45,7 +45,7 @@ def test_receive_server_without_channel(server):
     request = build_request(server, data)
 
     with pytest.raises(HTTPError) as excinfo:
-        response = urlopen(request)
+        urlopen(request)
 
     assert excinfo.value.code == 400
 
@@ -57,7 +57,7 @@ def test_receive_server_without_text(server):
     request = build_request(server, data)
 
     with pytest.raises(HTTPError) as excinfo:
-        response = urlopen(request)
+        urlopen(request)
 
     assert excinfo.value.code == 400
 
