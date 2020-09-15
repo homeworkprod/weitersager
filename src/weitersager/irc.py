@@ -35,7 +35,7 @@ class Channel:
 
 @dataclass(frozen=True)
 class Config:
-    server: Server
+    server: Optional[Server]
     nickname: str
     realname: str
     channels: List[Channel]

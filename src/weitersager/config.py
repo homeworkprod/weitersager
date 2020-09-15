@@ -55,8 +55,14 @@ def _get_irc_config(data):
 
 
 def _get_irc_server(data_irc):
-    data_server = data_irc['server']
-    host = data_server['host']
+    data_server = data_irc.get('server')
+    if data_server is None:
+        return None
+
+    host = data_server.get('host')
+    if not host:
+        return None
+
     port = int(data_server.get('port', DEFAULT_IRC_SERVER_PORT))
     password = data_server.get('password')
 

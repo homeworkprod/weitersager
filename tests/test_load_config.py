@@ -73,3 +73,33 @@ def test_load_config_with_defaults():
     )
     assert http_host == '127.0.0.1'
     assert http_port == 8080
+
+
+TOML_CONFIG_WITHOUT_IRC_SERVER_TABLE = '''\
+[irc.bot]
+nickname = "Lokalrunde"
+'''
+
+
+def test_load_config_without_irc_server_table():
+    toml = StringIO(TOML_CONFIG_WITHOUT_IRC_SERVER_TABLE)
+
+    irc_config, _, _ = load_config(toml)
+
+    assert irc_config.server is None
+
+
+TOML_CONFIG_WITHOUT_IRC_SERVER_HOST = '''\
+[irc.server]
+
+[irc.bot]
+nickname = "Lokalrunde"
+'''
+
+
+def test_load_config_without_irc_server_host():
+    toml = StringIO(TOML_CONFIG_WITHOUT_IRC_SERVER_HOST)
+
+    irc_config, _, _ = load_config(toml)
+
+    assert irc_config.server is None
