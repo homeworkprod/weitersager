@@ -50,7 +50,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             data = self.rfile.read(content_length).decode('utf-8')
             message = parse_json_message(data)
         except (KeyError, ValueError):
-            log('Invalid message received from {}:{:d}.', *self.client_address)
+            log(f'Invalid message received from {self.address_string()}.')
             self.send_error(HTTPStatus.BAD_REQUEST)
             return
 
