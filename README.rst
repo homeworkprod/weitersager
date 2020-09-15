@@ -1,3 +1,4 @@
+===========
 Weitersager
 ===========
 
@@ -13,7 +14,7 @@ Based on syslog2IRC_.
 
 
 Code Status
------------
+===========
 
 |badge_travis-ci_build|
 |badge_scrutinizer-ci_coverage|
@@ -33,7 +34,7 @@ Code Status
 
 
 Requirements
-------------
+============
 
 - Python 3.7+
 - irc_
@@ -44,7 +45,7 @@ Requirements
 
 
 Installation
-------------
+============
 
 Weitersager and its dependencies can be installed via pip_:
 
@@ -53,6 +54,16 @@ Weitersager and its dependencies can be installed via pip_:
     $ pip install weitersager
 
 .. _pip: http://www.pip-installer.org/
+
+
+Usage
+=====
+
+Start Weitersager with a configuration file:
+
+.. code:: sh
+
+   $ weitersager example.toml
 
 
 Configuration
@@ -84,14 +95,17 @@ An example configuration file, ``example.toml``, in TOML_ format:
 .. _TOML: https://toml.io/
 
 
-Usage
------
+IRC Dummy Mode
+--------------
 
-Start Weitersager with a configuration file:
+If no value for ``irc.server.host`` is set, Weitersager will not attempt
+to connect to an IRC server and start in IRC dummy mode. It will still
+accept messages, but it will write them to STDOUT. This can be useful
+for testing.
 
-.. code:: sh
 
-   $ weitersager example.toml
+HTTP API
+--------
 
 To send messages to IRC, send an HTTP POST request to URL path ``/`` at
 the address and port the application is listening on.
@@ -117,8 +131,12 @@ In order to shut down Weitersager, send a query message with the text
 should exit.
 
 
-A Note on Threads (Implementation Detail)
------------------------------------------
+Implementation Details
+======================
+
+
+A Note on Threads
+-----------------
 
 This tool uses threads. Besides the main thread, there are two
 additional threads: one for the message receiver and one for the IRC
