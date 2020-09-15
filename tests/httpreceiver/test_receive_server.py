@@ -62,6 +62,18 @@ def test_receive_server_without_text(server):
     assert excinfo.value.code == 400
 
 
+def test_server_response_header(server):
+    data = {
+        'channel': '#curiosity',
+        'text': 'Show me your web server version!',
+    }
+    request = build_request(server, data)
+
+    response = urlopen(request)
+
+    assert response.headers['Server'] == 'Weitersager'
+
+
 def build_request(server, data):
     url = get_server_url(server)
     json_data = json.dumps(data).encode('utf-8')

@@ -63,6 +63,10 @@ class RequestHandler(BaseHTTPRequestHandler):
             source_address=self.client_address,
         )
 
+    def version_string(self):
+        """Return custom server version string."""
+        return 'Weitersager'
+
 
 class ReceiveServer(HTTPServer):
     """HTTP server that waits for messages."""
