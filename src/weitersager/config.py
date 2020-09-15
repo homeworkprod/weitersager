@@ -10,6 +10,7 @@ Configuration loading
 
 import rtoml
 
+from .httpreceiver import Config as HttpConfig
 from .irc import Channel, Config as IrcConfig, Server as IrcServer
 
 
@@ -23,10 +24,10 @@ def load_config(path):
     """Load configuration from file."""
     data = rtoml.load(path)
 
-    http_host, http_port = _get_http_config(data)
+    http_config = _get_http_config(data)
     irc_config = _get_irc_config(data)
 
-    return irc_config, http_host, http_port
+    return irc_config, http_config
 
 
 def _get_http_config(data):
@@ -35,7 +36,7 @@ def _get_http_config(data):
     host = data_http.get('host', DEFAULT_HTTP_HOST)
     port = int(data_http.get('port', DEFAULT_HTTP_PORT))
 
-    return host, port
+    return HttpConfig(host, port)
 
 
 def _get_irc_config(data):

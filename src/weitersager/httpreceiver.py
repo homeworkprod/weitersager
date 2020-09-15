@@ -19,6 +19,13 @@ from .util import log, start_thread
 
 
 @dataclass(frozen=True)
+class Config:
+    """An HTTP receiver configuration."""
+    host: str
+    port: int
+
+
+@dataclass(frozen=True)
 class Message:
     channel: str
     text: str
@@ -60,20 +67,20 @@ class RequestHandler(BaseHTTPRequestHandler):
 class ReceiveServer(HTTPServer):
     """HTTP server that waits for messages."""
 
-    def __init__(self, ip_address, port):
-        address = (ip_address, port)
+    def __init__(self, config):
+        address = (config.host, config.port)
         HTTPServer.__init__(self, address, RequestHandler)
         log('Listening for HTTP requests on {}:{:d}.', *address)
 
 
-def start_receive_server(ip_address, port):
+def start_receive_server(config):
     """Start in a separate thread."""
     try:
-        receiver = ReceiveServer(ip_address, port)
+        receiver = ReceiveServer(config)
     except Exception as e:
         sys.stderr.write(f'Error {e.errno:d}: {e.strerror}\n')
         sys.stderr.write(
-            f'Probably no permission to open port {port}. '
+            f'Probably no permission to open port {config.port}. '
             'Try to specify a port number above 1,024 (or even '
             '4,096) and up to 65,535.\n'
         )

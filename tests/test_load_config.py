@@ -6,12 +6,13 @@
 from io import StringIO
 
 from weitersager.config import load_config
+from weitersager.httpreceiver import Config as HttpConfig
 from weitersager.irc import Channel, Config as IrcConfig, Server as IrcServer
 
 
 TOML_CONFIG = '''\
 [http]
-host = "127.0.0.1"
+host = "0.0.0.0"
 port = 55555
 
 [irc.server]
@@ -35,7 +36,7 @@ channels = [
 def test_load_config():
     toml = StringIO(TOML_CONFIG)
 
-    irc_config, http_host, http_port = load_config(toml)
+    irc_config, http_config = load_config(toml)
 
     assert irc_config == IrcConfig(
         server=IrcServer('orion.astrochat.test', 6669, 'ToTheStars!'),
@@ -47,8 +48,7 @@ def test_load_config():
             Channel('#hubblebubble'),
         ],
     )
-    assert http_host == '127.0.0.1'
-    assert http_port == 55555
+    assert http_config == HttpConfig('0.0.0.0', 55555)
 
 
 TOML_CONFIG_WITH_DEFAULTS = '''\
@@ -63,7 +63,7 @@ nickname = "TownCrier"
 def test_load_config_with_defaults():
     toml = StringIO(TOML_CONFIG_WITH_DEFAULTS)
 
-    irc_config, http_host, http_port = load_config(toml)
+    irc_config, http_config = load_config(toml)
 
     assert irc_config == IrcConfig(
         server=IrcServer('irc.onlinetalk.test', 6667),
@@ -71,8 +71,7 @@ def test_load_config_with_defaults():
         realname='Weitersager',
         channels=[],
     )
-    assert http_host == '127.0.0.1'
-    assert http_port == 8080
+    assert http_config == HttpConfig('127.0.0.1', 8080)
 
 
 TOML_CONFIG_WITHOUT_IRC_SERVER_TABLE = '''\
@@ -84,7 +83,7 @@ nickname = "Lokalrunde"
 def test_load_config_without_irc_server_table():
     toml = StringIO(TOML_CONFIG_WITHOUT_IRC_SERVER_TABLE)
 
-    irc_config, _, _ = load_config(toml)
+    irc_config, _ = load_config(toml)
 
     assert irc_config.server is None
 
@@ -100,6 +99,6 @@ nickname = "Lokalrunde"
 def test_load_config_without_irc_server_host():
     toml = StringIO(TOML_CONFIG_WITHOUT_IRC_SERVER_HOST)
 
-    irc_config, _, _ = load_config(toml)
+    irc_config, _ = load_config(toml)
 
     assert irc_config.server is None

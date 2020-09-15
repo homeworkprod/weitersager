@@ -10,13 +10,13 @@ from urllib.request import Request, urlopen
 
 import pytest
 
-from weitersager.httpreceiver import ReceiveServer
+from weitersager.httpreceiver import Config, ReceiveServer
 
 
 @pytest.fixture
 def server():
-    address = ('', 0)  # Bind to localhost on random user port.
-    server = ReceiveServer(*address)
+    config = Config('', 0)  # Bind to localhost on random user port.
+    server = ReceiveServer(config)
 
     thread = Thread(target=server.handle_request)
     thread.start()

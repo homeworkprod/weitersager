@@ -26,9 +26,9 @@ def main():
     """Load the configuration file, start the IRC bot and HTTP listen server."""
     args = parse_args()
 
-    irc_config, http_host, http_port = load_config(args.config_filename)
+    irc_config, http_config = load_config(args.config_filename)
 
-    start(irc_config, http_host, http_port)
+    start(irc_config, http_config)
 
 
 if __name__ == '__main__':

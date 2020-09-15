@@ -69,7 +69,7 @@ class Processor:
         log('Shutting down ...')
 
 
-def start(irc_config, http_ip_address, http_port, **options):
+def start(irc_config, http_config, **options):
     """Start the IRC bot and HTTP listen server."""
     bot = create_bot(irc_config, **options)
     message_approved.connect(bot.say)
@@ -82,7 +82,7 @@ def start(irc_config, http_ip_address, http_port, **options):
 
     # Signals are allowed be sent from here on.
 
-    start_receive_server(http_ip_address, http_port)
+    start_receive_server(http_config)
     bot.start()
 
     processor.run()
