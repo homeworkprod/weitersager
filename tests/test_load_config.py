@@ -14,6 +14,7 @@ TOML_CONFIG = '''\
 [http]
 host = "0.0.0.0"
 port = 55555
+api_tokens = ["qsSUx9KM-DBuDndUhGNi9_kxNHd08TypiHYM05ZTxVc"]
 
 [irc.server]
 host = "orion.astrochat.test"
@@ -48,7 +49,11 @@ def test_load_config():
             Channel('#hubblebubble'),
         ],
     )
-    assert http_config == HttpConfig('0.0.0.0', 55555)
+    assert http_config == HttpConfig(
+        host='0.0.0.0',
+        port=55555,
+        api_tokens={'qsSUx9KM-DBuDndUhGNi9_kxNHd08TypiHYM05ZTxVc'},
+    )
 
 
 TOML_CONFIG_WITH_DEFAULTS = '''\
@@ -71,7 +76,11 @@ def test_load_config_with_defaults():
         realname='Weitersager',
         channels=[],
     )
-    assert http_config == HttpConfig('127.0.0.1', 8080)
+    assert http_config == HttpConfig(
+        host='127.0.0.1',
+        port=8080,
+        api_tokens=None,
+    )
 
 
 TOML_CONFIG_WITHOUT_IRC_SERVER_TABLE = '''\

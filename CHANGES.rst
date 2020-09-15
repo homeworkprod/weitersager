@@ -26,6 +26,8 @@ Unreleased
 
 - Added support for IRC server password.
 
+- Added optional HTTP authorization via API tokens.
+
 
 Version 0.2
 -----------

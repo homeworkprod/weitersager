@@ -13,6 +13,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import sys
+from typing import Optional, Set
 
 from .signals import message_received
 from .util import log, start_thread
@@ -23,6 +24,7 @@ class Config:
     """An HTTP receiver configuration."""
     host: str
     port: int
+    api_tokens: Optional[Set[str]] = None
 
 
 @dataclass(frozen=True)
@@ -45,6 +47,19 @@ class RequestHandler(BaseHTTPRequestHandler):
     """Handler for messages submitted via HTTP."""
 
     def do_POST(self):
+        valid_api_tokens = self.server.api_tokens
+        if valid_api_tokens:
+            api_token = self._get_api_token()
+            if not api_token:
+                self.send_response(HTTPStatus.UNAUTHORIZED)
+                self.end_headers()
+                return
+
+            if api_token not in valid_api_tokens:
+                self.send_response(HTTPStatus.FORBIDDEN)
+                self.end_headers()
+                return
+
         try:
             content_length = int(self.headers.get('Content-Length', 0))
             data = self.rfile.read(content_length).decode('utf-8')
@@ -63,6 +78,17 @@ class RequestHandler(BaseHTTPRequestHandler):
             source_address=self.client_address,
         )
 
+    def _get_api_token(self):
+        authorization_value = self.headers.get('authorization')
+        if not authorization_value:
+            return None
+
+        prefix = 'WTRSGR '
+        if not authorization_value.startswith(prefix):
+            return None
+
+        return authorization_value[len(prefix) :]
+
     def version_string(self):
         """Return custom server version string."""
         return 'Weitersager'
@@ -76,6 +102,7 @@ class ReceiveServer(HTTPServer):
         HTTPServer.__init__(self, address, RequestHandler)
         log('Listening for HTTP requests on {}:{:d}.', *address)
 
+        self.api_tokens = config.api_tokens
 
 def start_receive_server(config):
     """Start in a separate thread."""

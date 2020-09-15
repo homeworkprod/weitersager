@@ -35,8 +35,11 @@ def _get_http_config(data):
 
     host = data_http.get('host', DEFAULT_HTTP_HOST)
     port = int(data_http.get('port', DEFAULT_HTTP_PORT))
+    api_tokens = data_http.get('api_tokens')
+    if api_tokens:
+        api_tokens = set(api_tokens)
 
-    return HttpConfig(host, port)
+    return HttpConfig(host, port, api_tokens)
 
 
 def _get_irc_config(data):

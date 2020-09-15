@@ -12,10 +12,9 @@ from weitersager.httpreceiver import Config, ReceiveServer
 
 @pytest.fixture
 def make_server():
-
     # Per default, bind to localhost on random user port.
-    def _wrapper(host='', port=0):
-        config = Config(host, port)
+    def _wrapper(host='', port=0, *, api_tokens=None):
+        config = Config(host, port, api_tokens=api_tokens)
 
         server = ReceiveServer(config)
 

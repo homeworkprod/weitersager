@@ -76,6 +76,7 @@ An example configuration file, ``example.toml``, in TOML_ format:
    [http]
    host = "127.0.0.1"         # optional
    port = 8080                # optional
+   api_tokens = [ "123xyz" ]  # optional
 
    [irc.server]
    host = "irc.server.example"
@@ -121,6 +122,38 @@ The body has to be in JSON_ format and contain two keys, ``channel`` and
    }
 
 .. _JSON: https://www.json.org/
+
+
+Authorization
+~~~~~~~~~~~~~
+
+To protect the HTTP API a bit, requests can be required to include an
+authorization header with a valid token to be accepted.
+
+The authorization check becomes active if at least one API token is
+configured.
+
+Multiple API tokens can be configured so that each legitimate client
+can be given its own token which can than be revoked (by removing it
+from the configuration, and restarting) individually.
+
+Header format:
+
+.. code:: http
+
+   Authorization: WTRSGR <a token of your choosing>
+
+Example authorization header:
+
+.. code:: http
+
+   Authorization: WTRSGR e72CbijlYLqjaRIv0uMNBpgZKl397FEp-Y8PNEXn5vM
+
+Note that Weitersager itself only uses unencrypted HTTP, so the API
+tokens are passed in the clear. That might suffice if you run it on the
+same host as the HTTP clients. Otherwise you might want to look into
+hiding Weitersager behind a web server or proxy that can add TLS
+encryption.
 
 
 Implementation Details
