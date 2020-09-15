@@ -13,8 +13,8 @@ from weitersager.httpreceiver import parse_json_message
 @pytest.mark.parametrize(
     'channel, text',
     [
-        ('#example', 'ohai, kthxbye!'                  ),
-        ('#idlers' , 'Nothing to see here, move along.'),
+        ('#example', 'ohai, kthxbye!'),
+        ('#idlers', 'Nothing to see here, move along.'),
     ],
 )
 def test_parse_json_message(channel, text):

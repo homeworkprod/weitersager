@@ -143,7 +143,13 @@ def create_bot(config, **options):
         log('No IRC server specified; will write to STDOUT instead.')
         bot_class = DummyBot
 
-    return bot_class(config.server, config.nickname, config.realname, config.channels, **options)
+    return bot_class(
+        config.server,
+        config.nickname,
+        config.realname,
+        config.channels,
+        **options,
+    )
 
 
 def default_shutdown_predicate(nickmask, text):

@@ -50,7 +50,10 @@ class Processor:
         )
 
         if channel_name not in self.enabled_channel_names:
-            log('Could not send message to channel {}, not joined.', channel_name)
+            log(
+                'Could not send message to channel {}, not joined.',
+                channel_name,
+            )
             return
 
         message_approved.send(channel_name=channel_name, text=text)
