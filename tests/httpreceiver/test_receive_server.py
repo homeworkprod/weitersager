@@ -4,26 +4,10 @@
 """
 
 import json
-from threading import Thread
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 import pytest
-
-from weitersager.httpreceiver import Config, ReceiveServer
-
-
-@pytest.fixture
-def server():
-    config = Config('', 0)  # Bind to localhost on random user port.
-    server = ReceiveServer(config)
-
-    thread = Thread(target=server.handle_request)
-    thread.start()
-
-    yield server
-
-    thread.join()
 
 
 def test_receive_server_with_valid_request(server):
