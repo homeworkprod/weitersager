@@ -123,6 +123,14 @@ The body has to be in JSON_ format and contain two keys, ``channel`` and
 
 .. _JSON: https://www.json.org/
 
+Example HTTPie_ call to send a message to Weitersager on localhost, port 8080:
+
+.. code:: sh
+
+   $ http --json post :8080 channel='#party' text='Oh yeah!'
+
+.. _HTTPie: https://httpie.org/
+
 
 Authorization
 ~~~~~~~~~~~~~
@@ -148,6 +156,12 @@ Example authorization header:
 .. code:: http
 
    Authorization: WTRSGR e72CbijlYLqjaRIv0uMNBpgZKl397FEp-Y8PNEXn5vM
+
+Example HTTPie_ call with authorization header:
+
+.. code:: sh
+
+   $ http --json post :8080 Authorization:'WTRSGR e72CbijlYLqjaRIv0uMNBpgZKl397FEp-Y8PNEXn5vM' channel='#party' text='Oh yeah!'
 
 Note that Weitersager itself only uses unencrypted HTTP, so the API
 tokens are passed in the clear. That might suffice if you run it on the
