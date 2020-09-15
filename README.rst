@@ -123,16 +123,24 @@ The body has to be in JSON_ format and contain two keys, ``channel`` and
 .. _JSON: https://www.json.org/
 
 
+Implementation Details
+======================
+
+
 Shutdown
 --------
 
-In order to shut down Weitersager, send a query message with the text
-``shutdown!`` to the IRC bot. It should then quit, and Weitersager
-should exit.
+Weitersager can be modified so that it can be shut down via private IRC
+message.
 
+This can be useful for testing, when external auto-restart is set up, or
+as a starting point to implement custom private message handling.
 
-Implementation Details
-======================
+To enable it, pass keyword argument
+``shutdown_predicate=default_shutdown_predicate`` to the constructor of
+``weitersager.irc.Bot``. If enabled, in order to shut down Weitersager,
+send a query message with the text ``shutdown!`` to the IRC bot. The bot
+should then quit, and Weitersager should exit.
 
 
 A Note on Threads
