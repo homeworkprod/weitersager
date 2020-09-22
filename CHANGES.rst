@@ -7,6 +7,9 @@ Version 0.4
 
 Unreleased
 
+- Add command line tool to generate secure tokens (which can be used as
+  API tokens).
+
 
 Version 0.3
 -----------

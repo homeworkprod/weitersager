@@ -139,7 +139,12 @@ To protect the HTTP API a bit, requests can be required to include an
 authorization header with a valid token to be accepted.
 
 The authorization check becomes active if at least one API token is
-configured.
+configured. A command line tool is provided to generate secure tokens:
+
+.. code:: sh
+
+   $ weitersager-token
+   e72CbijlYLqjaRIv0uMNBpgZKl397FEp-Y8PNEXn5vM
 
 Multiple API tokens can be configured so that each legitimate client
 can be given its own token which can than be revoked (by removing it
