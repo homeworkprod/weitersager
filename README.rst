@@ -2,6 +2,11 @@
 Weitersager
 ===========
 
+.. image:: https://raw.githubusercontent.com/homeworkprod/weitersager/main/assets/weitersager_logo.svg
+   :alt: Weitersager logo
+   :height: 200
+   :width: 200
+
 A proxy that receives text messages via JSON over HTTP and shows them on
 IRC.
 
