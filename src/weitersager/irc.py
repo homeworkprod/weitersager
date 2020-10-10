@@ -24,6 +24,7 @@ class Server:
     host: str
     port: int
     password: Optional[str] = None
+    rate_limit: Optional[float] = None
 
 
 @dataclass(frozen=True)
@@ -57,6 +58,9 @@ class Bot(SingleServerIRCBot):
 
         server_spec = ServerSpec(server.host, server.port, server.password)
         SingleServerIRCBot.__init__(self, [server_spec], nickname, realname)
+
+        if server.rate_limit is not None:
+            self.connection.set_rate_limit(server.rate_limit)
 
         # Avoid `UnicodeDecodeError` on non-UTF-8 messages.
         self.connection.buffer_class = LenientDecodingLineBuffer

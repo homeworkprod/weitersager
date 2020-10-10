@@ -87,6 +87,7 @@ An example configuration file, ``example.toml``, in TOML_ format:
    host = "irc.server.example"
    port = 6667                # optional
    password = "secret"        # optional
+   rate_limit = 0.5           # optional; limit of messages per second
 
    [irc.bot]
    nickname = "Weitersager"

@@ -69,8 +69,10 @@ def _get_irc_server(data_irc):
 
     port = int(data_server.get('port', DEFAULT_IRC_SERVER_PORT))
     password = data_server.get('password')
+    rate_limit_str = data_server.get('rate_limit')
+    rate_limit = float(rate_limit_str) if rate_limit_str else None
 
-    return IrcServer(host, port, password)
+    return IrcServer(host, port, password, rate_limit)
 
 
 def _get_irc_channels(data_irc):

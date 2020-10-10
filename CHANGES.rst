@@ -10,6 +10,10 @@ Unreleased
 - Add command line tool to generate secure tokens (which can be used as
   API tokens).
 
+- Allow to configure a rate limit for the IRC connection, i.e. the maximum
+  number of messages per second to send. This can prevent the bot from
+  getting kicked (or even banned) from a channel because of flooding.
+
 
 Version 0.3
 -----------

@@ -20,6 +20,7 @@ api_tokens = ["qsSUx9KM-DBuDndUhGNi9_kxNHd08TypiHYM05ZTxVc"]
 host = "orion.astrochat.test"
 port = 6669
 password = "ToTheStars!"
+rate_limit = 0.5
 
 [irc.bot]
 nickname = "SpaceCowboy"
@@ -40,7 +41,7 @@ def test_load_config():
     irc_config, http_config = load_config(toml)
 
     assert irc_config == IrcConfig(
-        server=IrcServer('orion.astrochat.test', 6669, 'ToTheStars!'),
+        server=IrcServer('orion.astrochat.test', 6669, 'ToTheStars!', 0.5),
         nickname='SpaceCowboy',
         realname='Monsieur Weitersager',
         channels=[
