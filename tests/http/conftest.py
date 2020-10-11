@@ -8,7 +8,7 @@ from threading import Thread
 import pytest
 
 from weitersager.config import HttpConfig
-from weitersager.httpreceiver import ReceiveServer
+from weitersager.http import ReceiveServer
 
 
 @pytest.fixture

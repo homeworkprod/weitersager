@@ -1,6 +1,6 @@
 """
-weitersager.httpreceiver
-~~~~~~~~~~~~~~~~~~~~~~~~
+weitersager.http
+~~~~~~~~~~~~~~~~
 
 HTTP server to receive messages
 
@@ -94,6 +94,7 @@ class ReceiveServer(HTTPServer):
         log('Listening for HTTP requests on {}:{:d}.', *address)
 
         self.api_tokens = config.api_tokens
+
 
 def start_receive_server(config):
     """Start in a separate thread."""

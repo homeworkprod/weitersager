@@ -7,7 +7,7 @@ import json
 
 import pytest
 
-from weitersager.httpreceiver import parse_json_message
+from weitersager.http import parse_json_message
 
 
 @pytest.mark.parametrize(

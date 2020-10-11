@@ -10,7 +10,7 @@ Connect HTTP server and IRC bot.
 
 from time import sleep
 
-from .httpreceiver import start_receive_server
+from .http import start_receive_server
 from .irc import create_bot
 from .signals import (
     channel_joined,
