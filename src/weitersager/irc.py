@@ -143,6 +143,12 @@ def create_bot(config, **options):
     """Create and return an IRC bot according to the configuration."""
     if config.server:
         bot_class = Bot
+
+        rate_limit = config.server.rate_limit
+        if rate_limit is not None:
+            log('IRC send rate limit set to {:.2f} messages per second.', rate_limit)
+        else:
+            log('No IRC send rate limit set.')
     else:
         log('No IRC server specified; will write to STDOUT instead.')
         bot_class = DummyBot
