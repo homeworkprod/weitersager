@@ -8,6 +8,7 @@ Configuration loading
 :License: MIT, see LICENSE for details.
 """
 
+from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Optional, Set
 
@@ -18,6 +19,12 @@ DEFAULT_HTTP_HOST = '127.0.0.1'
 DEFAULT_HTTP_PORT = 8080
 DEFAULT_IRC_SERVER_PORT = 6667
 DEFAULT_IRC_REALNAME = 'Weitersager'
+
+
+@dataclass(frozen=True)
+class Config:
+    http: HttpConfig
+    irc: IrcConfig
 
 
 @dataclass(frozen=True)
@@ -64,7 +71,10 @@ def load_config(path):
     http_config = _get_http_config(data)
     irc_config = _get_irc_config(data)
 
-    return http_config, irc_config
+    return Config(
+        http=http_config,
+        irc=irc_config,
+    )
 
 
 def _get_http_config(data):
