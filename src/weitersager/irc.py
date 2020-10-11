@@ -33,7 +33,13 @@ class Bot(SingleServerIRCBot):
         SingleServerIRCBot.__init__(self, [server_spec], nickname, realname)
 
         if server.rate_limit is not None:
+            log(
+                'IRC send rate limit set to {:.2f} messages per second.',
+                server.rate_limit,
+            )
             self.connection.set_rate_limit(server.rate_limit)
+        else:
+            log('No IRC send rate limit set.')
 
         # Avoid `UnicodeDecodeError` on non-UTF-8 messages.
         self.connection.buffer_class = LenientDecodingLineBuffer
@@ -116,12 +122,6 @@ def create_bot(config, **options):
     """Create and return an IRC bot according to the configuration."""
     if config.server:
         bot_class = Bot
-
-        rate_limit = config.server.rate_limit
-        if rate_limit is not None:
-            log('IRC send rate limit set to {:.2f} messages per second.', rate_limit)
-        else:
-            log('No IRC send rate limit set.')
     else:
         log('No IRC server specified; will write to STDOUT instead.')
         bot_class = DummyBot
