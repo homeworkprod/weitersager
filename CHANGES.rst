@@ -18,6 +18,8 @@ Unreleased
 
 - Added type hints.
 
+- Updated rtoml to 0.4.0 (from 0.3.0).
+
 
 Version 0.3
 -----------
