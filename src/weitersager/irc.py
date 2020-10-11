@@ -106,7 +106,7 @@ class Bot(SingleServerIRCBot):
 
 class DummyBot:
 
-    def __init__(self, server, nickname, realname, channels, **options):
+    def __init__(self, channels):
         self.channels = channels
 
     def start(self):
@@ -120,13 +120,11 @@ class DummyBot:
 
 def create_bot(config, **options):
     """Create and return an IRC bot according to the configuration."""
-    if config.server:
-        bot_class = Bot
-    else:
+    if config.server is None:
         log('No IRC server specified; will write to STDOUT instead.')
-        bot_class = DummyBot
+        return DummyBot(config.channels)
 
-    return bot_class(
+    return Bot(
         config.server,
         config.nickname,
         config.realname,
