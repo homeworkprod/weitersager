@@ -5,8 +5,13 @@
 
 from io import StringIO
 
-from weitersager.config import HttpConfig, load_config
-from weitersager.irc import Channel, Config as IrcConfig, Server as IrcServer
+from weitersager.config import (
+    HttpConfig,
+    IrcChannel,
+    IrcConfig,
+    IrcServer,
+    load_config,
+)
 
 
 TOML_CONFIG = '''\
@@ -44,9 +49,9 @@ def test_load_config():
         nickname='SpaceCowboy',
         realname='Monsieur Weitersager',
         channels=[
-            Channel('#skyscreeners'),
-            Channel('#elite-astrology', password='twinkle-twinkle'),
-            Channel('#hubblebubble'),
+            IrcChannel('#skyscreeners'),
+            IrcChannel('#elite-astrology', password='twinkle-twinkle'),
+            IrcChannel('#hubblebubble'),
         ],
     )
     assert http_config == HttpConfig(

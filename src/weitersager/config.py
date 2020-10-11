@@ -9,11 +9,9 @@ Configuration loading
 """
 
 from dataclasses import dataclass
-from typing import Optional, Set
+from typing import List, Optional, Set
 
 import rtoml
-
-from .irc import Channel, Config as IrcConfig, Server as IrcServer
 
 
 DEFAULT_HTTP_HOST = '127.0.0.1'
@@ -29,6 +27,34 @@ class HttpConfig:
     host: str
     port: int
     api_tokens: Optional[Set[str]] = None
+
+
+@dataclass(frozen=True)
+class IrcServer:
+    """An IRC server."""
+
+    host: str
+    port: int
+    password: Optional[str] = None
+    rate_limit: Optional[float] = None
+
+
+@dataclass(frozen=True)
+class IrcChannel:
+    """An IRC channel."""
+
+    name: str
+    password: Optional[str] = None
+
+
+@dataclass(frozen=True)
+class IrcConfig:
+    """An IRC bot configuration."""
+
+    server: Optional[IrcServer]
+    nickname: str
+    realname: str
+    channels: List[IrcChannel]
 
 
 def load_config(path):
@@ -90,4 +116,4 @@ def _get_irc_channels(data_irc):
     for channel in data_irc.get('channels', []):
         name = channel['name']
         password = channel.get('password')
-        yield Channel(name, password)
+        yield IrcChannel(name, password)

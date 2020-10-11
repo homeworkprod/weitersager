@@ -8,38 +8,11 @@ Internet Relay Chat
 :License: MIT, see LICENSE for details.
 """
 
-from dataclasses import dataclass
-from typing import List, Optional
-
 from irc.bot import ServerSpec, SingleServerIRCBot
 from jaraco.stream.buffer import LenientDecodingLineBuffer
 
 from .signals import channel_joined, shutdown_requested
 from .util import log, start_thread
-
-
-@dataclass(frozen=True)
-class Server:
-    """An IRC server."""
-    host: str
-    port: int
-    password: Optional[str] = None
-    rate_limit: Optional[float] = None
-
-
-@dataclass(frozen=True)
-class Channel:
-    """An IRC channel with optional password."""
-    name: str
-    password: Optional[str] = None
-
-
-@dataclass(frozen=True)
-class Config:
-    server: Optional[Server]
-    nickname: str
-    realname: str
-    channels: List[Channel]
 
 
 class Bot(SingleServerIRCBot):
