@@ -11,12 +11,12 @@ Command line tool to generate secret tokens
 from secrets import token_urlsafe
 
 
-def generate_token():
+def generate_token() -> str:
     """Generate an random, secure, URL-safe token."""
     return token_urlsafe()
 
 
-def main():
+def main() -> None:
     """Write a secure token to STDOUT."""
     token = generate_token()
     print(token)

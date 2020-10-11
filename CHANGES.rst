@@ -16,6 +16,8 @@ Unreleased
 
 - Added exemplary Dockerfile.
 
+- Added type hints.
+
 
 Version 0.3
 -----------

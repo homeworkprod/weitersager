@@ -9,7 +9,9 @@ Connect HTTP server and IRC bot.
 """
 
 from time import sleep
+from typing import Any, Dict, Optional, Set, Tuple
 
+from .config import Config
 from .http import start_receive_server
 from .irc import create_bot
 from .signals import (
@@ -23,22 +25,27 @@ from .util import log
 
 class Processor:
 
-    def __init__(self):
-        self.enabled_channel_names = set()
+    def __init__(self) -> None:
+        self.enabled_channel_names: Set[str] = set()
         self.shutdown = False
 
-    def connect_to_signals(self):
+    def connect_to_signals(self) -> None:
         channel_joined.connect(self.enable_channel)
         message_received.connect(self.handle_message)
         shutdown_requested.connect(self.handle_shutdown_requested)
 
-    def enable_channel(self, sender, *, channel_name=None):
+    def enable_channel(self, sender, *, channel_name=None) -> None:
         log('Enabled forwarding to channel {}.', channel_name)
         self.enabled_channel_names.add(channel_name)
 
     def handle_message(
-        self, sender, *, channel_name=None, text=None, source_address=None
-    ):
+        self,
+        sender: Optional[Any],
+        *,
+        channel_name: str,
+        text: str,
+        source_address: Tuple[str, int],
+    ) -> None:
         """Log and announce an incoming message."""
         source = f'{source_address[0]}:{source_address[1]:d}'
 
@@ -58,10 +65,10 @@ class Processor:
 
         message_approved.send(channel_name=channel_name, text=text)
 
-    def handle_shutdown_requested(self, sender):
+    def handle_shutdown_requested(self, sender: Optional[Any]) -> None:
         self.shutdown = True
 
-    def run(self):
+    def run(self) -> None:
         """Run the main loop until shutdown is requested."""
         while not self.shutdown:
             sleep(0.5)
@@ -69,7 +76,7 @@ class Processor:
         log('Shutting down ...')
 
 
-def start(config, **options):
+def start(config: Config, **options: Dict[str, Any]) -> None:
     """Start the IRC bot and HTTP listen server."""
     bot = create_bot(config.irc, **options)
     message_approved.connect(bot.say)

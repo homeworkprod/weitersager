@@ -13,7 +13,9 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import sys
+from typing import Optional
 
+from .config import HttpConfig
 from .signals import message_received
 from .util import log, start_thread
 
@@ -24,7 +26,7 @@ class Message:
     text: str
 
 
-def parse_json_message(json_data):
+def parse_json_message(json_data: str) -> Message:
     """Extract message from JSON."""
     data = json.loads(json_data)
 
@@ -37,7 +39,7 @@ def parse_json_message(json_data):
 class RequestHandler(BaseHTTPRequestHandler):
     """Handler for messages submitted via HTTP."""
 
-    def do_POST(self):
+    def do_POST(self) -> None:
         valid_api_tokens = self.server.api_tokens
         if valid_api_tokens:
             api_token = self._get_api_token()
@@ -69,7 +71,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             source_address=self.client_address,
         )
 
-    def _get_api_token(self):
+    def _get_api_token(self) -> Optional[str]:
         authorization_value = self.headers.get('authorization')
         if not authorization_value:
             return None
@@ -80,7 +82,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         return authorization_value[len(prefix) :]
 
-    def version_string(self):
+    def version_string(self) -> str:
         """Return custom server version string."""
         return 'Weitersager'
 
@@ -88,7 +90,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 class ReceiveServer(HTTPServer):
     """HTTP server that waits for messages."""
 
-    def __init__(self, config):
+    def __init__(self, config: HttpConfig) -> None:
         address = (config.host, config.port)
         HTTPServer.__init__(self, address, RequestHandler)
         log('Listening for HTTP requests on {}:{:d}.', *address)
@@ -96,7 +98,7 @@ class ReceiveServer(HTTPServer):
         self.api_tokens = config.api_tokens
 
 
-def start_receive_server(config):
+def start_receive_server(config: HttpConfig) -> None:
     """Start in a separate thread."""
     try:
         receiver = ReceiveServer(config)

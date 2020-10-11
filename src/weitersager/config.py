@@ -10,7 +10,8 @@ Configuration loading
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import List, Optional, Set
+from pathlib import Path
+from typing import Any, Iterator, List, Optional, Set
 
 import rtoml
 
@@ -64,7 +65,7 @@ class IrcConfig:
     channels: List[IrcChannel]
 
 
-def load_config(path):
+def load_config(path: Path) -> Config:
     """Load configuration from file."""
     data = rtoml.load(path)
 
@@ -77,7 +78,7 @@ def load_config(path):
     )
 
 
-def _get_http_config(data):
+def _get_http_config(data: Any) -> HttpConfig:
     data_http = data.get('http', {})
 
     host = data_http.get('host', DEFAULT_HTTP_HOST)
@@ -89,7 +90,7 @@ def _get_http_config(data):
     return HttpConfig(host, port, api_tokens)
 
 
-def _get_irc_config(data):
+def _get_irc_config(data: Any) -> IrcConfig:
     data_irc = data['irc']
 
     server = _get_irc_server(data_irc)
@@ -105,7 +106,7 @@ def _get_irc_config(data):
     )
 
 
-def _get_irc_server(data_irc):
+def _get_irc_server(data_irc: Any) -> Optional[IrcServer]:
     data_server = data_irc.get('server')
     if data_server is None:
         return None
@@ -122,7 +123,7 @@ def _get_irc_server(data_irc):
     return IrcServer(host, port, password, rate_limit)
 
 
-def _get_irc_channels(data_irc):
+def _get_irc_channels(data_irc: Any) -> Iterator[IrcChannel]:
     for channel in data_irc.get('channels', []):
         name = channel['name']
         password = channel.get('password')
