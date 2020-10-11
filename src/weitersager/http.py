@@ -100,7 +100,7 @@ def start_receive_server(config):
     """Start in a separate thread."""
     try:
         receiver = ReceiveServer(config)
-    except Exception as e:
+    except OSError as e:
         sys.stderr.write(f'Error {e.errno:d}: {e.strerror}\n')
         sys.stderr.write(
             f'Probably no permission to open port {config.port}. '
