@@ -5,7 +5,7 @@ Weitersager Changelog
 Version 0.4
 -----------
 
-Unreleased
+Released 2020-10-11
 
 - Added command line tool to generate secure tokens (which can be used as
   API tokens).
