@@ -5,8 +5,7 @@
 
 from io import StringIO
 
-from weitersager.config import load_config
-from weitersager.httpreceiver import Config as HttpConfig
+from weitersager.config import HttpConfig, load_config
 from weitersager.irc import Channel, Config as IrcConfig, Server as IrcServer
 
 

@@ -13,18 +13,9 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import sys
-from typing import Optional, Set
 
 from .signals import message_received
 from .util import log, start_thread
-
-
-@dataclass(frozen=True)
-class Config:
-    """An HTTP receiver configuration."""
-    host: str
-    port: int
-    api_tokens: Optional[Set[str]] = None
 
 
 @dataclass(frozen=True)

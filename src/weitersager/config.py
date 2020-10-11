@@ -8,9 +8,11 @@ Configuration loading
 :License: MIT, see LICENSE for details.
 """
 
+from dataclasses import dataclass
+from typing import Optional, Set
+
 import rtoml
 
-from .httpreceiver import Config as HttpConfig
 from .irc import Channel, Config as IrcConfig, Server as IrcServer
 
 
@@ -18,6 +20,15 @@ DEFAULT_HTTP_HOST = '127.0.0.1'
 DEFAULT_HTTP_PORT = 8080
 DEFAULT_IRC_SERVER_PORT = 6667
 DEFAULT_IRC_REALNAME = 'Weitersager'
+
+
+@dataclass(frozen=True)
+class HttpConfig:
+    """An HTTP receiver configuration."""
+
+    host: str
+    port: int
+    api_tokens: Optional[Set[str]] = None
 
 
 def load_config(path):

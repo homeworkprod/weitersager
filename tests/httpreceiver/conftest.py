@@ -7,14 +7,15 @@ from threading import Thread
 
 import pytest
 
-from weitersager.httpreceiver import Config, ReceiveServer
+from weitersager.config import HttpConfig
+from weitersager.httpreceiver import ReceiveServer
 
 
 @pytest.fixture
 def make_server():
     # Per default, bind to localhost on random user port.
     def _wrapper(host='', port=0, *, api_tokens=None):
-        config = Config(host, port, api_tokens=api_tokens)
+        config = HttpConfig(host, port, api_tokens=api_tokens)
 
         server = ReceiveServer(config)
 
