@@ -27,7 +27,7 @@ def main():
     """Load the configuration file, start the IRC bot and HTTP listen server."""
     namespace = parse_args(sys.argv[1:])
 
-    irc_config, http_config = load_config(namespace.config_filename)
+    http_config, irc_config = load_config(namespace.config_filename)
 
     start(irc_config, http_config)
 

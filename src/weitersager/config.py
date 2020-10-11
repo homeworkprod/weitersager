@@ -64,7 +64,7 @@ def load_config(path):
     http_config = _get_http_config(data)
     irc_config = _get_irc_config(data)
 
-    return irc_config, http_config
+    return http_config, irc_config
 
 
 def _get_http_config(data):

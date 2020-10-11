@@ -42,7 +42,13 @@ channels = [
 def test_load_config():
     toml = StringIO(TOML_CONFIG)
 
-    irc_config, http_config = load_config(toml)
+    http_config, irc_config  = load_config(toml)
+
+    assert http_config == HttpConfig(
+        host='0.0.0.0',
+        port=55555,
+        api_tokens={'qsSUx9KM-DBuDndUhGNi9_kxNHd08TypiHYM05ZTxVc'},
+    )
 
     assert irc_config == IrcConfig(
         server=IrcServer('orion.astrochat.test', 6669, 'ToTheStars!', 0.5),
@@ -53,11 +59,6 @@ def test_load_config():
             IrcChannel('#elite-astrology', password='twinkle-twinkle'),
             IrcChannel('#hubblebubble'),
         ],
-    )
-    assert http_config == HttpConfig(
-        host='0.0.0.0',
-        port=55555,
-        api_tokens={'qsSUx9KM-DBuDndUhGNi9_kxNHd08TypiHYM05ZTxVc'},
     )
 
 
@@ -73,18 +74,19 @@ nickname = "TownCrier"
 def test_load_config_with_defaults():
     toml = StringIO(TOML_CONFIG_WITH_DEFAULTS)
 
-    irc_config, http_config = load_config(toml)
+    http_config, irc_config  = load_config(toml)
+
+    assert http_config == HttpConfig(
+        host='127.0.0.1',
+        port=8080,
+        api_tokens=None,
+    )
 
     assert irc_config == IrcConfig(
         server=IrcServer('irc.onlinetalk.test', 6667),
         nickname='TownCrier',
         realname='Weitersager',
         channels=[],
-    )
-    assert http_config == HttpConfig(
-        host='127.0.0.1',
-        port=8080,
-        api_tokens=None,
     )
 
 
@@ -97,7 +99,7 @@ nickname = "Lokalrunde"
 def test_load_config_without_irc_server_table():
     toml = StringIO(TOML_CONFIG_WITHOUT_IRC_SERVER_TABLE)
 
-    irc_config, _ = load_config(toml)
+    _, irc_config = load_config(toml)
 
     assert irc_config.server is None
 
@@ -113,6 +115,6 @@ nickname = "Lokalrunde"
 def test_load_config_without_irc_server_host():
     toml = StringIO(TOML_CONFIG_WITHOUT_IRC_SERVER_HOST)
 
-    irc_config, _ = load_config(toml)
+    _, irc_config = load_config(toml)
 
     assert irc_config.server is None
