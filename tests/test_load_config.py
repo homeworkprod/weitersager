@@ -42,7 +42,7 @@ channels = [
 def test_load_config():
     toml = StringIO(TOML_CONFIG)
 
-    config  = load_config(toml)
+    config = load_config(toml)
 
     assert config.http == HttpConfig(
         host='0.0.0.0',
@@ -51,7 +51,12 @@ def test_load_config():
     )
 
     assert config.irc == IrcConfig(
-        server=IrcServer('orion.astrochat.test', 6669, 'ToTheStars!', 0.5),
+        server=IrcServer(
+            host='orion.astrochat.test',
+            port=6669,
+            password='ToTheStars!',
+            rate_limit=0.5,
+        ),
         nickname='SpaceCowboy',
         realname='Monsieur Weitersager',
         channels=[
@@ -74,7 +79,7 @@ nickname = "TownCrier"
 def test_load_config_with_defaults():
     toml = StringIO(TOML_CONFIG_WITH_DEFAULTS)
 
-    config  = load_config(toml)
+    config = load_config(toml)
 
     assert config.http == HttpConfig(
         host='127.0.0.1',
@@ -83,7 +88,12 @@ def test_load_config_with_defaults():
     )
 
     assert config.irc == IrcConfig(
-        server=IrcServer('irc.onlinetalk.test', 6667),
+        server=IrcServer(
+            host='irc.onlinetalk.test',
+            port=6667,
+            password=None,
+            rate_limit=None,
+        ),
         nickname='TownCrier',
         realname='Weitersager',
         channels=[],
