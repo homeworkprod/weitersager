@@ -23,6 +23,7 @@ api_tokens = ["qsSUx9KM-DBuDndUhGNi9_kxNHd08TypiHYM05ZTxVc"]
 [irc.server]
 host = "orion.astrochat.test"
 port = 6669
+ssl = true
 password = "ToTheStars!"
 rate_limit = 0.5
 
@@ -54,6 +55,7 @@ def test_load_config():
         server=IrcServer(
             host='orion.astrochat.test',
             port=6669,
+            ssl=True,
             password='ToTheStars!',
             rate_limit=0.5,
         ),
@@ -91,6 +93,7 @@ def test_load_config_with_defaults():
         server=IrcServer(
             host='irc.onlinetalk.test',
             port=6667,
+            ssl=False,
             password=None,
             rate_limit=None,
         ),

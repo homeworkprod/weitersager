@@ -8,9 +8,11 @@ Internet Relay Chat
 :License: MIT, see LICENSE for details.
 """
 
+import ssl
 from typing import Any, Dict, List, Optional, Union
 
 from irc.bot import ServerSpec, SingleServerIRCBot
+from irc.connection import Factory
 from jaraco.stream.buffer import LenientDecodingLineBuffer
 
 from .config import IrcChannel, IrcConfig, IrcServer
@@ -31,7 +33,10 @@ class Bot(SingleServerIRCBot):
         log('Connecting to IRC server {0.host}:{0.port:d} ...', server)
 
         server_spec = ServerSpec(server.host, server.port, server.password)
-        SingleServerIRCBot.__init__(self, [server_spec], nickname, realname)
+        factory = Factory(wrapper=ssl.wrap_socket) if server.ssl else Factory()
+        SingleServerIRCBot.__init__(
+            self, [server_spec], nickname, realname, connect_factory=factory
+        )
 
         if server.rate_limit is not None:
             log(

@@ -43,6 +43,7 @@ class IrcServer:
 
     host: str
     port: int
+    ssl: bool = False
     password: Optional[str] = None
     rate_limit: Optional[float] = None
 
@@ -116,12 +117,13 @@ def _get_irc_server(data_irc: Any) -> Optional[IrcServer]:
         return None
 
     port = int(data_server.get('port', DEFAULT_IRC_SERVER_PORT))
+    ssl = data_server.get('ssl', False)
     password = data_server.get('password')
     rate_limit_str = data_server.get('rate_limit')
     rate_limit = float(rate_limit_str) if rate_limit_str else None
 
     return IrcServer(
-        host=host, port=port, password=password, rate_limit=rate_limit
+        host=host, port=port, ssl=ssl, password=password, rate_limit=rate_limit
     )
 
 
