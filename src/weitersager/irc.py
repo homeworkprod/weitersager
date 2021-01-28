@@ -100,7 +100,7 @@ class Bot(SingleServerIRCBot):
         """Shut the bot down."""
         log('Shutdown requested by {}.', nickmask)
         shutdown_requested.send()
-        self.die('Shutting down.')  # Joins IRC bot thread.
+        self.disconnect('Shutting down.')  # Joins IRC bot thread.
 
     def say(
         self,
