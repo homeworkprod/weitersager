@@ -4,7 +4,7 @@ weitersager.tokencli
 
 Command line tool to generate secret tokens
 
-:Copyright: 2007-2020 Jochen Kupperschmidt
+:Copyright: 2007-2021 Jochen Kupperschmidt
 :License: MIT, see LICENSE for details.
 """
 

@@ -4,7 +4,7 @@ weitersager.cli
 
 Command line entry point
 
-:Copyright: 2007-2020 Jochen Kupperschmidt
+:Copyright: 2007-2021 Jochen Kupperschmidt
 :License: MIT, see LICENSE for details.
 """
 

@@ -12,7 +12,7 @@ IRC.
 
 Based on syslog2IRC_.
 
-:Copyright: 2007-2020 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
+:Copyright: 2007-2021 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
 :License: MIT, see LICENSE for details.
 
 .. _syslog2IRC: http://homework.nwsnet.de/releases/c474/#syslog2irc
