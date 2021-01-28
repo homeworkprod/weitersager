@@ -70,8 +70,11 @@ class Processor:
 
     def run(self) -> None:
         """Run the main loop until shutdown is requested."""
-        while not self.shutdown:
-            sleep(0.5)
+        try:
+            while not self.shutdown:
+                sleep(0.5)
+        except KeyboardInterrupt:
+            pass
 
         log('Shutting down ...')
 
@@ -93,3 +96,5 @@ def start(config: Config, **options: Dict[str, Any]) -> None:
     bot.start()
 
     processor.run()
+
+    bot.disconnect('Bye.')  # Joins bot thread.
