@@ -7,6 +7,9 @@ Version 0.5
 
 Unreleased
 
+- Removed handler to shut down Weitersager via private IRC message. It
+  doesn't provide enough relevant value.
+
 
 Version 0.4
 -----------

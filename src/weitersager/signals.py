@@ -14,4 +14,3 @@ from blinker import signal
 channel_joined = signal('channel-joined')
 message_received = signal('message-received')
 message_approved = signal('message-approved')
-shutdown_requested = signal('shutdown-requested')

@@ -14,12 +14,7 @@ from typing import Any, Dict, Optional, Set, Tuple
 from .config import Config
 from .http import start_receive_server
 from .irc import create_bot
-from .signals import (
-    channel_joined,
-    message_approved,
-    message_received,
-    shutdown_requested,
-)
+from .signals import channel_joined, message_approved, message_received
 from .util import log
 
 
@@ -27,12 +22,10 @@ class Processor:
 
     def __init__(self) -> None:
         self.enabled_channel_names: Set[str] = set()
-        self.shutdown = False
 
     def connect_to_signals(self) -> None:
         channel_joined.connect(self.enable_channel)
         message_received.connect(self.handle_message)
-        shutdown_requested.connect(self.handle_shutdown_requested)
 
     def enable_channel(self, sender, *, channel_name=None) -> None:
         log('Enabled forwarding to channel {}.', channel_name)
@@ -65,13 +58,10 @@ class Processor:
 
         message_approved.send(channel_name=channel_name, text=text)
 
-    def handle_shutdown_requested(self, sender: Optional[Any]) -> None:
-        self.shutdown = True
-
     def run(self) -> None:
-        """Run the main loop until shutdown is requested."""
+        """Run the main loop."""
         try:
-            while not self.shutdown:
+            while True:
                 sleep(0.5)
         except KeyboardInterrupt:
             pass

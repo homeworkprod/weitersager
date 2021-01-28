@@ -14,7 +14,7 @@ from irc.bot import ServerSpec, SingleServerIRCBot
 from jaraco.stream.buffer import LenientDecodingLineBuffer
 
 from .config import IrcChannel, IrcConfig, IrcServer
-from .signals import channel_joined, shutdown_requested
+from .signals import channel_joined
 from .util import log, start_thread
 
 
@@ -27,8 +27,6 @@ class Bot(SingleServerIRCBot):
         nickname: str,
         realname: str,
         channels: List[IrcChannel],
-        *,
-        shutdown_predicate=None,
     ) -> None:
         log('Connecting to IRC server {0.host}:{0.port:d} ...', server)
 
@@ -49,8 +47,6 @@ class Bot(SingleServerIRCBot):
 
         # Note: `self.channels` already exists in super class.
         self.channels_to_join = channels
-
-        self.shutdown_predicate = shutdown_predicate
 
     def start(self) -> None:
         """Connect to the server, in a separate thread."""
@@ -88,19 +84,6 @@ class Bot(SingleServerIRCBot):
         """Channel could not be joined due to wrong password."""
         channel = event.arguments[0]
         log('Cannot join channel {} (bad key).', channel)
-
-    def on_privmsg(self, conn, event) -> None:
-        """React on private messages."""
-        nickmask = event.source
-        text = event.arguments[0]
-        if self.shutdown_predicate and self.shutdown_predicate(nickmask, text):
-            self.shutdown(nickmask)
-
-    def shutdown(self, nickmask: str) -> None:
-        """Shut the bot down."""
-        log('Shutdown requested by {}.', nickmask)
-        shutdown_requested.send()
-        self.disconnect('Shutting down.')  # Joins IRC bot thread.
 
     def say(
         self,
@@ -143,8 +126,3 @@ def create_bot(
         config.channels,
         **options,
     )
-
-
-def default_shutdown_predicate(nickmask: str, text: str) -> bool:
-    """Determine if this is a valid shutdown request."""
-    return text == 'shutdown!'
