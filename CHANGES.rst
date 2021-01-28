@@ -7,6 +7,8 @@ Version 0.5
 
 Unreleased
 
+- Added support for Python 3.9.
+
 - Added support for SSL connections to IRC servers.
 
 - Removed handler to shut down Weitersager via private IRC message. It
