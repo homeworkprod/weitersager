@@ -115,6 +115,9 @@ class DummyBot:
     ) -> None:
         log('{}> {}', channel_name, text)
 
+    def disconnect(self, msg: str) -> None:
+        pass
+
 
 def create_bot(config: IrcConfig) -> Union[Bot, DummyBot]:
     """Create and return an IRC bot according to the configuration."""
