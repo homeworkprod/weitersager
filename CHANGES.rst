@@ -12,6 +12,8 @@ Unreleased
 - Removed handler to shut down Weitersager via private IRC message. It
   doesn't provide enough relevant value.
 
+- Updated rtoml to 0.5.0 (from 0.4.0).
+
 
 Version 0.4
 -----------
