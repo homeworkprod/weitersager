@@ -132,7 +132,7 @@ def build_request(server, data, *, api_token=None):
     request = Request(url, data=json_data, method='POST')
 
     if api_token:
-        request.add_header('Authorization', f'WTRSGR {api_token}')
+        request.add_header('Authorization', f'Token {api_token}')
 
     return request
 

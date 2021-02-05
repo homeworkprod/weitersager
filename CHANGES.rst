@@ -11,6 +11,9 @@ Unreleased
 
 - Added support for SSL connections to IRC servers.
 
+- Changed prefix of authorization header value from ``WTRSGR`` to less
+  awkward ``Token``.
+
 - Removed handler to shut down Weitersager via private IRC message. It
   doesn't provide enough relevant value.
 

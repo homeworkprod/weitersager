@@ -76,7 +76,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         if not authorization_value:
             return None
 
-        prefix = 'WTRSGR '
+        prefix = 'Token '
         if not authorization_value.startswith(prefix):
             return None
 
