@@ -72,7 +72,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         )
 
     def _get_api_token(self) -> Optional[str]:
-        authorization_value = self.headers.get('authorization')
+        authorization_value = self.headers.get('Authorization')
         if not authorization_value:
             return None
 
