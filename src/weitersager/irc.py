@@ -9,7 +9,7 @@ Internet Relay Chat
 """
 
 import ssl
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, List, Optional, Union
 
 from irc.bot import ServerSpec, SingleServerIRCBot
 from irc.connection import Factory
@@ -116,18 +116,10 @@ class DummyBot:
         log('{}> {}', channel_name, text)
 
 
-def create_bot(
-    config: IrcConfig, **options: Dict[str, Any]
-) -> Union[Bot, DummyBot]:
+def create_bot(config: IrcConfig) -> Union[Bot, DummyBot]:
     """Create and return an IRC bot according to the configuration."""
     if config.server is None:
         log('No IRC server specified; will write to STDOUT instead.')
         return DummyBot(config.channels)
 
-    return Bot(
-        config.server,
-        config.nickname,
-        config.realname,
-        config.channels,
-        **options,
-    )
+    return Bot(config.server, config.nickname, config.realname, config.channels)

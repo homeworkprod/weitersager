@@ -9,7 +9,7 @@ Connect HTTP server and IRC bot.
 """
 
 from time import sleep
-from typing import Any, Dict, Optional, Set, Tuple
+from typing import Any, Optional, Set, Tuple
 
 from .config import Config
 from .http import start_receive_server
@@ -69,9 +69,9 @@ class Processor:
         log('Shutting down ...')
 
 
-def start(config: Config, **options: Dict[str, Any]) -> None:
-    """Start the IRC bot and HTTP listen server."""
-    bot = create_bot(config.irc, **options)
+def start(config: Config) -> None:
+    """Start the IRC bot and the HTTP listen server."""
+    bot = create_bot(config.irc)
     message_approved.connect(bot.say)
 
     processor = Processor()
