@@ -1,6 +1,7 @@
 include assets/weitersager_logo.svg
 include CHANGES.rst
 include Dockerfile
+include config_example.toml
 include requirements.txt
 include requirements-dev.txt
 include requirements-test.txt

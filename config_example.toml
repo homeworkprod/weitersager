@@ -1,0 +1,20 @@
+[http]
+host = "127.0.0.1"
+port = 8080
+api_tokens = []
+
+[irc.server]
+host = "irc.server.example"
+port = 6667
+password = "secret"
+rate_limit = 0.5
+
+[irc.bot]
+nickname = "Weitersager"
+realname = "Weitersager"
+
+[irc]
+channels = [
+   { name = "#party" },
+   { name = "#secretlab", password = "555-secret" },
+]

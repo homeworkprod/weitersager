@@ -95,8 +95,8 @@ An example configuration file, ``example.toml``, in TOML_ format:
 
    [irc]
    channels = [
-       { name = "#party" },
-       { name = "#secretlab", password = "555-secret" },
+     { name = "#party" },
+     { name = "#secretlab", password = "555-secret" },
    ]
 
 .. _TOML: https://toml.io/
