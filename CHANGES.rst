@@ -19,6 +19,8 @@ Unreleased
 
 - Updated rtoml to 0.5.0 (from 0.4.0).
 
+- Include tests and other useful files in source distribution archive.
+
 
 Version 0.4
 -----------

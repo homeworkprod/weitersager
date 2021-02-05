@@ -1,1 +1,8 @@
+include assets/weitersager_logo.svg
 include CHANGES.rst
+include Dockerfile
+include requirements.txt
+include requirements-dev.txt
+include requirements-test.txt
+graft tests
+global-exclude *.pyc
