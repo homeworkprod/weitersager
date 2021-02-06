@@ -9,11 +9,12 @@ HTTP server to receive messages
 """
 
 from dataclasses import dataclass
+from functools import partial
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import sys
-from typing import Optional
+from typing import Optional, Set
 
 from .config import HttpConfig
 from .signals import message_received
@@ -39,8 +40,17 @@ def parse_json_message(json_data: str) -> Message:
 class RequestHandler(BaseHTTPRequestHandler):
     """Handler for messages submitted via HTTP."""
 
+    def __init__(
+        self, *args, api_tokens: Optional[Set[str]] = None, **kwargs
+    ) -> None:
+        if api_tokens is None:
+            api_tokens = set()
+        self.api_tokens = api_tokens
+
+        super().__init__(*args, **kwargs)
+
     def do_POST(self) -> None:
-        valid_api_tokens = self.server.api_tokens
+        valid_api_tokens = self.api_tokens
         if valid_api_tokens:
             api_token = self._get_api_token()
             if not api_token:
@@ -92,10 +102,9 @@ class ReceiveServer(HTTPServer):
 
     def __init__(self, config: HttpConfig) -> None:
         address = (config.host, config.port)
-        HTTPServer.__init__(self, address, RequestHandler)
+        handler_class = partial(RequestHandler, api_tokens=config.api_tokens)
+        HTTPServer.__init__(self, address, handler_class)
         log('Listening for HTTP requests on {}:{:d}.', *address)
-
-        self.api_tokens = config.api_tokens
 
 
 def start_receive_server(config: HttpConfig) -> None:
