@@ -34,7 +34,7 @@ class HttpConfig:
 
     host: str
     port: int
-    api_tokens: Optional[Set[str]] = None
+    api_tokens: Set[str]
 
 
 @dataclass(frozen=True)
@@ -84,9 +84,7 @@ def _get_http_config(data: Any) -> HttpConfig:
 
     host = data_http.get('host', DEFAULT_HTTP_HOST)
     port = int(data_http.get('port', DEFAULT_HTTP_PORT))
-    api_tokens = data_http.get('api_tokens')
-    if api_tokens:
-        api_tokens = set(api_tokens)
+    api_tokens = set(data_http.get('api_tokens', []))
 
     return HttpConfig(host, port, api_tokens)
 

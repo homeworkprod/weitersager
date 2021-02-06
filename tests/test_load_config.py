@@ -86,7 +86,7 @@ def test_load_config_with_defaults():
     assert config.http == HttpConfig(
         host='127.0.0.1',
         port=8080,
-        api_tokens=None,
+        api_tokens=set(),
     )
 
     assert config.irc == IrcConfig(
