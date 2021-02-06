@@ -8,7 +8,7 @@ from threading import Thread
 import pytest
 
 from weitersager.config import HttpConfig
-from weitersager.http import ReceiveServer
+from weitersager.http import create_server
 
 
 @pytest.fixture
@@ -19,7 +19,7 @@ def make_server():
             api_tokens = set()
         config = HttpConfig(host, port, api_tokens=api_tokens)
 
-        server = ReceiveServer(config)
+        server = create_server(config)
 
         thread = Thread(target=server.handle_request)
         thread.start()

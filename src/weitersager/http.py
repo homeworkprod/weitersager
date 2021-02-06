@@ -97,20 +97,17 @@ class RequestHandler(BaseHTTPRequestHandler):
         return 'Weitersager'
 
 
-class ReceiveServer(HTTPServer):
-    """HTTP server that waits for messages."""
-
-    def __init__(self, config: HttpConfig) -> None:
-        address = (config.host, config.port)
-        handler_class = partial(RequestHandler, api_tokens=config.api_tokens)
-        HTTPServer.__init__(self, address, handler_class)
-        log('Listening for HTTP requests on {}:{:d}.', *address)
+def create_server(config: HttpConfig) -> HTTPServer:
+    """Create the HTTP server."""
+    address = (config.host, config.port)
+    handler_class = partial(RequestHandler, api_tokens=config.api_tokens)
+    return HTTPServer(address, handler_class)
 
 
 def start_receive_server(config: HttpConfig) -> None:
     """Start in a separate thread."""
     try:
-        receiver = ReceiveServer(config)
+        server = create_server(config)
     except OSError as e:
         sys.stderr.write(f'Error {e.errno:d}: {e.strerror}\n')
         sys.stderr.write(
@@ -120,5 +117,6 @@ def start_receive_server(config: HttpConfig) -> None:
         )
         sys.exit(1)
 
-    thread_name = receiver.__class__.__name__
-    start_thread(receiver.serve_forever, thread_name)
+    thread_name = server.__class__.__name__
+    start_thread(server.serve_forever, thread_name)
+    log('Listening for HTTP requests on {}:{:d}.', *server.server_address)
