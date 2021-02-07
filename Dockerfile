@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.9-slim
 
 RUN pip install weitersager==0.4
 
