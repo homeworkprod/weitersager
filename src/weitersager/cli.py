@@ -13,13 +13,17 @@ from pathlib import Path
 import sys
 from typing import List
 
+from . import VERSION
 from .config import load_config
 from .processor import start
 
 
 def parse_args(args: List[str]) -> Namespace:
     """Parse command line arguments."""
-    parser = ArgumentParser(prog='weitersager')
+    parser = ArgumentParser()
+    parser.add_argument(
+        '--version', action='version', version=f'Weitersager {VERSION}'
+    )
     parser.add_argument('config_filename', type=Path)
     return parser.parse_args(args)
 

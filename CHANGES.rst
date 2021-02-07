@@ -17,6 +17,8 @@ Unreleased
 - Removed handler to shut down Weitersager via private IRC message. It
   doesn't provide enough relevant value.
 
+- Added command line option ``--version`` to show Weitersager's version.
+
 - Updated rtoml to 0.5.0 (from 0.4.0).
 
 - Include tests and other useful files in source distribution archive.
