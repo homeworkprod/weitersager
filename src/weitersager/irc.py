@@ -57,7 +57,8 @@ class Bot(SingleServerIRCBot):
         """Connect to the server, in a separate thread."""
         start_thread(super().start, self.__class__.__name__)
 
-    def get_version(self):
+    def get_version(self) -> str:
+        """Return this on CTCP VERSION requests."""
         return 'Weitersager'
 
     def on_welcome(self, conn, event) -> None:
@@ -111,7 +112,11 @@ class DummyBot:
             channel_joined.send(channel_name=channel.name)
 
     def say(
-        self, sender: Optional[Any], *, channel_name=None, text=None
+        self,
+        sender: Optional[Any],
+        *,
+        channel_name: Optional[str] = None,
+        text: Optional[str] = None,
     ) -> None:
         log('{}> {}', channel_name, text)
 
