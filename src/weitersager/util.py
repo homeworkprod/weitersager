@@ -10,7 +10,7 @@ Utilities
 
 from datetime import datetime
 from threading import Thread
-from typing import Any, Callable, Dict, Sequence
+from typing import Any, Callable, Dict
 
 
 def log(message: str, *args: Any, **kwargs: Dict[str, Any]) -> None:
