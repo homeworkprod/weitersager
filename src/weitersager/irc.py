@@ -103,6 +103,8 @@ class Bot(SingleServerIRCBot):
 
 
 class DummyBot:
+    """A fake bot that writes messages to STDOUT."""
+
     def __init__(self, channels: List[IrcChannel]) -> None:
         self.channels = channels
 
