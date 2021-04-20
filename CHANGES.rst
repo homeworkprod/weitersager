@@ -7,6 +7,8 @@ Version 0.6
 
 Unreleased
 
+- Updated rtoml to 0.6.1 (from 0.5.0).
+
 
 Version 0.5
 -----------
