@@ -50,15 +50,14 @@ class RequestHandler(BaseHTTPRequestHandler):
         super().__init__(*args, **kwargs)
 
     def do_POST(self) -> None:
-        valid_api_tokens = self.api_tokens
-        if valid_api_tokens:
+        if self.api_tokens:
             api_token = self._get_api_token()
             if not api_token:
                 self.send_response(HTTPStatus.UNAUTHORIZED)
                 self.end_headers()
                 return
 
-            if api_token not in valid_api_tokens:
+            if api_token not in self.api_tokens:
                 self.send_response(HTTPStatus.FORBIDDEN)
                 self.end_headers()
                 return
