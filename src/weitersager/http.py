@@ -40,13 +40,8 @@ def parse_json_message(json_data: str) -> Message:
 class RequestHandler(BaseHTTPRequestHandler):
     """Handler for messages submitted via HTTP."""
 
-    def __init__(
-        self, *args, api_tokens: Optional[Set[str]] = None, **kwargs
-    ) -> None:
-        if api_tokens is None:
-            api_tokens = set()
+    def __init__(self, api_tokens: Set[str], *args, **kwargs) -> None:
         self.api_tokens = api_tokens
-
         super().__init__(*args, **kwargs)
 
     def do_POST(self) -> None:
@@ -99,7 +94,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 def create_server(config: HttpConfig) -> HTTPServer:
     """Create the HTTP server."""
     address = (config.host, config.port)
-    handler_class = partial(RequestHandler, api_tokens=config.api_tokens)
+    handler_class = partial(RequestHandler, config.api_tokens)
     return HTTPServer(address, handler_class)
 
 
