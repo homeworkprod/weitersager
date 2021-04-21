@@ -9,7 +9,7 @@ Internet Relay Chat
 """
 
 import ssl
-from typing import Any, List, Optional, Union
+from typing import Any, List, Optional, Set, Union
 
 from irc.bot import ServerSpec, SingleServerIRCBot
 from irc.connection import Factory
@@ -28,7 +28,7 @@ class Bot(SingleServerIRCBot):
         server: IrcServer,
         nickname: str,
         realname: str,
-        channels: List[IrcChannel],
+        channels: Set[IrcChannel],
     ) -> None:
         log('Connecting to IRC server {0.host}:{0.port:d} ...', server)
 
@@ -65,10 +65,10 @@ class Bot(SingleServerIRCBot):
         """Join channels after connect."""
         log('Connected to {}:{:d}.', *conn.socket.getpeername())
 
-        channel_names = sorted(c.name for c in self.channels_to_join)
-        log('Channels to join: {}', ', '.join(channel_names))
+        channels = _sort_channels_by_name(self.channels_to_join)
+        log('Channels to join: {}', ', '.join(c.name for c in channels))
 
-        for channel in self.channels_to_join:
+        for channel in channels:
             log('Joining channel {} ...', channel.name)
             conn.join(channel.name, channel.password or '')
 
@@ -105,12 +105,12 @@ class Bot(SingleServerIRCBot):
 class DummyBot:
     """A fake bot that writes messages to STDOUT."""
 
-    def __init__(self, channels: List[IrcChannel]) -> None:
+    def __init__(self, channels: Set[IrcChannel]) -> None:
         self.channels = channels
 
     def start(self) -> None:
         # Fake channel joins.
-        for channel in self.channels:
+        for channel in _sort_channels_by_name(self.channels):
             channel_joined.send(channel_name=channel.name)
 
     def say(
@@ -124,6 +124,10 @@ class DummyBot:
 
     def disconnect(self, msg: str) -> None:
         pass
+
+
+def _sort_channels_by_name(channels: Set[IrcChannel]) -> List[IrcChannel]:
+    return list(sorted(channels, key=lambda c: c.name))
 
 
 def create_bot(config: IrcConfig) -> Union[Bot, DummyBot]:

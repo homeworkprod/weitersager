@@ -11,7 +11,7 @@ Configuration loading
 from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterator, List, Optional, Set
+from typing import Any, Dict, Iterator, Optional, Set
 
 import rtoml
 
@@ -63,7 +63,7 @@ class IrcConfig:
     server: Optional[IrcServer]
     nickname: str
     realname: str
-    channels: List[IrcChannel]
+    channels: Set[IrcChannel]
 
 
 def load_config(path: Path) -> Config:
@@ -95,7 +95,7 @@ def _get_irc_config(data: Dict[str, Any]) -> IrcConfig:
     server = _get_irc_server(data_irc)
     nickname = data_irc['bot']['nickname']
     realname = data_irc['bot'].get('realname', DEFAULT_IRC_REALNAME)
-    channels = list(_get_irc_channels(data_irc))
+    channels = set(_get_irc_channels(data_irc))
 
     return IrcConfig(
         server=server,

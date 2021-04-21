@@ -61,11 +61,11 @@ def test_load_config():
         ),
         nickname='SpaceCowboy',
         realname='Monsieur Weitersager',
-        channels=[
+        channels={
             IrcChannel('#skyscreeners'),
             IrcChannel('#elite-astrology', password='twinkle-twinkle'),
             IrcChannel('#hubblebubble'),
-        ],
+        },
     )
 
 
@@ -99,7 +99,7 @@ def test_load_config_with_defaults():
         ),
         nickname='TownCrier',
         realname='Weitersager',
-        channels=[],
+        channels=set(),
     )
 
 
