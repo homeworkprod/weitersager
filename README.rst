@@ -86,6 +86,7 @@ An example configuration file, ``example.toml``, in TOML_ format:
    [irc.server]
    host = "irc.server.example"
    port = 6667                # optional
+   ssl = false                # optional
    password = "secret"        # optional
    rate_limit = 0.5           # optional; limit of messages per second
 

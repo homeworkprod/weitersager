@@ -6,6 +6,7 @@ api_tokens = []
 [irc.server]
 host = "irc.server.example"
 port = 6667
+ssl = false
 password = "secret"
 rate_limit = 0.5
 
