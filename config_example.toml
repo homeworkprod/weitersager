@@ -16,6 +16,6 @@ realname = "Weitersager"
 
 [irc]
 channels = [
-   { name = "#party" },
-   { name = "#secretlab", password = "555-secret" },
+  { name = "#party" },
+  { name = "#secretlab", password = "555-secret" },
 ]
