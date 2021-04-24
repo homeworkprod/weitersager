@@ -24,6 +24,7 @@ Code Status
 |badge_travis-ci_build|
 |badge_scrutinizer-ci_coverage|
 |badge_scrutinizer-ci_quality-score|
+|badge_code-climate_maintainability|
 
 .. |badge_travis-ci_build| image:: https://travis-ci.org/homeworkprod/weitersager.svg?branch=main
    :alt: Build Status
@@ -36,6 +37,10 @@ Code Status
 .. |badge_scrutinizer-ci_quality-score| image:: https://scrutinizer-ci.com/g/homeworkprod/weitersager/badges/quality-score.png?b=main
    :alt: Scrutinizer Code Quality
    :target: https://scrutinizer-ci.com/g/homeworkprod/weitersager/?branch=main
+
+.. |badge_code-climate_maintainability| image:: https://api.codeclimate.com/v1/badges/f45b29ee321c1920a85c/maintainability
+   :alt: Code Climate
+   :target: https://codeclimate.com/github/homeworkprod/weitersager
 
 
 Requirements
