@@ -42,11 +42,11 @@ Requirements
 ============
 
 - Python 3.7+
-- irc_
-- blinker_
+- Dependencies: blinker_, irc_, rtoml_
 
-.. _irc: https://bitbucket.org/jaraco/irc
 .. _blinker: http://pythonhosted.org/blinker/
+.. _irc: https://bitbucket.org/jaraco/irc
+.. _rtoml: https://github.com/samuelcolvin/rtoml
 
 
 Installation
