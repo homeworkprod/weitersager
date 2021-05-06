@@ -9,6 +9,7 @@ Command line entry point
 """
 
 from argparse import ArgumentParser, Namespace
+import logging
 from pathlib import Path
 import sys
 from typing import List
@@ -16,6 +17,7 @@ from typing import List
 from . import VERSION
 from .config import load_config
 from .processor import start
+from .util import configure_logging
 
 
 def parse_args(args: List[str]) -> Namespace:
@@ -32,6 +34,7 @@ def main() -> None:
     """Load the configuration file, start the IRC bot and HTTP listen server."""
     namespace = parse_args(sys.argv[1:])
     config = load_config(namespace.config_filename)
+    configure_logging(logging.DEBUG)
     start(config)
 
 

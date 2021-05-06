@@ -13,12 +13,16 @@ from functools import partial
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+import logging
 import sys
 from typing import Optional, Set
 
 from .config import HttpConfig
 from .signals import message_received
-from .util import log, start_thread
+from .util import start_thread
+
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -62,7 +66,9 @@ class RequestHandler(BaseHTTPRequestHandler):
             data = self.rfile.read(content_length).decode('utf-8')
             message = parse_json_message(data)
         except (KeyError, ValueError):
-            log(f'Invalid message received from {self.address_string()}.')
+            logger.info(
+                'Invalid message received from %s.', self.address_string()
+            )
             self.send_error(HTTPStatus.BAD_REQUEST)
             return
 
@@ -113,4 +119,4 @@ def start_receive_server(config: HttpConfig) -> None:
 
     thread_name = server.__class__.__name__
     start_thread(server.serve_forever, thread_name)
-    log('Listening for HTTP requests on {}:{:d}.', *server.server_address)
+    logger.info('Listening for HTTP requests on %s:%d.', *server.server_address)

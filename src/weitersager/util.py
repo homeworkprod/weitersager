@@ -8,14 +8,27 @@ Utilities
 :License: MIT, see LICENSE for details.
 """
 
-from datetime import datetime
+import logging
+from logging import Formatter, StreamHandler
 from threading import Thread
-from typing import Any, Callable, Dict
+from typing import Callable
 
 
-def log(message: str, *args: Any, **kwargs: Dict[str, Any]) -> None:
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print(timestamp, message.format(*args, **kwargs))
+def configure_logging(level: str) -> None:
+    """Configure application-specific loggers.
+
+    Setting the log level does not affect dependencies' loggers.
+    """
+    # Get the parent logger of all application-specific
+    # loggers defined in the package's modules.
+    pkg_logger = logging.getLogger(__package__)
+
+    # Configure handler that writes to STDERR.
+    handler = StreamHandler()
+    handler.setFormatter(Formatter('%(asctime)s %(levelname)-8s %(message)s'))
+    pkg_logger.addHandler(handler)
+
+    pkg_logger.setLevel(level)
 
 
 def start_thread(target: Callable, name: str) -> None:

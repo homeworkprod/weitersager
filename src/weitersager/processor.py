@@ -8,6 +8,7 @@ Connect HTTP server and IRC bot.
 :License: MIT, see LICENSE for details.
 """
 
+import logging
 from time import sleep
 from typing import Any, Optional, Set, Tuple
 
@@ -15,11 +16,12 @@ from .config import Config
 from .http import start_receive_server
 from .irc import create_bot
 from .signals import channel_joined, message_approved, message_received
-from .util import log
+
+
+logger = logging.getLogger(__name__)
 
 
 class Processor:
-
     def __init__(self) -> None:
         self.enabled_channel_names: Set[str] = set()
 
@@ -28,7 +30,7 @@ class Processor:
         message_received.connect(self.handle_message)
 
     def enable_channel(self, sender, *, channel_name=None) -> None:
-        log('Enabled forwarding to channel {}.', channel_name)
+        logger.info('Enabled forwarding to channel %s.', channel_name)
         self.enabled_channel_names.add(channel_name)
 
     def handle_message(
@@ -42,16 +44,16 @@ class Processor:
         """Log and announce an incoming message."""
         source = f'{source_address[0]}:{source_address[1]:d}'
 
-        log(
-            'Received message from {} for channel {} with text "{}"',
+        logger.debug(
+            'Received message from %s for channel %s with text "%s".',
             source,
             channel_name,
             text,
         )
 
         if channel_name not in self.enabled_channel_names:
-            log(
-                'Could not send message to channel {}, not joined.',
+            logger.warning(
+                'Could not send message to channel %s, not joined.',
                 channel_name,
             )
             return
@@ -66,7 +68,7 @@ class Processor:
         except KeyboardInterrupt:
             pass
 
-        log('Shutting down ...')
+        logger.info('Shutting down ...')
 
 
 def start(config: Config) -> None:
