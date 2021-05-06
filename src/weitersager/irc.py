@@ -10,7 +10,7 @@ Internet Relay Chat
 
 import logging
 import ssl
-from typing import Any, List, Optional, Set, Union
+from typing import Any, Optional, Set, Union
 
 from irc.bot import ServerSpec, SingleServerIRCBot
 from irc.connection import Factory
@@ -73,7 +73,7 @@ class Bot(SingleServerIRCBot):
             'Connected to IRC server %s:%d.', *conn.socket.getpeername()
         )
 
-        channels = _sort_channels_by_name(self.channels_to_join)
+        channels = sorted(self.channels_to_join)
         logger.info('Channels to join: %s', ', '.join(c.name for c in channels))
 
         for channel in channels:
@@ -118,7 +118,7 @@ class DummyBot:
 
     def start(self) -> None:
         # Fake channel joins.
-        for channel in _sort_channels_by_name(self.channels):
+        for channel in sorted(self.channels):
             irc_channel_joined.send(channel_name=channel.name)
 
     def say(
@@ -133,10 +133,6 @@ class DummyBot:
     def disconnect(self, msg: str) -> None:
         # Mimics `irc.bot.SingleServerIRCBot.disconnect`.
         logger.info('Shutting down bot ...')
-
-
-def _sort_channels_by_name(channels: Set[IrcChannel]) -> List[IrcChannel]:
-    return list(sorted(channels, key=lambda c: c.name))
 
 
 def create_bot(config: IrcConfig) -> Union[Bot, DummyBot]:

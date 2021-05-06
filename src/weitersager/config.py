@@ -54,7 +54,7 @@ class IrcServer:
     rate_limit: Optional[float] = None
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, order=True)
 class IrcChannel:
     """An IRC channel."""
 
