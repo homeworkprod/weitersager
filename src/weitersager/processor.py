@@ -48,11 +48,10 @@ class Processor:
         source_address: Tuple[str, int],
     ) -> None:
         """Log and announce an incoming message."""
-        source = f'{source_address[0]}:{source_address[1]:d}'
-
         logger.debug(
-            'Received message from %s for channel %s with text "%s".',
-            source,
+            'Received message from %s:%d for channel %s with text "%s".',
+            source_address[0],
+            source_address[1],
             channel_name,
             text,
         )
