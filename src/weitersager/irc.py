@@ -17,7 +17,7 @@ from irc.connection import Factory
 from jaraco.stream.buffer import LenientDecodingLineBuffer
 
 from .config import IrcChannel, IrcConfig, IrcServer
-from .signals import channel_joined
+from .signals import irc_channel_joined
 from .util import start_thread
 
 
@@ -92,7 +92,7 @@ class Bot(SingleServerIRCBot):
 
         if joined_nick == self._nickname:
             logger.info('Joined IRC channel: %s', channel_name)
-            channel_joined.send(channel_name=channel_name)
+            irc_channel_joined.send(channel_name=channel_name)
 
     def on_badchannelkey(self, conn, event) -> None:
         """Channel could not be joined due to wrong password."""
@@ -119,7 +119,7 @@ class DummyBot:
     def start(self) -> None:
         # Fake channel joins.
         for channel in _sort_channels_by_name(self.channels):
-            channel_joined.send(channel_name=channel.name)
+            irc_channel_joined.send(channel_name=channel.name)
 
     def say(
         self,

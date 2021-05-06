@@ -11,6 +11,6 @@ Signals
 from blinker import signal
 
 
-channel_joined = signal('channel-joined')
+irc_channel_joined = signal('irc-channel-joined')
 message_received = signal('message-received')
 message_approved = signal('message-approved')

@@ -5,7 +5,7 @@
 
 from weitersager.processor import Processor
 from weitersager.signals import (
-    channel_joined,
+    irc_channel_joined,
     message_approved,
     message_received,
 )
@@ -37,7 +37,7 @@ def test_message_handled():
 
 
 def fake_channel_join(channel_name):
-    channel_joined.send(channel_name=channel_name)
+    irc_channel_joined.send(channel_name=channel_name)
 
 
 def send_message_received_signal(channel_name, text):

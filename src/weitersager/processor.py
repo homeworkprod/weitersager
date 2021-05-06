@@ -15,7 +15,7 @@ from typing import Any, Optional, Set, Tuple
 from .config import Config
 from .http import start_receive_server
 from .irc import create_bot
-from .signals import channel_joined, message_approved, message_received
+from .signals import irc_channel_joined, message_approved, message_received
 
 
 logger = logging.getLogger(__name__)
@@ -26,7 +26,7 @@ class Processor:
         self.enabled_channel_names: Set[str] = set()
 
     def connect_to_signals(self) -> None:
-        channel_joined.connect(self.enable_channel)
+        irc_channel_joined.connect(self.enable_channel)
         message_received.connect(self.handle_message)
 
     def enable_channel(self, sender, *, channel_name=None) -> None:
