@@ -48,7 +48,7 @@ class IrcServer:
     """An IRC server."""
 
     host: str
-    port: int
+    port: int = DEFAULT_IRC_SERVER_PORT
     ssl: bool = False
     password: Optional[str] = None
     rate_limit: Optional[float] = None
