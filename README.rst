@@ -73,13 +73,32 @@ Start Weitersager with a configuration file:
 
 .. code:: sh
 
-   $ weitersager example.toml
+   $ weitersager config.toml
 
 
 Configuration
 -------------
 
-An example configuration file, ``example.toml``, in TOML_ format:
+Configuration is done as a file in TOML_ format.
+
+A very basic configuration is very short. By default, the HTTP server
+runs on port 8080 on ``localhost``. All that needs to be specified are
+the IRC server host, bot nickname, and channel(s) to join.
+
+.. code:: toml
+
+   [irc.server]
+   host = "irc.server.example"
+
+   [irc.bot]
+   nickname = "Weitersager"
+
+   [irc]
+   channels = [
+     { name = "#lobby" },
+   ]
+
+A lot more can be configured, though:
 
 .. code:: toml
 
