@@ -56,6 +56,10 @@ class Processor:
             text,
         )
 
+        self.announce_message(channel_name, text)
+
+    def announce_message(self, channel_name: str, text: str) -> None:
+        """Announce message on IRC."""
         if channel_name not in self.enabled_channel_names:
             logger.warning(
                 'Could not send message to channel %s, not joined.',
