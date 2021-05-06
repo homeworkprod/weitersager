@@ -10,7 +10,7 @@ Internet Relay Chat
 
 import logging
 import ssl
-from typing import Any, Optional, Set, Union
+from typing import Set, Union
 
 from irc.bot import ServerSpec, SingleServerIRCBot
 from irc.connection import Factory
@@ -99,13 +99,7 @@ class Bot(SingleServerIRCBot):
         channel_name = event.arguments[0]
         logger.warning('Cannot join channel %s (bad key).', channel_name)
 
-    def say(
-        self,
-        sender: Optional[Any],
-        *,
-        channel_name: Optional[str] = None,
-        text: Optional[str] = None,
-    ) -> None:
+    def say(self, channel_name: str, text: str) -> None:
         """Say message on channel."""
         self.connection.privmsg(channel_name, text)
 
@@ -121,13 +115,7 @@ class DummyBot:
         for channel in sorted(self.channels):
             irc_channel_joined.send(channel_name=channel.name)
 
-    def say(
-        self,
-        sender: Optional[Any],
-        *,
-        channel_name: Optional[str] = None,
-        text: Optional[str] = None,
-    ) -> None:
+    def say(self, channel_name: str, text: str) -> None:
         logger.debug('%s> %s', channel_name, text)
 
     def disconnect(self, msg: str) -> None:

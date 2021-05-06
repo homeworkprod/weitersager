@@ -7,11 +7,7 @@ import pytest
 
 from weitersager.config import Config, HttpConfig, IrcConfig
 from weitersager.processor import Processor
-from weitersager.signals import (
-    irc_channel_joined,
-    message_approved,
-    message_received,
-)
+from weitersager.signals import irc_channel_joined, message_received
 
 
 @pytest.fixture
@@ -28,19 +24,17 @@ def test_message_handled(processor):
 
     received_signal_data = []
 
-    @message_approved.connect
-    def handle_message_approved(sender, **data):
-        received_signal_data.append(data)
+    def say(channel_name, text):
+        received_signal_data.append((channel_name, text))
+
+    processor.irc_bot.say = say
 
     fake_channel_join(channel_name)
 
     send_message_received_signal(channel_name, text)
 
     assert received_signal_data == [
-        {
-            'channel_name': channel_name,
-            'text': text,
-        },
+        (channel_name, text),
     ]
 
 

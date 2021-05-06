@@ -15,7 +15,7 @@ from typing import Any, Optional, Set, Tuple
 from .config import Config
 from .http import start_receive_server
 from .irc import create_bot
-from .signals import irc_channel_joined, message_approved, message_received
+from .signals import irc_channel_joined, message_received
 
 
 logger = logging.getLogger(__name__)
@@ -25,7 +25,6 @@ class Processor:
     def __init__(self, config: Config) -> None:
         self.config = config
         self.irc_bot = create_bot(config.irc)
-        message_approved.connect(self.irc_bot.say)
         self.enabled_channel_names: Set[str] = set()
 
         # Up to this point, no signals must have been sent.
@@ -65,7 +64,7 @@ class Processor:
             )
             return
 
-        message_approved.send(channel_name=channel_name, text=text)
+        self.irc_bot.say(channel_name, text)
 
     def run(self) -> None:
         """Run the main loop."""
