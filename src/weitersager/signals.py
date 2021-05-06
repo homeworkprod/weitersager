@@ -8,8 +8,8 @@ Signals
 :License: MIT, see LICENSE for details.
 """
 
-from blinker import signal
+from blinker import Signal
 
 
-irc_channel_joined = signal('irc-channel-joined')
-message_received = signal('message-received')
+irc_channel_joined = Signal()
+message_received = Signal()
