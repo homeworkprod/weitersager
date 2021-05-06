@@ -22,7 +22,10 @@ logger = logging.getLogger(__name__)
 
 
 class Processor:
-    def __init__(self) -> None:
+    def __init__(self, config: Config) -> None:
+        self.config = config
+        self.irc_bot = create_bot(config.irc)
+        message_approved.connect(self.irc_bot.say)
         self.enabled_channel_names: Set[str] = set()
 
         # Up to this point, no signals must have been sent.
@@ -66,6 +69,9 @@ class Processor:
 
     def run(self) -> None:
         """Run the main loop."""
+        self.irc_bot.start()
+        start_receive_server(self.config.http)
+
         try:
             while True:
                 sleep(0.5)
@@ -73,18 +79,10 @@ class Processor:
             pass
 
         logger.info('Shutting down ...')
+        self.irc_bot.disconnect('Bye.')  # Joins bot thread.
 
 
 def start(config: Config) -> None:
     """Start the IRC bot and the HTTP listen server."""
-    bot = create_bot(config.irc)
-    message_approved.connect(bot.say)
-
-    processor = Processor()
-
-    start_receive_server(config.http)
-    bot.start()
-
+    processor = Processor(config)
     processor.run()
-
-    bot.disconnect('Bye.')  # Joins bot thread.

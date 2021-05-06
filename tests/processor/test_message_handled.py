@@ -3,6 +3,9 @@
 :License: MIT, see LICENSE for details.
 """
 
+import pytest
+
+from weitersager.config import Config, HttpConfig, IrcConfig
 from weitersager.processor import Processor
 from weitersager.signals import (
     irc_channel_joined,
@@ -11,7 +14,15 @@ from weitersager.signals import (
 )
 
 
-def test_message_handled():
+@pytest.fixture
+def processor():
+    http_config = HttpConfig('localhost', 8080, set())
+    irc_config = IrcConfig(None, 'Nick', 'Nick', set())
+    config = Config(log_level="debug", http=http_config, irc=irc_config)
+    return Processor(config)
+
+
+def test_message_handled(processor):
     channel_name = '#foo'
     text = 'Knock, knock.'
 
@@ -20,8 +31,6 @@ def test_message_handled():
     @message_approved.connect
     def handle_message_approved(sender, **data):
         received_signal_data.append(data)
-
-    processor = Processor()
 
     fake_channel_join(channel_name)
 
