@@ -22,7 +22,6 @@ def test_message_handled():
         received_signal_data.append(data)
 
     processor = Processor()
-    processor.connect_to_signals()
 
     fake_channel_join(channel_name)
 

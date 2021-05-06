@@ -25,6 +25,10 @@ class Processor:
     def __init__(self) -> None:
         self.enabled_channel_names: Set[str] = set()
 
+        # Up to this point, no signals must have been sent.
+        self.connect_to_signals()
+        # Signals are allowed be sent from here on.
+
     def connect_to_signals(self) -> None:
         irc_channel_joined.connect(self.enable_channel)
         message_received.connect(self.handle_message)
@@ -77,12 +81,6 @@ def start(config: Config) -> None:
     message_approved.connect(bot.say)
 
     processor = Processor()
-
-    # Up to this point, no signals must have been sent.
-
-    processor.connect_to_signals()
-
-    # Signals are allowed be sent from here on.
 
     start_receive_server(config.http)
     bot.start()
