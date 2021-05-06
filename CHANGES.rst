@@ -10,6 +10,8 @@ Unreleased
 - Switched to using Python's logging mechanism directly, with different
   log levels. Removed function ``util.log``.
 
+- Made the application's log level configurable.
+
 - Updated rtoml to 0.6.1 (from 0.5.0).
 
 

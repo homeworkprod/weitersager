@@ -15,6 +15,8 @@ from weitersager.config import (
 
 
 TOML_CONFIG = '''\
+log_level = "warning"
+
 [http]
 host = "0.0.0.0"
 port = 55555
@@ -44,6 +46,8 @@ def test_load_config():
     toml = StringIO(TOML_CONFIG)
 
     config = load_config(toml)
+
+    assert config.log_level == "WARNING"
 
     assert config.http == HttpConfig(
         host='0.0.0.0',
@@ -82,6 +86,8 @@ def test_load_config_with_defaults():
     toml = StringIO(TOML_CONFIG_WITH_DEFAULTS)
 
     config = load_config(toml)
+
+    assert config.log_level == "DEBUG"
 
     assert config.http == HttpConfig(
         host='127.0.0.1',

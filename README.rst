@@ -83,6 +83,8 @@ An example configuration file, ``example.toml``, in TOML_ format:
 
 .. code:: toml
 
+   log_level = "debug"        # optional
+
    [http]
    host = "127.0.0.1"         # optional
    port = 8080                # optional

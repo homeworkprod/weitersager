@@ -10,6 +10,7 @@ Configuration loading
 
 from __future__ import annotations
 from dataclasses import dataclass
+import logging
 from pathlib import Path
 from typing import Any, Dict, Iterator, Optional, Set
 
@@ -22,8 +23,13 @@ DEFAULT_IRC_SERVER_PORT = 6667
 DEFAULT_IRC_REALNAME = 'Weitersager'
 
 
+class ConfigurationError(Exception):
+    """Indicates a configuration error."""
+
+
 @dataclass(frozen=True)
 class Config:
+    log_level: str
     http: HttpConfig
     irc: IrcConfig
 
@@ -70,13 +76,24 @@ def load_config(path: Path) -> Config:
     """Load configuration from file."""
     data = rtoml.load(path)
 
+    log_level = _get_log_level(data)
     http_config = _get_http_config(data)
     irc_config = _get_irc_config(data)
 
     return Config(
+        log_level=log_level,
         http=http_config,
         irc=irc_config,
     )
+
+
+def _get_log_level(data: Dict[str, Any]) -> str:
+    level = data.get('log_level', 'debug').upper()
+
+    if level not in {'CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'}:
+        raise ConfigurationError(f'Unknown log level "{level}"')
+
+    return level
 
 
 def _get_http_config(data: Dict[str, Any]) -> HttpConfig:
