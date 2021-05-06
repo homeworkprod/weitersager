@@ -12,6 +12,9 @@ Unreleased
 
 - Made the application's log level configurable.
 
+- Introduced an internal queue to decouple reception of HTTP requests
+  from announcing messages on IRC.
+
 - Updated rtoml to 0.6.1 (from 0.5.0).
 
 

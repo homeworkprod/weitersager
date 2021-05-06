@@ -33,6 +33,8 @@ def test_message_handled(processor):
 
     send_message_received_signal(channel_name, text)
 
+    processor.process_queue(timeout_seconds=1)
+
     assert received_signal_data == [
         (channel_name, text),
     ]

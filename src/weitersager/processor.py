@@ -9,7 +9,7 @@ Connect HTTP server and IRC bot.
 """
 
 import logging
-from time import sleep
+from queue import SimpleQueue
 from typing import Any, Optional, Set, Tuple
 
 from .config import Config
@@ -26,6 +26,7 @@ class Processor:
         self.config = config
         self.irc_bot = create_bot(config.irc)
         self.enabled_channel_names: Set[str] = set()
+        self.message_queue: SimpleQueue = SimpleQueue()
 
         # Up to this point, no signals must have been sent.
         self.connect_to_signals()
@@ -56,7 +57,7 @@ class Processor:
             text,
         )
 
-        self.announce_message(channel_name, text)
+        self.message_queue.put((channel_name, text))
 
     def announce_message(self, channel_name: str, text: str) -> None:
         """Announce message on IRC."""
@@ -69,6 +70,11 @@ class Processor:
 
         self.irc_bot.say(channel_name, text)
 
+    def process_queue(self, timeout_seconds: Optional[int] = None) -> None:
+        """Process a message from the queue."""
+        channel_name, text = self.message_queue.get(timeout=timeout_seconds)
+        self.announce_message(channel_name, text)
+
     def run(self) -> None:
         """Run the main loop."""
         self.irc_bot.start()
@@ -76,7 +82,7 @@ class Processor:
 
         try:
             while True:
-                sleep(0.5)
+                self.process_queue()
         except KeyboardInterrupt:
             pass
 
