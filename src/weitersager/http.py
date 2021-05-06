@@ -11,7 +11,7 @@ HTTP server to receive messages
 from dataclasses import dataclass
 from functools import partial
 from http import HTTPStatus
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import logging
 import sys
@@ -97,11 +97,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         return 'Weitersager'
 
 
-def create_server(config: HttpConfig) -> HTTPServer:
+def create_server(config: HttpConfig) -> ThreadingHTTPServer:
     """Create the HTTP server."""
     address = (config.host, config.port)
     handler_class = partial(RequestHandler, config.api_tokens)
-    return HTTPServer(address, handler_class)
+    return ThreadingHTTPServer(address, handler_class)
 
 
 def start_receive_server(config: HttpConfig) -> None:

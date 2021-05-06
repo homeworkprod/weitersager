@@ -12,6 +12,8 @@ Unreleased
 
 - Made the application's log level configurable.
 
+- Enabled threading for the HTTP server to reduce blocking.
+
 - Introduced an internal queue to decouple reception of HTTP requests
   from announcing messages on IRC.
 
