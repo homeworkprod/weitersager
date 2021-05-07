@@ -73,7 +73,7 @@ Start Weitersager with a configuration file:
 
 .. code:: sh
 
-   $ weitersager config.toml
+    $ weitersager config.toml
 
 
 Configuration
@@ -87,44 +87,44 @@ the IRC server host, bot nickname, and channel(s) to join.
 
 .. code:: toml
 
-   [irc.server]
-   host = "irc.server.example"
+    [irc.server]
+    host = "irc.server.example"
 
-   [irc.bot]
-   nickname = "Weitersager"
+    [irc.bot]
+    nickname = "Weitersager"
 
-   [irc]
-   channels = [
-     { name = "#lobby" },
-   ]
+    [irc]
+    channels = [
+      { name = "#lobby" },
+    ]
 
 A lot more can be configured, though:
 
 .. code:: toml
 
-   log_level = "debug"        # optional
+    log_level = "debug"         # optional
 
-   [http]
-   host = "127.0.0.1"         # optional
-   port = 8080                # optional
-   api_tokens = [ "123xyz" ]  # optional
+    [http]
+    host = "127.0.0.1"          # optional
+    port = 8080                 # optional
+    api_tokens = [ "123xyz" ]   # optional
 
-   [irc.server]
-   host = "irc.server.example"
-   port = 6667                # optional
-   ssl = false                # optional
-   password = "secret"        # optional
-   rate_limit = 0.5           # optional; limit of messages per second
+    [irc.server]
+    host = "irc.server.example"
+    port = 6667                 # optional
+    ssl = false                 # optional
+    password = "secret"         # optional
+    rate_limit = 0.5            # optional; limit of messages per second
 
-   [irc.bot]
-   nickname = "Weitersager"
-   realname = "Weitersager"   # optional
+    [irc.bot]
+    nickname = "Weitersager"
+    realname = "Weitersager"    # optional
 
-   [irc]
-   channels = [
-     { name = "#party" },
-     { name = "#secretlab", password = "555-secret" },
-   ]
+    [irc]
+    channels = [
+      { name = "#party" },
+      { name = "#secretlab", password = "555-secret" },
+    ]
 
 .. _TOML: https://toml.io/
 
@@ -176,8 +176,8 @@ configured. A command line tool is provided to generate secure tokens:
 
 .. code:: sh
 
-   $ weitersager-token
-   e72CbijlYLqjaRIv0uMNBpgZKl397FEp-Y8PNEXn5vM
+    $ weitersager-token
+    e72CbijlYLqjaRIv0uMNBpgZKl397FEp-Y8PNEXn5vM
 
 Multiple API tokens can be configured so that each legitimate client
 can be given its own token which can than be revoked (by removing it
@@ -187,19 +187,19 @@ Header format:
 
 .. code:: http
 
-   Authorization: Token <a token of your choosing>
+    Authorization: Token <a token of your choosing>
 
 Example authorization header:
 
 .. code:: http
 
-   Authorization: Token e72CbijlYLqjaRIv0uMNBpgZKl397FEp-Y8PNEXn5vM
+    Authorization: Token e72CbijlYLqjaRIv0uMNBpgZKl397FEp-Y8PNEXn5vM
 
 Example HTTPie_ call with authorization header:
 
 .. code:: sh
 
-   $ http --json post :8080 Authorization:'Token e72CbijlYLqjaRIv0uMNBpgZKl397FEp-Y8PNEXn5vM' channel='#party' text='Oh yeah!'
+    $ http --json post :8080 Authorization:'Token e72CbijlYLqjaRIv0uMNBpgZKl397FEp-Y8PNEXn5vM' channel='#party' text='Oh yeah!'
 
 Note that Weitersager itself only uses unencrypted HTTP, so the API
 tokens are passed in the clear. That might suffice if you run it on the
