@@ -5,7 +5,7 @@ Weitersager Changelog
 Version 0.6
 -----------
 
-Unreleased
+Released 2021-05-07
 
 - Switched to using Python's logging mechanism directly, with different
   log levels. Removed function ``util.log``.
