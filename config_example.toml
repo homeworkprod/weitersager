@@ -17,6 +17,9 @@ nickname = "Weitersager"
 realname = "Weitersager"
 
 [irc]
+commands = [
+  "MODE Weitersager +i",
+]
 channels = [
   { name = "#party" },
   { name = "#secretlab", password = "555-secret" },

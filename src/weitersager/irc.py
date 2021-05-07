@@ -10,7 +10,7 @@ Internet Relay Chat
 
 import logging
 import ssl
-from typing import Set, Union
+from typing import List, Set, Union
 
 from irc.bot import ServerSpec, SingleServerIRCBot
 from irc.connection import Factory
@@ -32,6 +32,7 @@ class Bot(SingleServerIRCBot):
         server: IrcServer,
         nickname: str,
         realname: str,
+        commands: List[str],
         channels: Set[IrcChannel],
     ) -> None:
         logger.info(
@@ -53,6 +54,8 @@ class Bot(SingleServerIRCBot):
         else:
             logger.info('No IRC send rate limit set.')
 
+        self.commands = commands
+
         # Avoid `UnicodeDecodeError` on non-UTF-8 messages.
         self.connection.buffer_class = LenientDecodingLineBuffer
 
@@ -73,7 +76,13 @@ class Bot(SingleServerIRCBot):
             'Connected to IRC server %s:%d.', *conn.socket.getpeername()
         )
 
+        self._send_custom_commands_after_welcome(conn)
         self._join_channels(conn)
+
+    def _send_custom_commands_after_welcome(self, conn):
+        """Send custom commands after having been welcomed by the server."""
+        for command in self.commands:
+            conn.send_raw(command)
 
     def _join_channels(self, conn):
         """Join the configured channels."""
@@ -133,4 +142,10 @@ def create_bot(config: IrcConfig) -> Union[Bot, DummyBot]:
         logger.info('No IRC server specified; will write to STDOUT instead.')
         return DummyBot(config.channels)
 
-    return Bot(config.server, config.nickname, config.realname, config.channels)
+    return Bot(
+        config.server,
+        config.nickname,
+        config.realname,
+        config.commands,
+        config.channels,
+    )

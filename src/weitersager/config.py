@@ -12,7 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import logging
 from pathlib import Path
-from typing import Any, Dict, Iterator, Optional, Set
+from typing import Any, Dict, Iterator, List, Optional, Set
 
 import rtoml
 
@@ -69,6 +69,7 @@ class IrcConfig:
     server: Optional[IrcServer]
     nickname: str
     realname: str
+    commands: List[str]
     channels: Set[IrcChannel]
 
 
@@ -112,12 +113,14 @@ def _get_irc_config(data: Dict[str, Any]) -> IrcConfig:
     server = _get_irc_server(data_irc)
     nickname = data_irc['bot']['nickname']
     realname = data_irc['bot'].get('realname', DEFAULT_IRC_REALNAME)
+    commands = data_irc.get('commands', [])
     channels = set(_get_irc_channels(data_irc))
 
     return IrcConfig(
         server=server,
         nickname=nickname,
         realname=realname,
+        commands=commands,
         channels=channels,
     )
 

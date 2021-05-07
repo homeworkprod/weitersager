@@ -34,6 +34,9 @@ nickname = "SpaceCowboy"
 realname = "Monsieur Weitersager"
 
 [irc]
+commands = [
+  "MODE SpaceCowboy +i",
+]
 channels = [
     { name = "#skyscreeners" },
     { name = "#elite-astrology", password = "twinkle-twinkle" },
@@ -65,6 +68,9 @@ def test_load_config():
         ),
         nickname='SpaceCowboy',
         realname='Monsieur Weitersager',
+        commands=[
+            'MODE SpaceCowboy +i',
+        ],
         channels={
             IrcChannel('#skyscreeners'),
             IrcChannel('#elite-astrology', password='twinkle-twinkle'),
@@ -105,6 +111,7 @@ def test_load_config_with_defaults():
         ),
         nickname='TownCrier',
         realname='Weitersager',
+        commands=[],
         channels=set(),
     )
 

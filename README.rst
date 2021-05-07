@@ -121,6 +121,9 @@ A lot more can be configured, though:
     realname = "Weitersager"    # optional
 
     [irc]
+    commands = [                # optional
+      "MODE Weitersager +i",
+    ]
     channels = [
       { name = "#party" },
       { name = "#secretlab", password = "555-secret" },

@@ -36,6 +36,7 @@ def create_processor():
         server=None,
         nickname='nick',
         realname='Nick',
+        commands=[],
         channels=set(),
     )
 

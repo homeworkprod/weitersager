@@ -17,6 +17,9 @@ Unreleased
 - Introduced an internal queue to decouple reception of HTTP requests
   from announcing messages on IRC.
 
+- Added support for custom IRC commands to send after connecting
+  (authentication, cloaking, flood protection, etc.).
+
 - Updated rtoml to 0.6.1 (from 0.5.0).
 
 

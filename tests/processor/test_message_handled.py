@@ -13,8 +13,17 @@ from weitersager.signals import irc_channel_joined, message_received
 @pytest.fixture
 def processor():
     http_config = HttpConfig('localhost', 8080, set())
-    irc_config = IrcConfig(None, 'Nick', 'Nick', set())
+
+    irc_config = IrcConfig(
+        server=None,
+        nickname='Nick',
+        realname='Nick',
+        commands=[],
+        channels=set(),
+    )
+
     config = Config(log_level="debug", http=http_config, irc=irc_config)
+
     return Processor(config)
 
 
