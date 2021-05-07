@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-RUN pip install weitersager==0.6
+RUN pip install weitersager==0.7
 
 COPY ./config.toml .
 
