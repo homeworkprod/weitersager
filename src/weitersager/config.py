@@ -12,7 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import logging
 from pathlib import Path
-from typing import Any, Dict, Iterator, List, Optional, Set
+from typing import Any, Iterator, Optional
 
 import rtoml
 
@@ -40,7 +40,7 @@ class HttpConfig:
 
     host: str
     port: int
-    api_tokens: Set[str]
+    api_tokens: set[str]
 
 
 @dataclass(frozen=True)
@@ -69,8 +69,8 @@ class IrcConfig:
     server: Optional[IrcServer]
     nickname: str
     realname: str
-    commands: List[str]
-    channels: Set[IrcChannel]
+    commands: list[str]
+    channels: set[IrcChannel]
 
 
 def load_config(path: Path) -> Config:
@@ -88,7 +88,7 @@ def load_config(path: Path) -> Config:
     )
 
 
-def _get_log_level(data: Dict[str, Any]) -> str:
+def _get_log_level(data: dict[str, Any]) -> str:
     level = data.get('log_level', 'debug').upper()
 
     if level not in {'CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'}:
@@ -97,7 +97,7 @@ def _get_log_level(data: Dict[str, Any]) -> str:
     return level
 
 
-def _get_http_config(data: Dict[str, Any]) -> HttpConfig:
+def _get_http_config(data: dict[str, Any]) -> HttpConfig:
     data_http = data.get('http', {})
 
     host = data_http.get('host', DEFAULT_HTTP_HOST)
@@ -107,7 +107,7 @@ def _get_http_config(data: Dict[str, Any]) -> HttpConfig:
     return HttpConfig(host, port, api_tokens)
 
 
-def _get_irc_config(data: Dict[str, Any]) -> IrcConfig:
+def _get_irc_config(data: dict[str, Any]) -> IrcConfig:
     data_irc = data['irc']
 
     server = _get_irc_server(data_irc)

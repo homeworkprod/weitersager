@@ -8,10 +8,10 @@ Command line entry point
 :License: MIT, see LICENSE for details.
 """
 
+from __future__ import annotations
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
 import sys
-from typing import List
 
 from . import VERSION
 from .config import load_config
@@ -19,7 +19,7 @@ from .processor import start
 from .util import configure_logging
 
 
-def parse_args(args: List[str]) -> Namespace:
+def parse_args(args: list[str]) -> Namespace:
     """Parse command line arguments."""
     parser = ArgumentParser()
     parser.add_argument(

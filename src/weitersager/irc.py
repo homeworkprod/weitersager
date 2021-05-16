@@ -8,9 +8,10 @@ Internet Relay Chat
 :License: MIT, see LICENSE for details.
 """
 
+from __future__ import annotations
 import logging
 import ssl
-from typing import List, Set, Union
+from typing import Union
 
 from irc.bot import ServerSpec, SingleServerIRCBot
 from irc.connection import Factory
@@ -32,8 +33,8 @@ class Bot(SingleServerIRCBot):
         server: IrcServer,
         nickname: str,
         realname: str,
-        commands: List[str],
-        channels: Set[IrcChannel],
+        commands: list[str],
+        channels: set[IrcChannel],
     ) -> None:
         logger.info(
             'Connecting to IRC server %s:%d ...', server.host, server.port
@@ -120,7 +121,7 @@ class Bot(SingleServerIRCBot):
 class DummyBot:
     """A fake bot that writes messages to STDOUT."""
 
-    def __init__(self, channels: Set[IrcChannel]) -> None:
+    def __init__(self, channels: set[IrcChannel]) -> None:
         self.channels = channels
 
     def start(self) -> None:

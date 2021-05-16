@@ -8,9 +8,10 @@ Connect HTTP server and IRC bot.
 :License: MIT, see LICENSE for details.
 """
 
+from __future__ import annotations
 import logging
 from queue import SimpleQueue
-from typing import Any, Optional, Set, Tuple
+from typing import Any, Optional
 
 from .config import Config
 from .http import start_receive_server
@@ -25,7 +26,7 @@ class Processor:
     def __init__(self, config: Config) -> None:
         self.config = config
         self.irc_bot = create_bot(config.irc)
-        self.enabled_channel_names: Set[str] = set()
+        self.enabled_channel_names: set[str] = set()
         self.message_queue: SimpleQueue = SimpleQueue()
 
         # Up to this point, no signals must have been sent.
@@ -46,7 +47,7 @@ class Processor:
         *,
         channel_name: str,
         text: str,
-        source_address: Tuple[str, int],
+        source_address: tuple[str, int],
     ) -> None:
         """Log and announce an incoming message."""
         logger.debug(

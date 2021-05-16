@@ -8,6 +8,7 @@ HTTP server to receive messages
 :License: MIT, see LICENSE for details.
 """
 
+from __future__ import annotations
 from dataclasses import dataclass
 from functools import partial
 from http import HTTPStatus
@@ -15,7 +16,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import logging
 import sys
-from typing import Optional, Set
+from typing import Optional
 
 from .config import HttpConfig
 from .signals import message_received
@@ -44,7 +45,7 @@ def parse_json_message(json_data: str) -> Message:
 class RequestHandler(BaseHTTPRequestHandler):
     """Handler for messages submitted via HTTP."""
 
-    def __init__(self, api_tokens: Set[str], *args, **kwargs) -> None:
+    def __init__(self, api_tokens: set[str], *args, **kwargs) -> None:
         self.api_tokens = api_tokens
         super().__init__(*args, **kwargs)
 
