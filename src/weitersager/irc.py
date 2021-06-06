@@ -11,6 +11,7 @@ Internet Relay Chat
 from __future__ import annotations
 import logging
 import ssl
+from typing import Optional
 
 from irc.bot import ServerSpec, SingleServerIRCBot
 from irc.connection import Factory
@@ -84,14 +85,7 @@ class Bot(SingleServerIRCBot):
             self, [server_spec], nickname, realname, connect_factory=factory
         )
 
-        if server.rate_limit is not None:
-            logger.info(
-                'IRC send rate limit set to %.2f messages per second.',
-                server.rate_limit,
-            )
-            self.connection.set_rate_limit(server.rate_limit)
-        else:
-            logger.info('No IRC send rate limit set.')
+        _set_rate_limit(self.connection, server.rate_limit)
 
         self.commands = commands
 
@@ -150,6 +144,18 @@ class Bot(SingleServerIRCBot):
     def say(self, channel_name: str, text: str) -> None:
         """Say message on channel."""
         self.connection.privmsg(channel_name, text)
+
+
+def _set_rate_limit(connection, rate_limit: Optional[float]) -> None:
+    """Set rate limit."""
+    if rate_limit is not None:
+        logger.info(
+            'IRC send rate limit set to %.2f messages per second.',
+            rate_limit,
+        )
+        connection.set_rate_limit(rate_limit)
+    else:
+        logger.info('No IRC send rate limit set.')
 
 
 class DummyAnnouncer(Announcer):
