@@ -6,9 +6,9 @@
 import pytest
 
 from weitersager.irc import (
-    Bot,
     create_announcer,
-    DummyBot,
+    DummyAnnouncer,
+    IrcAnnouncer,
     IrcConfig,
     IrcServer,
 )
@@ -17,8 +17,8 @@ from weitersager.irc import (
 @pytest.mark.parametrize(
     'server, expected_type',
     [
-        (IrcServer('irc.server.test'), Bot),
-        (None, DummyBot),
+        (IrcServer('irc.server.test'), IrcAnnouncer),
+        (None, DummyAnnouncer),
     ],
 )
 def test_create_announcer(server, expected_type):
@@ -32,4 +32,4 @@ def test_create_announcer(server, expected_type):
 
     announcer = create_announcer(config)
 
-    assert type(announcer.bot) == expected_type
+    assert type(announcer) == expected_type

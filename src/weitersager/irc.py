@@ -11,7 +11,6 @@ Internet Relay Chat
 from __future__ import annotations
 import logging
 import ssl
-from typing import Union
 
 from irc.bot import ServerSpec, SingleServerIRCBot
 from irc.connection import Factory
@@ -28,12 +27,32 @@ logger = logging.getLogger(__name__)
 class Announcer:
     """An announcer."""
 
-    def __init__(self, bot: Union[Bot, DummyBot]) -> None:
-        self.bot = bot
-
     def start(self) -> None:
         """Start the announcer."""
-        self.bot.start()
+
+    def announce(self, channel_name: str, text: str) -> None:
+        """Announce a message."""
+        raise NotImplementedError()
+
+    def shutdown(self) -> None:
+        """Shut the announcer down."""
+
+
+class IrcAnnouncer(Announcer):
+    """An announcer that writes messages to IRC."""
+
+    def __init__(self, config: IrcConfig) -> None:
+        self.bot = Bot(
+            config.server,
+            config.nickname,
+            config.realname,
+            config.commands,
+            config.channels,
+        )
+
+    def start(self) -> None:
+        """Connect to the server, in a separate thread."""
+        start_thread(self.bot.start)
 
     def announce(self, channel_name: str, text: str) -> None:
         """Announce a message."""
@@ -81,10 +100,6 @@ class Bot(SingleServerIRCBot):
 
         # Note: `self.channels` already exists in super class.
         self.channels_to_join = channels
-
-    def start(self) -> None:
-        """Connect to the server, in a separate thread."""
-        start_thread(super().start, self.__class__.__name__)
 
     def get_version(self) -> str:
         """Return this on CTCP VERSION requests."""
@@ -137,37 +152,27 @@ class Bot(SingleServerIRCBot):
         self.connection.privmsg(channel_name, text)
 
 
-class DummyBot:
-    """A fake bot that writes messages to STDOUT."""
+class DummyAnnouncer(Announcer):
+    """An announcer that writes messages to STDOUT."""
 
     def __init__(self, channels: set[IrcChannel]) -> None:
         self.channels = channels
 
     def start(self) -> None:
+        """Start the announcer."""
         # Fake channel joins.
         for channel in sorted(self.channels):
             irc_channel_joined.send(channel_name=channel.name)
 
-    def say(self, channel_name: str, text: str) -> None:
+    def announce(self, channel_name: str, text: str) -> None:
+        """Announce a message."""
         logger.debug('%s> %s', channel_name, text)
-
-    def disconnect(self, msg: str) -> None:
-        # Mimics `irc.bot.SingleServerIRCBot.disconnect`.
-        logger.info('Shutting down bot ...')
 
 
 def create_announcer(config: IrcConfig) -> Announcer:
     """Create an announcer."""
     if config.server is None:
         logger.info('No IRC server specified; will write to STDOUT instead.')
-        bot = DummyBot(config.channels)
-    else:
-        bot = Bot(
-            config.server,
-            config.nickname,
-            config.realname,
-            config.commands,
-            config.channels,
-        )
+        return DummyAnnouncer(config.channels)
 
-    return Announcer(bot)
+    return IrcAnnouncer(config)
