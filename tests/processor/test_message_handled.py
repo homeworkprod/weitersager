@@ -33,10 +33,10 @@ def test_message_handled(processor):
 
     received_signal_data = []
 
-    def say(channel_name, text):
+    def announce(channel_name, text):
         received_signal_data.append((channel_name, text))
 
-    processor.irc_bot.say = say
+    processor.announcer.announce = announce
 
     fake_channel_join(channel_name)
 

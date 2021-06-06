@@ -7,6 +7,8 @@ Version 0.7
 
 Unreleased
 
+- Reintroduce announcer as abstraction.
+
 
 Version 0.6
 -----------

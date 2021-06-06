@@ -5,7 +5,13 @@
 
 import pytest
 
-from weitersager.irc import Bot, create_bot, DummyBot, IrcConfig, IrcServer
+from weitersager.irc import (
+    Bot,
+    create_announcer,
+    DummyBot,
+    IrcConfig,
+    IrcServer,
+)
 
 
 @pytest.mark.parametrize(
@@ -15,7 +21,7 @@ from weitersager.irc import Bot, create_bot, DummyBot, IrcConfig, IrcServer
         (None, DummyBot),
     ],
 )
-def test_create_bot(server, expected_type):
+def test_create_announcer(server, expected_type):
     config = IrcConfig(
         server=server,
         nickname='nick',
@@ -24,6 +30,6 @@ def test_create_bot(server, expected_type):
         channels=set(),
     )
 
-    bot = create_bot(config)
+    announcer = create_announcer(config)
 
-    assert type(bot) == expected_type
+    assert type(announcer.bot) == expected_type

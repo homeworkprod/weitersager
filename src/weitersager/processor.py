@@ -15,7 +15,7 @@ from typing import Any, Optional
 
 from .config import Config
 from .http import start_receive_server
-from .irc import create_bot
+from .irc import create_announcer
 from .signals import irc_channel_joined, message_received
 
 
@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class Processor:
     def __init__(self, config: Config) -> None:
         self.config = config
-        self.irc_bot = create_bot(config.irc)
+        self.announcer = create_announcer(config.irc)
         self.enabled_channel_names: set[str] = set()
         self.message_queue: SimpleQueue = SimpleQueue()
 
@@ -69,7 +69,7 @@ class Processor:
             )
             return
 
-        self.irc_bot.say(channel_name, text)
+        self.announcer.announce(channel_name, text)
 
     def process_queue(self, timeout_seconds: Optional[int] = None) -> None:
         """Process a message from the queue."""
@@ -78,7 +78,7 @@ class Processor:
 
     def run(self) -> None:
         """Run the main loop."""
-        self.irc_bot.start()
+        self.announcer.start()
         start_receive_server(self.config.http)
 
         try:
@@ -88,7 +88,7 @@ class Processor:
             pass
 
         logger.info('Shutting down ...')
-        self.irc_bot.disconnect('Bye.')  # Joins bot thread.
+        self.announcer.shutdown()
 
 
 def start(config: Config) -> None:

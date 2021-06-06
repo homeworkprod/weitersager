@@ -6,7 +6,7 @@
 from irc.client import Event, NickMask, ServerConnection
 import pytest
 
-from weitersager.irc import create_bot, IrcChannel, IrcConfig, IrcServer
+from weitersager.irc import create_announcer, IrcChannel, IrcConfig, IrcServer
 from weitersager.signals import irc_channel_joined
 
 
@@ -27,11 +27,11 @@ def config():
 
 @pytest.fixture
 def bot(config):
-    bot = create_bot(config)
+    announcer = create_announcer(config)
 
-    yield bot
+    yield announcer.bot
 
-    bot.disconnect('Done.')
+    announcer.shutdown()
 
 
 @pytest.fixture

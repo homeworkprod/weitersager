@@ -25,6 +25,25 @@ from .util import start_thread
 logger = logging.getLogger(__name__)
 
 
+class Announcer:
+    """An announcer."""
+
+    def __init__(self, bot: Union[Bot, DummyBot]) -> None:
+        self.bot = bot
+
+    def start(self) -> None:
+        """Start the announcer."""
+        self.bot.start()
+
+    def announce(self, channel_name: str, text: str) -> None:
+        """Announce a message."""
+        self.bot.say(channel_name, text)
+
+    def shutdown(self) -> None:
+        """Shut the announcer down."""
+        self.bot.disconnect('Bye.')
+
+
 class Bot(SingleServerIRCBot):
     """An IRC bot to forward messages to IRC channels."""
 
@@ -137,16 +156,18 @@ class DummyBot:
         logger.info('Shutting down bot ...')
 
 
-def create_bot(config: IrcConfig) -> Union[Bot, DummyBot]:
-    """Create and return an IRC bot according to the configuration."""
+def create_announcer(config: IrcConfig) -> Announcer:
+    """Create an announcer."""
     if config.server is None:
         logger.info('No IRC server specified; will write to STDOUT instead.')
-        return DummyBot(config.channels)
+        bot = DummyBot(config.channels)
+    else:
+        bot = Bot(
+            config.server,
+            config.nickname,
+            config.realname,
+            config.commands,
+            config.channels,
+        )
 
-    return Bot(
-        config.server,
-        config.nickname,
-        config.realname,
-        config.commands,
-        config.channels,
-    )
+    return Announcer(bot)
