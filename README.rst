@@ -10,7 +10,8 @@ Weitersager
 A proxy that receives text messages via JSON over HTTP and shows them on
 IRC.
 
-Based on syslog2IRC_.
+Weitersager emerged from syslog2IRC_ and offers a generic, not
+syslog-specific input interface.
 
 :Copyright: 2007-2021 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
 :License: MIT, see LICENSE for details.
