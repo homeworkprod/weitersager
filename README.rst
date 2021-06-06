@@ -100,10 +100,8 @@ the IRC server host, bot nickname, and channel(s) to join.
     [irc.bot]
     nickname = "Weitersager"
 
-    [irc]
-    channels = [
-      { name = "#lobby" },
-    ]
+    [[irc.channels]]
+    name = "#lobby"
 
 A lot more can be configured, though:
 
@@ -131,10 +129,13 @@ A lot more can be configured, though:
     commands = [                # optional
       "MODE Weitersager +i",
     ]
-    channels = [
-      { name = "#party" },
-      { name = "#secretlab", password = "555-secret" },
-    ]
+
+    [[irc.channels]]
+    name = "#party"
+
+    [[irc.channels]]
+    name = "#secretlab"
+    password = "555-secret"
 
 .. _TOML: https://toml.io/
 

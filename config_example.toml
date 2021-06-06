@@ -20,7 +20,10 @@ realname = "Weitersager"
 commands = [
   "MODE Weitersager +i",
 ]
-channels = [
-  { name = "#party" },
-  { name = "#secretlab", password = "555-secret" },
-]
+
+[[irc.channels]]
+name = "#party"
+
+[[irc.channels]]
+name = "#secretlab"
+password = "555-secret"

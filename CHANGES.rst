@@ -7,6 +7,9 @@ Version 0.7
 
 Unreleased
 
+- Use non-inline array of tables for IRC channels in TOML configuration
+  examples.
+
 - Reintroduce announcer as abstraction.
 
 
