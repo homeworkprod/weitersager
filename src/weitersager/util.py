@@ -11,7 +11,7 @@ Utilities
 import logging
 from logging import Formatter, StreamHandler
 from threading import Thread
-from typing import Callable
+from typing import Callable, Optional
 
 
 def configure_logging(level: str) -> None:
@@ -31,7 +31,7 @@ def configure_logging(level: str) -> None:
     pkg_logger.setLevel(level)
 
 
-def start_thread(target: Callable, name: str) -> None:
+def start_thread(target: Callable, name: Optional[str] = None) -> None:
     """Create, configure, and start a new thread."""
     t = Thread(target=target, name=name, daemon=True)
     t.start()
