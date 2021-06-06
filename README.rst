@@ -64,6 +64,12 @@ Weitersager and its dependencies can be installed via pip_:
 
     $ pip install weitersager
 
+To update an installed copy of Weitersager to the most recent release:
+
+.. code:: sh
+
+    $ pip install -U weitersager
+
 .. _pip: http://www.pip-installer.org/
 
 
