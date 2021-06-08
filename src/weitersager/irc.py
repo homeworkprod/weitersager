@@ -42,12 +42,19 @@ class Announcer:
 class IrcAnnouncer(Announcer):
     """An announcer that writes messages to IRC."""
 
-    def __init__(self, config: IrcConfig) -> None:
-        self.server = config.server
-        self.commands = config.commands
-        self.channels = config.channels
+    def __init__(
+        self,
+        server: IrcServer,
+        nickname: str,
+        realname: str,
+        commands: list[str],
+        channels: set[IrcChannel],
+    ) -> None:
+        self.server = server
+        self.commands = commands
+        self.channels = channels
 
-        self.bot = _create_bot(config.server, config.nickname, config.realname)
+        self.bot = _create_bot(server, nickname, realname)
         self.bot.on_welcome = self._on_welcome
 
     def start(self) -> None:
@@ -169,4 +176,10 @@ def create_announcer(config: IrcConfig) -> Announcer:
         logger.info('No IRC server specified; will write to STDOUT instead.')
         return DummyAnnouncer(config.channels)
 
-    return IrcAnnouncer(config)
+    return IrcAnnouncer(
+        config.server,
+        config.nickname,
+        config.realname,
+        config.commands,
+        config.channels,
+    )
