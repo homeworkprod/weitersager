@@ -12,6 +12,8 @@ Unreleased
 
 - Reintroduce announcer as abstraction.
 
+- Updated rtoml to 0.7.1 (from 0.6.1).
+
 
 Version 0.6
 -----------
