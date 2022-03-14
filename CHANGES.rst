@@ -12,6 +12,8 @@ Unreleased
 
 - Reintroduce announcer as abstraction.
 
+- Updated irc version to 20.0.0 (from 19.0.1).
+
 - Updated rtoml to 0.7.1 (from 0.6.1).
 
 
