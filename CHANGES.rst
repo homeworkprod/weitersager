@@ -7,6 +7,8 @@ Version 0.7
 
 Unreleased
 
+- Added support for Python 3.10.
+
 - Use non-inline array of tables for IRC channels in TOML configuration
   examples.
 
