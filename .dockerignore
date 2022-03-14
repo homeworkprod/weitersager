@@ -1,0 +1,15 @@
+**/__pycache__
+.coverage
+.dockerignore
+.git
+.gitignore
+.mypy_cache
+.pytest_cache
+.scrutinizer.yml
+.travis.yml
+*.egg-info
+assets
+build
+dist
+Dockerfile
+venv

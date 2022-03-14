@@ -1,3 +1,4 @@
+include .dockerignore
 include assets/weitersager_logo.svg
 include CHANGES.rst
 include Dockerfile
