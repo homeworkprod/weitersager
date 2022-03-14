@@ -13,7 +13,7 @@ IRC.
 Weitersager emerged from syslog2IRC_ and offers a generic, not
 syslog-specific input interface.
 
-:Copyright: 2007-2021 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
+:Copyright: 2007-2022 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
 :License: MIT, see LICENSE for details.
 
 .. _syslog2IRC: http://homework.nwsnet.de/releases/c474/#syslog2irc

@@ -1,5 +1,5 @@
 """
-:Copyright: 2007-2021 Jochen Kupperschmidt
+:Copyright: 2007-2022 Jochen Kupperschmidt
 :License: MIT, see LICENSE for details.
 """
 
