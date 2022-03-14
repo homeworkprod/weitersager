@@ -107,26 +107,27 @@ A lot more can be configured, though:
 
 .. code:: toml
 
-    log_level = "debug"         # optional
+    log_level = "debug"         # optional; default: `"debug"`
 
     [http]
-    host = "127.0.0.1"          # optional
-    port = 8080                 # optional
-    api_tokens = [ "123xyz" ]   # optional
+    host = "127.0.0.1"          # optional; default: `"127.0.0.1"`
+    port = 8080                 # optional; default: `8080`
+    api_tokens = [ "123xyz" ]   # optional; default: `[]`
 
     [irc.server]
     host = "irc.server.example"
-    port = 6667                 # optional
-    ssl = false                 # optional
-    password = "secret"         # optional
-    rate_limit = 0.5            # optional; limit of messages per second
+    port = 6667                 # optional; default: `6667`
+    ssl = false                 # optional; default: `false`
+    password = "secret"         # optional; default: no password
+    rate_limit = 0.5            # optional; limit of messages
+                                # per second; default: no limit
 
     [irc.bot]
     nickname = "Weitersager"
-    realname = "Weitersager"    # optional
+    realname = "Weitersager"    # optional; default: `"Weitersager"`
 
     [irc]
-    commands = [                # optional
+    commands = [                # optional; default: `[]`
       "MODE Weitersager +i",
     ]
 
