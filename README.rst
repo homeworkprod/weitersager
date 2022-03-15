@@ -168,7 +168,8 @@ The body has to be in JSON_ format and contain two keys, ``channel`` and
 
 .. _JSON: https://www.json.org/
 
-Example HTTPie_ call to send a message to Weitersager on localhost, port 8080:
+Example HTTPie_ call to send a message to Weitersager on localhost, port
+8080:
 
 .. code:: sh
 
@@ -218,6 +219,31 @@ tokens are passed in the clear. That might suffice if you run it on the
 same host as the HTTP clients. Otherwise you might want to look into
 hiding Weitersager behind a web server or proxy that can add TLS
 encryption.
+
+
+Run in a Docker Container
+=========================
+
+Build a container image, tagged ``weitersager``:
+
+.. code:: sh
+
+    $ docker build -t weitersager .
+
+Start the container, using a configuration file named ``my-config.toml``
+and with Weitersager exposed on port 8080 on localhost:
+
+.. code:: sh
+
+    $ docker run -d \
+      --mount type=bind,source="$(pwd)"/my-config.toml,destination=/home/user/config.toml,readonly \
+      -p 127.0.0.1:8080:8080 \
+      weitersager
+
+The local configuration file is made available to the container through
+a `bind mount`_.
+
+.. _bind mount: https://docs.docker.com/storage/bind-mounts/
 
 
 Implementation Details

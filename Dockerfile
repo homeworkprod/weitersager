@@ -8,8 +8,6 @@ ENV PATH /home/user/.local/bin:$PATH
 
 RUN pip install weitersager==0.7
 
-COPY ./config.toml .
-
 EXPOSE 8080
 
 CMD ["weitersager", "config.toml"]
