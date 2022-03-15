@@ -22,14 +22,14 @@ syslog-specific input interface.
 Code Status
 ===========
 
-|badge_travis-ci_build|
+|badge_github-actions_test|
 |badge_scrutinizer-ci_coverage|
 |badge_scrutinizer-ci_quality-score|
 |badge_code-climate_maintainability|
 
-.. |badge_travis-ci_build| image:: https://travis-ci.org/homeworkprod/weitersager.svg?branch=main
-   :alt: Build Status
-   :target: https://travis-ci.org/homeworkprod/weitersager
+.. |badge_github-actions_test| image:: https://github.com/homeworkprod/weitersager/actions/workflows/test.yml/badge.svg
+   :alt: Testing Status
+   :target: https://github.com/homeworkprod/weitersager/actions/workflows/test.yml
 
 .. |badge_scrutinizer-ci_coverage| image:: https://scrutinizer-ci.com/g/homeworkprod/weitersager/badges/coverage.png?b=main
    :alt: Scrutinizer Code Coverage

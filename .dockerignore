@@ -2,11 +2,11 @@
 .coverage
 .dockerignore
 .git
+.github
 .gitignore
 .mypy_cache
 .pytest_cache
 .scrutinizer.yml
-.travis.yml
 *.egg-info
 assets
 build
