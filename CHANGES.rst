@@ -5,7 +5,7 @@ Weitersager Changelog
 Version 0.7
 -----------
 
-Unreleased
+Released 2022-04-26
 
 - Added support for Python 3.10.
 
