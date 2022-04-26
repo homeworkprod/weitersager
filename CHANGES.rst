@@ -9,6 +9,8 @@ Unreleased
 
 - Added support for Python 3.10.
 
+- Expect config file to be mounted into Docker container.
+
 - Use non-inline array of tables for IRC channels in TOML configuration
   examples.
 
