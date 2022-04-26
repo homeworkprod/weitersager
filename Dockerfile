@@ -6,7 +6,7 @@ USER user
 WORKDIR /home/user
 ENV PATH /home/user/.local/bin:$PATH
 
-RUN pip install weitersager==0.8-dev
+RUN pip install --no-cache-dir weitersager==0.8-dev
 
 EXPOSE 8080
 
