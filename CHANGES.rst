@@ -2,6 +2,12 @@ Weitersager Changelog
 =====================
 
 
+Version 0.8
+-----------
+
+Unreleased
+
+
 Version 0.7
 -----------
 
