@@ -7,6 +7,10 @@ Version 0.8
 
 Unreleased
 
+- Changed application path in Docker container from `/home/user` to
+  `/app`. This is relevant when mounting the configuration file into the
+  container.
+
 
 Version 0.7
 -----------

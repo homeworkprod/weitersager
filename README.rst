@@ -236,7 +236,7 @@ and with Weitersager exposed on port 8080 on localhost:
 .. code:: sh
 
     $ docker run -d \
-      --mount type=bind,source="$(pwd)"/my-config.toml,destination=/home/user/config.toml,readonly \
+      --mount type=bind,source="$(pwd)"/my-config.toml,destination=/app/config.toml,readonly \
       -p 127.0.0.1:8080:8080 \
       weitersager
 
