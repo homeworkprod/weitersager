@@ -7,6 +7,8 @@ Version 0.8
 
 Unreleased
 
+- Added Docker-specific configuration file example.
+
 
 Version 0.7.1
 -------------

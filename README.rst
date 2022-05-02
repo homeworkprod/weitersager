@@ -230,14 +230,16 @@ Build a container image, tagged ``weitersager``:
 
     $ docker build -t weitersager .
 
-Start the container, using a configuration file named ``my-config.toml``
-and with Weitersager exposed on port 8080 on host ``0.0.0.0``:
+Start the container, using configuration file
+``config_example_docker.toml`` (which should expose Weitersager *inside
+the container* on host ``0.0.0.0`` and port 8080), exposing Weitersager
+*on the Docker host* on host ``127.0.0.1`` and port 9000:
 
 .. code:: sh
 
     $ docker run -d \
-      --mount type=bind,source="$(pwd)"/my-config.toml,destination=/app/config.toml,readonly \
-      -p 127.0.0.1:8080:8080 \
+      --mount type=bind,source="$(pwd)"/config_example_docker.toml,destination=/app/config.toml,readonly \
+      -p 127.0.0.1:9000:8080 \
       weitersager
 
 The local configuration file is made available to the container through
