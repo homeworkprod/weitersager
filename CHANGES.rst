@@ -2,30 +2,24 @@ Changelog
 =========
 
 
-0.8
----
-
-Unreleased
+0.8 (unreleased)
+----------------
 
 - Added Docker-specific configuration file example.
 
 - Added configuration file for Docker Compose.
 
 
-0.7.1
------
-
-Released 2022-04-27
+0.7.1 (2022-04-27)
+------------------
 
 - Changed application path in Docker container from `/home/user` to
   `/app`. This is relevant when mounting the configuration file into the
   container.
 
 
-0.7
----
-
-Released 2022-04-26
+0.7 (2022-04-26)
+----------------
 
 - Added support for Python 3.10.
 
@@ -41,10 +35,8 @@ Released 2022-04-26
 - Updated rtoml to 0.7.1 (from 0.6.1).
 
 
-0.6
----
-
-Released 2021-05-07
+0.6 (2021-05-07)
+----------------
 
 - Switched to using Python's logging mechanism directly, with different
   log levels. Removed function ``util.log``.
@@ -62,10 +54,8 @@ Released 2021-05-07
 - Updated rtoml to 0.6.1 (from 0.5.0).
 
 
-0.5
----
-
-Released 2021-02-07
+0.5 (2021-02-07)
+----------------
 
 - Added support for Python 3.9.
 
@@ -84,10 +74,8 @@ Released 2021-02-07
 - Include tests and other useful files in source distribution archive.
 
 
-0.4
----
-
-Released 2020-10-11
+0.4 (2020-10-11)
+----------------
 
 - Added command line tool to generate secure tokens (which can be used as
   API tokens).
@@ -103,10 +91,8 @@ Released 2020-10-11
 - Updated rtoml to 0.4.0 (from 0.3.0).
 
 
-0.3
----
-
-Released 2020-09-16
+0.3 (2020-09-16)
+----------------
 
 - Introduced TOML-based configuration file.
 
@@ -130,10 +116,8 @@ Released 2020-09-16
 - Added optional HTTP authorization via API tokens.
 
 
-0.2
----
-
-Released 2020-09-13
+0.2 (2020-09-13)
+----------------
 
 - Raised minimum Python version to 3.7.
 
@@ -161,9 +145,7 @@ Released 2020-09-13
 - Allowed for custom shutdown predicate.
 
 
-0.1
----
+0.1 (2015-04-24)
+----------------
 
-Released 2015-04-24 at LANresort 2015
-
-- First official release
+- First official release (at LANresort 2015)
