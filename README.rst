@@ -231,7 +231,7 @@ Build a container image, tagged ``weitersager``:
     $ docker build -t weitersager .
 
 Start the container, using a configuration file named ``my-config.toml``
-and with Weitersager exposed on port 8080 on localhost:
+and with Weitersager exposed on port 8080 on host ``0.0.0.0``:
 
 .. code:: sh
 
