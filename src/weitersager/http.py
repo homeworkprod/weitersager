@@ -53,13 +53,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         if self.api_tokens:
             api_token = self._get_api_token()
             if not api_token:
-                self.send_response(HTTPStatus.UNAUTHORIZED)
-                self.end_headers()
+                self.send_error(HTTPStatus.UNAUTHORIZED)
                 return
 
             if api_token not in self.api_tokens:
-                self.send_response(HTTPStatus.FORBIDDEN)
-                self.end_headers()
+                self.send_error(HTTPStatus.FORBIDDEN)
                 return
 
         try:
