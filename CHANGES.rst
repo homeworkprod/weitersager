@@ -5,6 +5,8 @@ Changelog
 0.8 (unreleased)
 ----------------
 
+- Return status code 404 on requests to any path other than ``/``.
+
 - Added Docker-specific configuration file example.
 
 - Added configuration file for Docker Compose.

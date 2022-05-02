@@ -50,6 +50,10 @@ class RequestHandler(BaseHTTPRequestHandler):
         super().__init__(*args, **kwargs)
 
     def do_POST(self) -> None:
+        if self.path != '/':
+            self.send_error(HTTPStatus.NOT_FOUND)
+            return
+
         if self.api_tokens:
             api_token = self._get_api_token()
             if not api_token:

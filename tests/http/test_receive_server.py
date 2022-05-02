@@ -107,6 +107,19 @@ def test_restricted_access_with_valid_api_token(restricted_server):
     assert response.code == 202
 
 
+# unknown URL path
+
+
+def test_unsupported_url_path(server):
+    url = get_server_url(server) + 'foo'
+    request = Request(url, method='POST')
+
+    with pytest.raises(HTTPError) as excinfo:
+        urlopen(request)
+
+    assert excinfo.value.code == 404
+
+
 # response headers
 
 
