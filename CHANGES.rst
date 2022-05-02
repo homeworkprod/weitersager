@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-Version 0.8
------------
+0.8
+---
 
 Unreleased
 
@@ -12,8 +12,8 @@ Unreleased
 - Added configuration file for Docker Compose.
 
 
-Version 0.7.1
--------------
+0.7.1
+-----
 
 Released 2022-04-27
 
@@ -22,8 +22,8 @@ Released 2022-04-27
   container.
 
 
-Version 0.7
------------
+0.7
+---
 
 Released 2022-04-26
 
@@ -41,8 +41,8 @@ Released 2022-04-26
 - Updated rtoml to 0.7.1 (from 0.6.1).
 
 
-Version 0.6
------------
+0.6
+---
 
 Released 2021-05-07
 
@@ -62,8 +62,8 @@ Released 2021-05-07
 - Updated rtoml to 0.6.1 (from 0.5.0).
 
 
-Version 0.5
------------
+0.5
+---
 
 Released 2021-02-07
 
@@ -84,8 +84,8 @@ Released 2021-02-07
 - Include tests and other useful files in source distribution archive.
 
 
-Version 0.4
------------
+0.4
+---
 
 Released 2020-10-11
 
@@ -103,8 +103,8 @@ Released 2020-10-11
 - Updated rtoml to 0.4.0 (from 0.3.0).
 
 
-Version 0.3
------------
+0.3
+---
 
 Released 2020-09-16
 
@@ -130,8 +130,8 @@ Released 2020-09-16
 - Added optional HTTP authorization via API tokens.
 
 
-Version 0.2
------------
+0.2
+---
 
 Released 2020-09-13
 
@@ -161,8 +161,8 @@ Released 2020-09-13
 - Allowed for custom shutdown predicate.
 
 
-Version 0.1
------------
+0.1
+---
 
 Released 2015-04-24 at LANresort 2015
 
