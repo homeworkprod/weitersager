@@ -9,6 +9,8 @@ Unreleased
 
 - Added Docker-specific configuration file example.
 
+- Added configuration file for Docker Compose.
+
 
 Version 0.7.1
 -------------

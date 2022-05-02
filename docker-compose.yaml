@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  weitersager:
+    image: ghcr.io/homeworkprod/weitersager:v0.7.1
+    ports:
+      - "127.0.0.1:9000:8080"
+    volumes:
+      - type: bind
+        source: ./config_example_docker.toml
+        target: /app/config.toml
+        read_only: true
+    restart: unless-stopped

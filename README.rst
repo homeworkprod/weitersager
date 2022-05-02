@@ -248,6 +248,18 @@ a `bind mount`_.
 .. _bind mount: https://docs.docker.com/storage/bind-mounts/
 
 
+Using Docker Compose
+--------------------
+
+A configuration file for Docker Compose, ``docker-compose.yaml``, is
+also available. Adjust as necessary, then run Weitersager in a container
+using:
+
+.. code:: sh
+
+    $ docker-compose up
+
+
 Implementation Details
 ======================
 
