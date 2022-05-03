@@ -5,6 +5,10 @@ Changelog
 0.8 (unreleased)
 ----------------
 
+
+0.7.2 (2022-05-03)
+------------------
+
 - Return status code 404 on requests to any path other than ``/``.
 
 - Added Docker-specific configuration file example.
