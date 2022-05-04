@@ -48,11 +48,12 @@ Requirements
 ============
 
 - Python 3.7+
-- Dependencies: blinker_, irc_, rtoml_
+- Dependencies: blinker_, irc_, rtoml_, Werkzeug_
 
 .. _blinker: http://pythonhosted.org/blinker/
 .. _irc: https://bitbucket.org/jaraco/irc
 .. _rtoml: https://github.com/samuelcolvin/rtoml
+.. _Werkzeug: https://palletsprojects.com/p/werkzeug/
 
 
 Installation
