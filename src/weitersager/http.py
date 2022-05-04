@@ -45,7 +45,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             return
 
         if self.api_tokens:
-            api_token = self._get_api_token()
+            api_token = _get_api_token(self.headers)
             if not api_token:
                 self.send_error(HTTPStatus.UNAUTHORIZED)
                 return
@@ -78,20 +78,21 @@ class RequestHandler(BaseHTTPRequestHandler):
             source_address=self.client_address,
         )
 
-    def _get_api_token(self) -> Optional[str]:
-        authorization_value = self.headers.get('Authorization')
-        if not authorization_value:
-            return None
-
-        prefix = 'Token '
-        if not authorization_value.startswith(prefix):
-            return None
-
-        return authorization_value[len(prefix) :]
-
     def version_string(self) -> str:
         """Return custom server version string."""
         return 'Weitersager'
+
+
+def _get_api_token(headers) -> Optional[str]:
+    authorization_value = headers.get('Authorization')
+    if not authorization_value:
+        return None
+
+    prefix = 'Token '
+    if not authorization_value.startswith(prefix):
+        return None
+
+    return authorization_value[len(prefix) :]
 
 
 def _parse_json_message(json_data: str) -> Message:
