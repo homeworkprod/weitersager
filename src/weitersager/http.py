@@ -10,13 +10,15 @@ HTTP server to receive messages
 
 from __future__ import annotations
 from dataclasses import dataclass
-from functools import partial
 from http import HTTPStatus
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-import json
 import logging
 import sys
 from typing import Optional
+from wsgiref.simple_server import make_server, ServerHandler, WSGIServer
+
+from werkzeug.exceptions import abort, HTTPException
+from werkzeug.routing import Map, Rule
+from werkzeug.wrappers import Request, Response
 
 from .config import HttpConfig
 from .signals import message_received
@@ -32,55 +34,60 @@ class Message:
     text: str
 
 
-class RequestHandler(BaseHTTPRequestHandler):
-    """Handler for messages submitted via HTTP."""
+def create_app(api_tokens: set[str]):
+    return Application(api_tokens)
 
-    def __init__(self, api_tokens: set[str], *args, **kwargs) -> None:
-        self.api_tokens = api_tokens
-        super().__init__(*args, **kwargs)
 
-    def do_POST(self) -> None:
-        if self.path != '/':
-            self.send_error(HTTPStatus.NOT_FOUND)
-            return
+class Application:
+    def __init__(self, api_tokens: set[str]):
+        self._api_tokens = api_tokens
 
-        if self.api_tokens:
-            api_token = _get_api_token(self.headers)
+        self._url_map = Map(
+            [
+                Rule('/', endpoint='root'),
+            ]
+        )
+
+    def __call__(self, environ, start_response):
+        return self.wsgi_app(environ, start_response)
+
+    @Request.application
+    def wsgi_app(self, request):
+        adapter = self._url_map.bind_to_environ(request.environ)
+        try:
+            endpoint, values = adapter.match()
+            handler = getattr(self, f'on_{endpoint}')
+            return handler(request, **values)
+        except HTTPException as exc:
+            return exc
+
+    def on_root(self, request):
+        if self._api_tokens:
+            api_token = _get_api_token(request.headers)
             if not api_token:
-                self.send_error(HTTPStatus.UNAUTHORIZED)
-                return
+                abort(HTTPStatus.UNAUTHORIZED)
 
-            if api_token not in self.api_tokens:
-                self.send_error(HTTPStatus.FORBIDDEN)
-                return
+            if api_token not in self._api_tokens:
+                abort(HTTPStatus.FORBIDDEN)
 
-        if self.headers.get('Content-Type') != 'application/json':
-            self.send_error(HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
-            return
+        if not request.is_json:
+            abort(HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
 
         try:
-            content_length = int(self.headers.get('Content-Length', 0))
-            data = self.rfile.read(content_length).decode('utf-8')
-            message = _parse_json_message(data)
+            message = _parse_json_message(request.json)
         except (KeyError, ValueError):
             logger.info(
-                'Invalid message received from %s.', self.address_string()
+                'Invalid message received from %s.', request.remote_addr
             )
-            self.send_error(HTTPStatus.BAD_REQUEST)
-            return
-
-        self.send_response(HTTPStatus.ACCEPTED)
-        self.end_headers()
+            abort(HTTPStatus.BAD_REQUEST)
 
         message_received.send(
             channel_name=message.channel,
             text=message.text,
-            source_ip_address=self.client_address[0],
+            source_ip_address=request.remote_addr,
         )
 
-    def version_string(self) -> str:
-        """Return custom server version string."""
-        return 'Weitersager'
+        return Response('', status=HTTPStatus.ACCEPTED)
 
 
 def _get_api_token(headers) -> Optional[str]:
@@ -95,21 +102,23 @@ def _get_api_token(headers) -> Optional[str]:
     return authorization_value[len(prefix) :]
 
 
-def _parse_json_message(json_data: str) -> Message:
+def _parse_json_message(data: dict[str, str]) -> Message:
     """Extract message from JSON."""
-    data = json.loads(json_data)
-
     channel = data['channel']
     text = data['text']
 
     return Message(channel=channel, text=text)
 
 
-def create_server(config: HttpConfig) -> ThreadingHTTPServer:
+# Override value of `Server:` header sent by wsgiref.
+ServerHandler.server_software = 'Weitersager'
+
+
+def create_server(config: HttpConfig) -> WSGIServer:
     """Create the HTTP server."""
-    address = (config.host, config.port)
-    handler_class = partial(RequestHandler, config.api_tokens)
-    return ThreadingHTTPServer(address, handler_class)
+    app = create_app(config.api_tokens)
+
+    return make_server(config.host, config.port, app)
 
 
 def start_receive_server(config: HttpConfig) -> None:

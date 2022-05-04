@@ -5,6 +5,9 @@ Changelog
 0.8 (unreleased)
 ----------------
 
+- Recreated HTTP server as a WSGI application, built with Werkzeug and
+  served by wsgiref.
+
 - Return status code 415 ("Unsupported Media Type") if request content
   type is not ``application/json``.
 

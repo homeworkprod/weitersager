@@ -3,8 +3,6 @@
 :License: MIT, see LICENSE for details.
 """
 
-import json
-
 import pytest
 
 from weitersager.http import _parse_json_message
@@ -22,9 +20,8 @@ def test_parse_json_message(channel, text):
         'channel': channel,
         'text': text,
     }
-    json_data = json.dumps(data)
 
-    message = _parse_json_message(json_data)
+    message = _parse_json_message(data)
 
     assert message.channel == channel
     assert message.text == text
