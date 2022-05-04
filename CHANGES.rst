@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-0.8 (unreleased)
+0.8 (2022-05-04)
 ----------------
 
 - Recreated HTTP server as a WSGI application, built with Werkzeug and
