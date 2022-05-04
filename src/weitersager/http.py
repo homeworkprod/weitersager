@@ -32,16 +32,6 @@ class Message:
     text: str
 
 
-def parse_json_message(json_data: str) -> Message:
-    """Extract message from JSON."""
-    data = json.loads(json_data)
-
-    channel = data['channel']
-    text = data['text']
-
-    return Message(channel=channel, text=text)
-
-
 class RequestHandler(BaseHTTPRequestHandler):
     """Handler for messages submitted via HTTP."""
 
@@ -71,7 +61,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         try:
             content_length = int(self.headers.get('Content-Length', 0))
             data = self.rfile.read(content_length).decode('utf-8')
-            message = parse_json_message(data)
+            message = _parse_json_message(data)
         except (KeyError, ValueError):
             logger.info(
                 'Invalid message received from %s.', self.address_string()
@@ -102,6 +92,16 @@ class RequestHandler(BaseHTTPRequestHandler):
     def version_string(self) -> str:
         """Return custom server version string."""
         return 'Weitersager'
+
+
+def _parse_json_message(json_data: str) -> Message:
+    """Extract message from JSON."""
+    data = json.loads(json_data)
+
+    channel = data['channel']
+    text = data['text']
+
+    return Message(channel=channel, text=text)
 
 
 def create_server(config: HttpConfig) -> ThreadingHTTPServer:

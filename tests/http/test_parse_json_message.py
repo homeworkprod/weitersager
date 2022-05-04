@@ -7,7 +7,7 @@ import json
 
 import pytest
 
-from weitersager.http import parse_json_message
+from weitersager.http import _parse_json_message
 
 
 @pytest.mark.parametrize(
@@ -24,7 +24,7 @@ def test_parse_json_message(channel, text):
     }
     json_data = json.dumps(data)
 
-    message = parse_json_message(json_data)
+    message = _parse_json_message(json_data)
 
     assert message.channel == channel
     assert message.text == text
