@@ -80,6 +80,7 @@ class Processor:
         self.announcer.start()
         start_receive_server(self.config.http)
 
+        logger.info('Starting to process queue ...')
         try:
             while True:
                 self.process_queue()
