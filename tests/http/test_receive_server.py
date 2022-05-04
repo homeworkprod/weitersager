@@ -11,6 +11,11 @@ import pytest
 
 
 @pytest.fixture
+def server(make_server):
+    return make_server()
+
+
+@pytest.fixture
 def restricted_server(make_server):
     api_tokens = {
         'gAT3KHqpb94YQ7IMhR-qMH5tRquwLnHoyik_lZItTQY',

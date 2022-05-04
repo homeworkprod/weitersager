@@ -27,8 +27,3 @@ def make_server():
         return server
 
     return _wrapper
-
-
-@pytest.fixture
-def server(make_server):
-    return make_server()
