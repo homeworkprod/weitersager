@@ -54,10 +54,10 @@ def fake_channel_join(channel_name):
 
 
 def send_message_received_signal(channel_name, text):
-    source_address = ('127.0.0.1', 12345)
+    source_ip_address = '127.0.0.1'
     message_received.send(
         None,
         channel_name=channel_name,
         text=text,
-        source_address=source_address,
+        source_ip_address=source_ip_address,
     )

@@ -75,7 +75,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         message_received.send(
             channel_name=message.channel,
             text=message.text,
-            source_address=self.client_address,
+            source_ip_address=self.client_address[0],
         )
 
     def version_string(self) -> str:
