@@ -143,7 +143,7 @@ def build_request(server, data, *, api_token=None):
 
     data = json.dumps(data).encode('utf-8')
 
-    headers = {}
+    headers = {'Content-Type': 'application/json'}
     if api_token:
         headers['Authorization'] = f'Token {api_token}'
 

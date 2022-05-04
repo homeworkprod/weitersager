@@ -5,11 +5,15 @@ Changelog
 0.8 (unreleased)
 ----------------
 
+- Return status code 415 ("Unsupported Media Type") if request content
+  type is not ``application/json``.
+
 
 0.7.2 (2022-05-03)
 ------------------
 
-- Return status code 404 on requests to any path other than ``/``.
+- Return status code 404 ("Not Found") on requests to any path other
+  than ``/``.
 
 - Added Docker-specific configuration file example.
 

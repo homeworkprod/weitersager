@@ -64,6 +64,10 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_error(HTTPStatus.FORBIDDEN)
                 return
 
+        if self.headers.get('Content-Type') != 'application/json':
+            self.send_error(HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
+            return
+
         try:
             content_length = int(self.headers.get('Content-Length', 0))
             data = self.rfile.read(content_length).decode('utf-8')
