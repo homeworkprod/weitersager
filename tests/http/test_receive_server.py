@@ -140,14 +140,14 @@ def test_server_response_header(server):
 
 def build_request(server, data, *, api_token=None):
     url = get_server_url(server)
-    json_data = json.dumps(data).encode('utf-8')
 
-    request = Request(url, data=json_data, method='POST')
+    data = json.dumps(data).encode('utf-8')
 
+    headers = {}
     if api_token:
-        request.add_header('Authorization', f'Token {api_token}')
+        headers['Authorization'] = f'Token {api_token}'
 
-    return request
+    return Request(url, data=data, headers=headers, method='POST')
 
 
 def get_server_url(server):
