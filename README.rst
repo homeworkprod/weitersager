@@ -258,7 +258,7 @@ using:
 
 .. code:: sh
 
-    $ docker-compose up
+    $ docker-compose up --detach
 
 
 Implementation Details
