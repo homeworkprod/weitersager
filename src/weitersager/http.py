@@ -9,7 +9,6 @@ HTTP server to receive messages
 """
 
 from __future__ import annotations
-from dataclasses import dataclass
 from http import HTTPStatus
 import logging
 import sys
@@ -26,12 +25,6 @@ from .util import start_thread
 
 
 logger = logging.getLogger(__name__)
-
-
-@dataclass(frozen=True)
-class Message:
-    channel: str
-    text: str
 
 
 def create_app(api_tokens: set[str]):
@@ -74,16 +67,18 @@ class Application:
             abort(HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
 
         try:
-            message = _parse_json_message(request.json)
-        except (KeyError, ValueError):
+            payload = request.json
+            channel = payload['channel']
+            text = payload['text']
+        except KeyError:
             logger.info(
                 'Invalid message received from %s.', request.remote_addr
             )
             abort(HTTPStatus.BAD_REQUEST)
 
         message_received.send(
-            channel_name=message.channel,
-            text=message.text,
+            channel_name=channel,
+            text=text,
             source_ip_address=request.remote_addr,
         )
 
@@ -100,14 +95,6 @@ def _get_api_token(headers) -> Optional[str]:
         return None
 
     return authorization_value[len(prefix) :]
-
-
-def _parse_json_message(data: dict[str, str]) -> Message:
-    """Extract message from JSON."""
-    channel = data['channel']
-    text = data['text']
-
-    return Message(channel=channel, text=text)
 
 
 # Override value of `Server:` header sent by wsgiref.
