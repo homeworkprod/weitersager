@@ -6,7 +6,7 @@ Changelog
 ----------------
 
 
-0.8.1 (unreleased)
+0.8.1 (2022-05-05)
 ------------------
 
 - Fixed Werkzeug dependency missing in ``setup.cfg``.

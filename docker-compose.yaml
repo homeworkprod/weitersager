@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   weitersager:
-    image: ghcr.io/homeworkprod/weitersager:0.9-dev
+    image: ghcr.io/homeworkprod/weitersager:0.8.1
     ports:
       - "127.0.0.1:9000:8080"
     volumes:
