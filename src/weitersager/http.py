@@ -66,8 +66,11 @@ class Application:
         if not request.is_json:
             abort(HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
 
+        payload = request.json
+        if payload is None:
+            abort(HTTPStatus.BAD_REQUEST)
+
         try:
-            payload = request.json
             channel = payload['channel']
             text = payload['text']
         except KeyError:
