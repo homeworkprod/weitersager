@@ -71,9 +71,6 @@ class Application:
             channel = payload['channel']
             text = payload['text']
         except KeyError:
-            logger.info(
-                'Invalid message received from %s.', request.remote_addr
-            )
             abort(HTTPStatus.BAD_REQUEST)
 
         message_received.send(
