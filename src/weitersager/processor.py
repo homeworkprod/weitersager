@@ -47,12 +47,12 @@ class Processor:
         *,
         channel_name: str,
         text: str,
-        source_ip_address: str,
+        source_ip_address: Optional[str] = None,
     ) -> None:
         """Log and announce an incoming message."""
         logger.debug(
             'Received message from %s for channel %s with text "%s".',
-            source_ip_address,
+            source_ip_address or 'unknown address',
             channel_name,
             text,
         )
