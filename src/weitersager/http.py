@@ -44,9 +44,14 @@ class Application:
     def __call__(self, environ, start_response):
         return self.wsgi_app(environ, start_response)
 
-    @Request.application
-    def wsgi_app(self, request):
+    def wsgi_app(self, environ, start_response):
+        request = Request(environ)
+        response = self.dispatch_request(request)
+        return response(environ, start_response)
+
+    def dispatch_request(self, request):
         adapter = self._url_map.bind_to_environ(request.environ)
+
         try:
             endpoint, values = adapter.match()
             handler = getattr(self, f'on_{endpoint}')
