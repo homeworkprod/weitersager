@@ -15,6 +15,7 @@ import sys
 from typing import Optional
 from wsgiref.simple_server import make_server, ServerHandler, WSGIServer
 
+from werkzeug.datastructures import Headers
 from werkzeug.exceptions import abort, HTTPException
 from werkzeug.routing import Map, Rule
 from werkzeug.wrappers import Request, Response
@@ -27,7 +28,7 @@ from .util import start_thread
 logger = logging.getLogger(__name__)
 
 
-def create_app(api_tokens: set[str]):
+def create_app(api_tokens: set[str]) -> Application:
     return Application(api_tokens)
 
 
@@ -49,7 +50,7 @@ class Application:
         response = self.dispatch_request(request)
         return response(environ, start_response)
 
-    def dispatch_request(self, request):
+    def dispatch_request(self, request: Request):
         adapter = self._url_map.bind_to_environ(request.environ)
 
         try:
@@ -59,7 +60,7 @@ class Application:
         except HTTPException as exc:
             return exc
 
-    def on_root(self, request):
+    def on_root(self, request: Request) -> Response:
         if self._api_tokens:
             api_token = _get_api_token(request.headers)
             if not api_token:
@@ -90,7 +91,7 @@ class Application:
         return Response('', status=HTTPStatus.ACCEPTED)
 
 
-def _get_api_token(headers) -> Optional[str]:
+def _get_api_token(headers: Headers) -> Optional[str]:
     authorization_value = headers.get('Authorization')
     if not authorization_value:
         return None
