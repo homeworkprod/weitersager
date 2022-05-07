@@ -69,22 +69,11 @@ class Application:
             if api_token not in self._api_tokens:
                 abort(HTTPStatus.FORBIDDEN)
 
-        if not request.is_json:
-            abort(HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
-
-        payload = request.json
-        if payload is None:
-            abort(HTTPStatus.BAD_REQUEST)
-
-        try:
-            channel = payload['channel']
-            text = payload['text']
-        except KeyError:
-            abort(HTTPStatus.BAD_REQUEST)
+        data = _extract_payload(request, {'channel', 'text'})
 
         message_received.send(
-            channel_name=channel,
-            text=text,
+            channel_name=data['channel'],
+            text=data['text'],
             source_ip_address=request.remote_addr,
         )
 
@@ -101,6 +90,25 @@ def _get_api_token(headers: Headers) -> Optional[str]:
         return None
 
     return authorization_value[len(prefix) :]
+
+
+def _extract_payload(request: Request, keys: set[str]) -> dict[str, str]:
+    """Extract values for given keys from JSON payload."""
+    if not request.is_json:
+        abort(HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
+
+    payload = request.json
+    if payload is None:
+        abort(HTTPStatus.BAD_REQUEST)
+
+    data = {}
+    try:
+        for key in keys:
+            data[key] = payload[key]
+    except KeyError:
+        abort(HTTPStatus.BAD_REQUEST)
+
+    return data
 
 
 # Override value of `Server:` header sent by wsgiref.
