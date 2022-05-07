@@ -5,6 +5,8 @@ Changelog
 0.9 (unreleased)
 ----------------
 
+- Introduced alternative endpoints using secret "channel tokens" as part of the URL.
+
 
 0.8.1 (2022-05-05)
 ------------------

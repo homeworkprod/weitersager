@@ -17,7 +17,12 @@ def make_server():
     def _wrapper(host='', port=0, *, api_tokens=None):
         if api_tokens is None:
             api_tokens = set()
-        config = HttpConfig(host, port, api_tokens=api_tokens)
+        config = HttpConfig(
+            host,
+            port,
+            api_tokens=api_tokens,
+            channel_tokens_to_channel_names={},
+        )
 
         server = create_server(config)
 

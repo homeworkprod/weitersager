@@ -56,6 +56,7 @@ def test_load_config():
         host='0.0.0.0',
         port=55555,
         api_tokens={'qsSUx9KM-DBuDndUhGNi9_kxNHd08TypiHYM05ZTxVc'},
+        channel_tokens_to_channel_names={},
     )
 
     assert config.irc == IrcConfig(
@@ -99,6 +100,7 @@ def test_load_config_with_defaults():
         host='127.0.0.1',
         port=8080,
         api_tokens=set(),
+        channel_tokens_to_channel_names={},
     )
 
     assert config.irc == IrcConfig(

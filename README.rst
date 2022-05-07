@@ -222,6 +222,52 @@ hiding Weitersager behind a web server or proxy that can add TLS
 encryption.
 
 
+Channel Tokens
+~~~~~~~~~~~~~~
+
+As of version 0.9, Weitersager supports an alternative HTTP endpoint
+using a secret token as part of the URL instead of an authorization
+header. This makes it a bit easier to use for clients.
+
+Each secret token is mapped to a channel, so each URL already implicitly
+(though intransparently, for the caller) defines the channel the
+submitted text should be sent to.
+
+This pattern is also used by popular messaging services like Slack_ and
+Discord_ for incoming webhooks.
+
+To expose a channel via this endpoint, just add one or more tokens to it:
+
+.. code:: toml
+
+    [[irc.channels]]
+    name = "#secretlab"
+    tokens = [
+      "A2x23NmcdQgWJ8-5PivbvPX4KmdL9oa7Sy8Jj_9ldoY",
+      "JMApghB7wkHCtw0TcQ1Bu7zY-wG03os61bBDXfAZ4Yc",
+    ]
+
+To generate a token, use the ``weitersager-token`` command. Feel free to
+use a separate token for each client/app that calls the endpoint to be
+able to revoke tokens separately (by simply removing them from the
+configuration) if need be.
+
+As a result, these endpoints become available:
+
+- ``/ct/A2x23NmcdQgWJ8-5PivbvPX4KmdL9oa7Sy8Jj_9ldoY``
+- ``/ct/JMApghB7wkHCtw0TcQ1Bu7zY-wG03os61bBDXfAZ4Yc``
+
+Call them like this (note that neither the ``Authorization`` header nor
+the ``channel`` key in the payload are specified):
+
+.. code:: sh
+
+    $ http --json post :8080/ct/A2x23NmcdQgWJ8-5PivbvPX4KmdL9oa7Sy8Jj_9ldoY text='Oh yeah!'
+
+.. _Slack: https://slack.com/
+.. _Discord: https://discord.com/
+
+
 Run in a Docker Container
 =========================
 

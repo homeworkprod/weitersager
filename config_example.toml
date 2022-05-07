@@ -27,3 +27,6 @@ name = "#party"
 [[irc.channels]]
 name = "#secretlab"
 password = "555-secret"
+tokens = [
+  "A2x23NmcdQgWJ8-5PivbvPX4KmdL9oa7Sy8Jj_9ldoY",
+]

@@ -28,17 +28,25 @@ from .util import start_thread
 logger = logging.getLogger(__name__)
 
 
-def create_app(api_tokens: set[str]) -> Application:
-    return Application(api_tokens)
+def create_app(
+    api_tokens: set[str], channel_tokens_to_channel_names: dict[str, str]
+) -> Application:
+    return Application(api_tokens, channel_tokens_to_channel_names)
 
 
 class Application:
-    def __init__(self, api_tokens: set[str]):
+    def __init__(
+        self,
+        api_tokens: set[str],
+        channel_tokens_to_channel_names: dict[str, str],
+    ) -> None:
         self._api_tokens = api_tokens
+        self._channel_tokens_to_channel_names = channel_tokens_to_channel_names
 
         self._url_map = Map(
             [
                 Rule('/', endpoint='root'),
+                Rule('/ct/<channel_token>', endpoint='channel_token'),
             ]
         )
 
@@ -73,6 +81,23 @@ class Application:
 
         message_received.send(
             channel_name=data['channel'],
+            text=data['text'],
+            source_ip_address=request.remote_addr,
+        )
+
+        return Response('', status=HTTPStatus.ACCEPTED)
+
+    def on_channel_token(
+        self, request: Request, channel_token: str
+    ) -> Response:
+        channel_name = self._channel_tokens_to_channel_names.get(channel_token)
+        if channel_name is None:
+            abort(HTTPStatus.NOT_FOUND)
+
+        data = _extract_payload(request, {'text'})
+
+        message_received.send(
+            channel_name=channel_name,
             text=data['text'],
             source_ip_address=request.remote_addr,
         )
@@ -117,7 +142,7 @@ ServerHandler.server_software = 'Weitersager'
 
 def create_server(config: HttpConfig) -> WSGIServer:
     """Create the HTTP server."""
-    app = create_app(config.api_tokens)
+    app = create_app(config.api_tokens, config.channel_tokens_to_channel_names)
 
     return make_server(config.host, config.port, app)
 

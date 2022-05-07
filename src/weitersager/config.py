@@ -41,6 +41,7 @@ class HttpConfig:
     host: str
     port: int
     api_tokens: set[str]
+    channel_tokens_to_channel_names: dict[str, str]
 
 
 @dataclass(frozen=True)
@@ -103,8 +104,30 @@ def _get_http_config(data: dict[str, Any]) -> HttpConfig:
     host = data_http.get('host', DEFAULT_HTTP_HOST)
     port = int(data_http.get('port', DEFAULT_HTTP_PORT))
     api_tokens = set(data_http.get('api_tokens', []))
+    channel_tokens_to_channel_names = _get_channel_tokens_to_channel_names(data)
 
-    return HttpConfig(host, port, api_tokens)
+    return HttpConfig(host, port, api_tokens, channel_tokens_to_channel_names)
+
+
+def _get_channel_tokens_to_channel_names(
+    data: dict[str, Any]
+) -> dict[str, str]:
+    channel_tokens_to_channel_names = {}
+
+    for channel in data['irc'].get('channels', []):
+        channel_name = channel['name']
+
+        tokens = set(channel.get('tokens', []))
+        for token in tokens:
+            if token in channel_tokens_to_channel_names:
+                raise ConfigurationError(
+                    f'A channel token for channel "{channel_name}" '
+                    'is already configured somewhere else.'
+                )
+
+            channel_tokens_to_channel_names[token] = channel_name
+
+    return channel_tokens_to_channel_names
 
 
 def _get_irc_config(data: dict[str, Any]) -> IrcConfig:
