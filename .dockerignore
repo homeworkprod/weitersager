@@ -10,6 +10,7 @@
 *.egg-info
 assets
 build
+compose.yaml
 dist
 Dockerfile
 venv

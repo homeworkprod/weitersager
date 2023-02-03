@@ -298,8 +298,8 @@ a `bind mount`_.
 Using Docker Compose
 --------------------
 
-A configuration file for Docker Compose, ``docker-compose.yaml``, is
-also available. Adjust as necessary, then run Weitersager in a container
+A configuration file for Docker Compose, ``compose.yaml``, is also
+available. Adjust as necessary, then run Weitersager in a container
 using:
 
 .. code:: sh

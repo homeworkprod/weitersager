@@ -1,10 +1,10 @@
 include .dockerignore
 include assets/weitersager_logo.svg
 include CHANGES.rst
+include compose.yaml
 include config_example.toml
 include config_example_docker.toml
 include Dockerfile
-include docker-compose.yaml
 include requirements.txt
 include requirements-dev.txt
 include requirements-release.txt
