@@ -5,6 +5,8 @@ Changelog
 0.10 (unreleased)
 -----------------
 
+- Added support for Python 3.11.
+
 - Updated blinker to 1.5 (from 1.4).
 
 - Updated rtoml to 0.9.0 (from 0.7.1).
