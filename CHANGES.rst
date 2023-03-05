@@ -5,7 +5,9 @@ Changelog
 0.10 (unreleased)
 -----------------
 
-- Rename `docker-compose.yaml` to `compose.yaml`.
+- Updated blinker to 1.5 (from 1.4).
+
+- Renamed `docker-compose.yaml` to `compose.yaml`.
 
 
 0.9 (2022-05-07)
