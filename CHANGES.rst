@@ -7,6 +7,8 @@ Changelog
 
 - Updated blinker to 1.5 (from 1.4).
 
+- Updated rtoml to 0.9.0 (from 0.7.1).
+
 - Renamed `docker-compose.yaml` to `compose.yaml`.
 
 
