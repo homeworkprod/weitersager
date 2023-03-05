@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 [tool.black]
 line-length = 80
 skip-string-normalization = true
-target-version = ['py37']
+target-version = [ "py37" ]
 
 [tool.mypy]
 python_version = "3.7"
@@ -17,4 +17,4 @@ no_implicit_optional = true
 
 [tool.pytest.ini_options]
 addopts = "-vv -ra --showlocals"
-testpaths = ["tests"]
+testpaths = [ "tests" ]
