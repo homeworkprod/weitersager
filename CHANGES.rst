@@ -5,7 +5,7 @@ Changelog
 0.10 (unreleased)
 -----------------
 
-- Added support for Python 3.11.
+- Added support for Python 3.11 and 3.12.
 
 - Updated blinker to 1.5 (from 1.4).
 
