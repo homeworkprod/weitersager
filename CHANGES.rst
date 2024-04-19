@@ -7,6 +7,8 @@ Changelog
 
 - Added support for Python 3.11 and 3.12.
 
+- Removed support for Python 3.7.
+
 - Updated blinker to 1.5 (from 1.4).
 
 - Updated rtoml to 0.9.0 (from 0.7.1).
