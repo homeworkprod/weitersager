@@ -12,7 +12,7 @@ from weitersager.cli import parse_args
 
 def test_parse_args_without_args():
     with pytest.raises(SystemExit):
-        actual = parse_args([])
+        parse_args([])
 
 
 def test_parse_args_with_config_filename_arg():
