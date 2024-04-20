@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   weitersager:
     image: ghcr.io/homeworkprod/weitersager:0.10-dev
