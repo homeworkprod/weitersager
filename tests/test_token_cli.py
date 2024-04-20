@@ -3,8 +3,6 @@
 :License: MIT, see LICENSE for details.
 """
 
-import pytest
-
 from weitersager.tokencli import generate_token
 
 
