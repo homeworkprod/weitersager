@@ -11,6 +11,8 @@ Changelog
 
 - Updated blinker to 1.7.0 (from 1.4).
 
+- Updated irc to 20.3.0 (from 20.0.0).
+
 - Updated rtoml to 0.9.0 (from 0.7.1).
 
 - Updated Werkzeug to 2.2.3 (from 2.1.2).
