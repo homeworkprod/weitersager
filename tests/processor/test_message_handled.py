@@ -27,7 +27,7 @@ def processor():
         channels=set(),
     )
 
-    config = Config(log_level="debug", http=http_config, irc=irc_config)
+    config = Config(log_level='debug', http=http_config, irc=irc_config)
 
     return Processor(config)
 

@@ -11,9 +11,9 @@ from weitersager.irc import IrcChannel
 @pytest.mark.parametrize(
     'channel, expected_name, expected_password',
     [
-        (IrcChannel('#example'),                         '#example',      None    ),
-        (IrcChannel('#example', password=None),          '#example',      None    ),
-        (IrcChannel('#headquarters', password='secret'), '#headquarters', 'secret'),
+        (IrcChannel('#example'), '#example', None),
+        (IrcChannel('#example', password=None), '#example', None),
+        (IrcChannel('#whq', password='secret'), '#whq', 'secret'),
     ],
 )
 def test_irc_channel_creation(channel, expected_name, expected_password):

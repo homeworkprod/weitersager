@@ -14,7 +14,7 @@ from weitersager.config import (
 )
 
 
-TOML_CONFIG = '''\
+TOML_CONFIG = """\
 log_level = "warning"
 
 [http]
@@ -42,7 +42,7 @@ channels = [
     { name = "#elite-astrology", password = "twinkle-twinkle" },
     { name = "#hubblebubble" },
 ]
-'''
+"""
 
 
 def test_load_config():
@@ -50,7 +50,7 @@ def test_load_config():
 
     config = load_config(toml)
 
-    assert config.log_level == "WARNING"
+    assert config.log_level == 'WARNING'
 
     assert config.http == HttpConfig(
         host='0.0.0.0',
@@ -80,13 +80,13 @@ def test_load_config():
     )
 
 
-TOML_CONFIG_WITH_DEFAULTS = '''\
+TOML_CONFIG_WITH_DEFAULTS = """\
 [irc.server]
 host = "irc.onlinetalk.test"
 
 [irc.bot]
 nickname = "TownCrier"
-'''
+"""
 
 
 def test_load_config_with_defaults():
@@ -94,7 +94,7 @@ def test_load_config_with_defaults():
 
     config = load_config(toml)
 
-    assert config.log_level == "DEBUG"
+    assert config.log_level == 'DEBUG'
 
     assert config.http == HttpConfig(
         host='127.0.0.1',
@@ -118,10 +118,10 @@ def test_load_config_with_defaults():
     )
 
 
-TOML_CONFIG_WITHOUT_IRC_SERVER_TABLE = '''\
+TOML_CONFIG_WITHOUT_IRC_SERVER_TABLE = """\
 [irc.bot]
 nickname = "Lokalrunde"
-'''
+"""
 
 
 def test_load_config_without_irc_server_table():
@@ -132,12 +132,12 @@ def test_load_config_without_irc_server_table():
     assert config.irc.server is None
 
 
-TOML_CONFIG_WITHOUT_IRC_SERVER_HOST = '''\
+TOML_CONFIG_WITHOUT_IRC_SERVER_HOST = """\
 [irc.server]
 
 [irc.bot]
 nickname = "Lokalrunde"
-'''
+"""
 
 
 def test_load_config_without_irc_server_host():

@@ -5,11 +5,6 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
-[tool.black]
-line-length = 80
-skip-string-normalization = true
-target-version = [ "py38" ]
-
 [tool.mypy]
 python_version = "3.8"
 ignore_missing_imports = true
@@ -18,3 +13,46 @@ no_implicit_optional = true
 [tool.pytest.ini_options]
 addopts = "-vv -ra --showlocals"
 testpaths = [ "tests" ]
+
+[tool.ruff]
+line-length = 80
+
+[tool.ruff.format]
+quote-style = "single"
+line-ending = "lf"
+
+[tool.ruff.lint]
+select = [
+    "B",
+    "E",
+    "EXE",
+    "F",
+    "G",
+    "ICN",
+    "ISC",
+    "PLE",
+    "PLW",
+    "PTH",
+    "PYI",
+    "Q",
+    "RSE",
+    "S",
+    "TID",
+    "UP",
+    "W",
+    "YTT",
+]
+ignore = [
+    "ISC001",  # Conflict with Ruff's formatter
+    "Q001",  # Conflict with Ruff's formatter
+]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+multiline-quotes = "single"
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-sort-within-sections = true
+lines-after-imports = 2
+order-by-type = false

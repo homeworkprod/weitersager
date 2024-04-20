@@ -109,7 +109,7 @@ def _get_http_config(data: dict[str, Any]) -> HttpConfig:
 
 
 def _get_channel_tokens_to_channel_names(
-    data: dict[str, Any]
+    data: dict[str, Any],
 ) -> dict[str, str]:
     channel_tokens_to_channel_names = {}
 
