@@ -4,7 +4,7 @@ weitersager.util
 
 Utilities
 
-:Copyright: 2007-2022 Jochen Kupperschmidt
+:Copyright: 2007-2024 Jochen Kupperschmidt
 :License: MIT, see LICENSE for details.
 """
 
