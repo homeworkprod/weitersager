@@ -13,9 +13,6 @@ IRC.
 Weitersager emerged from syslog2IRC_ and offers a generic, not
 syslog-specific input interface.
 
-:Copyright: 2007-2024 `Jochen Kupperschmidt <http://homework.nwsnet.de/>`_
-:License: MIT, see LICENSE for details.
-
 .. _syslog2IRC: http://homework.nwsnet.de/releases/c474/#syslog2irc
 
 
@@ -326,3 +323,22 @@ The user has to manually interrupt the application to exit.
 
 For details, see the documentation on the ``threading`` module that is
 part of Python's standard library.
+
+
+Author
+======
+
+Weitersager was created, and is developed and maintained, by Jochen
+"Y0Gi" Kupperschmidt.
+
+
+License
+=======
+
+Copyright (c) 2007-2024 `Jochen Kupperschmidt
+<http://homework.nwsnet.de/>`_
+
+Weitersager is licensed under the `MIT License
+<https://choosealicense.com/licenses/mit/>`_.
+
+The license text is provided in the `LICENSE <LICENSE>`_ file.
