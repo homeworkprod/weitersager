@@ -16,6 +16,12 @@ syslog-specific input interface.
 .. _syslog2IRC: http://homework.nwsnet.de/releases/c474/#syslog2irc
 
 
+Website
+=======
+
+The official micro website is at https://homework.nwsnet.de/releases/1cda/#weitersager.
+
+
 Code Status
 ===========
 
