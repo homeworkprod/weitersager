@@ -7,7 +7,7 @@ Changelog
 
 - Added support for Python 3.11 and 3.12.
 
-- Removed support for Python 3.7.
+- Removed support for Python 3.7 and 3.8.
 
 - Updated blinker to 1.7.0 (from 1.4).
 

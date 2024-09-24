@@ -50,7 +50,7 @@ Code Status
 Requirements
 ============
 
-- Python 3.8+
+- Python 3.9+
 - Dependencies: blinker_, irc_, rtoml_, Werkzeug_
 
 .. _blinker: http://pythonhosted.org/blinker/
