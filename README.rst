@@ -228,9 +228,9 @@ encryption.
 Channel Tokens
 ~~~~~~~~~~~~~~
 
-As of version 0.9, Weitersager supports an alternative HTTP endpoint
-using a secret token as part of the URL instead of an authorization
-header. This makes it a bit easier to use for clients.
+Weitersager supports an alternative HTTP endpoint using a secret token
+as part of the URL instead of an authorization header. This makes it a
+bit easier to use for clients.
 
 Each secret token is mapped to a channel, so each URL already implicitly
 (though intransparently, for the caller) defines the channel the
