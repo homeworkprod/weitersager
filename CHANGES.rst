@@ -17,10 +17,10 @@ Changelog
 
 - Updated Werkzeug to 2.2.3 (from 2.1.2).
 
-- Renamed `docker-compose.yaml` to `compose.yaml`.
+- Renamed ``docker-compose.yaml`` to ``compose.yaml``.
 
-- Publish Docker images for platform `linux/arm64` (in addition to
-  `linux/amd64`).
+- Publish Docker images for platform ``linux/arm64`` (in addition to
+  ``linux/amd64``).
 
 - Switched code formatter and linter from Black to Ruff.
 
