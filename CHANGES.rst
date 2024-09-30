@@ -12,7 +12,7 @@ Changelog
 - Changed authentication scheme name in authorization header from custom
   ``Token`` to the common ``Bearer``.
 
-- Updated blinker to 1.7.0 (from 1.4).
+- Updated blinker to 1.8.2 (from 1.4).
 
 - Updated irc to 20.5.0 (from 20.0.0).
 
