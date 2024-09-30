@@ -11,7 +11,7 @@ Configuration loading
 from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterator, Optional
+from typing import Any, Iterator
 
 import rtoml
 
@@ -50,8 +50,8 @@ class IrcServer:
     host: str
     port: int = DEFAULT_IRC_SERVER_PORT
     ssl: bool = False
-    password: Optional[str] = None
-    rate_limit: Optional[float] = None
+    password: str | None = None
+    rate_limit: float | None = None
 
 
 @dataclass(frozen=True, order=True)
@@ -59,14 +59,14 @@ class IrcChannel:
     """An IRC channel."""
 
     name: str
-    password: Optional[str] = None
+    password: str | None = None
 
 
 @dataclass(frozen=True)
 class IrcConfig:
     """An IRC bot configuration."""
 
-    server: Optional[IrcServer]
+    server: IrcServer | None
     nickname: str
     realname: str
     commands: list[str]
@@ -147,7 +147,7 @@ def _get_irc_config(data: dict[str, Any]) -> IrcConfig:
     )
 
 
-def _get_irc_server(data_irc: Any) -> Optional[IrcServer]:
+def _get_irc_server(data_irc: Any) -> IrcServer | None:
     data_server = data_irc.get('server')
     if data_server is None:
         return None

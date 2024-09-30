@@ -11,7 +11,7 @@ Connect HTTP server and IRC bot.
 from __future__ import annotations
 import logging
 from queue import SimpleQueue
-from typing import Any, Optional
+from typing import Any
 
 from .config import Config
 from .http import start_receive_server
@@ -43,11 +43,11 @@ class Processor:
 
     def handle_message(
         self,
-        sender: Optional[Any],
+        sender: Any | None,
         *,
         channel_name: str,
         text: str,
-        source_ip_address: Optional[str] = None,
+        source_ip_address: str | None = None,
     ) -> None:
         """Log and announce an incoming message."""
         logger.debug(
@@ -70,7 +70,7 @@ class Processor:
 
         self.announcer.announce(channel_name, text)
 
-    def process_queue(self, timeout_seconds: Optional[int] = None) -> None:
+    def process_queue(self, timeout_seconds: int | None = None) -> None:
         """Process a message from the queue."""
         channel_name, text = self.message_queue.get(timeout=timeout_seconds)
         self.announce_message(channel_name, text)

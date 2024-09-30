@@ -12,7 +12,6 @@ from __future__ import annotations
 from http import HTTPStatus
 import logging
 import sys
-from typing import Optional
 from wsgiref.simple_server import make_server, ServerHandler, WSGIServer
 
 from werkzeug.datastructures import Headers
@@ -105,7 +104,7 @@ class Application:
         return Response('', status=HTTPStatus.ACCEPTED)
 
 
-def _get_api_token(headers: Headers) -> Optional[str]:
+def _get_api_token(headers: Headers) -> str | None:
     authorization_value = headers.get('Authorization')
     if not authorization_value:
         return None

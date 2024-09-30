@@ -11,7 +11,6 @@ Internet Relay Chat
 from __future__ import annotations
 import logging
 import ssl
-from typing import Optional
 
 from irc.bot import ServerSpec, SingleServerIRCBot
 from irc.connection import Factory
@@ -141,7 +140,7 @@ def _create_bot(server: IrcServer, nickname: str, realname: str) -> Bot:
     return bot
 
 
-def _set_rate_limit(connection, rate_limit: Optional[float]) -> None:
+def _set_rate_limit(connection, rate_limit: float | None) -> None:
     """Set rate limit."""
     if rate_limit is not None:
         logger.info(
