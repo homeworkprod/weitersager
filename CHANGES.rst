@@ -22,6 +22,8 @@ Changelog
 
 - Renamed ``docker-compose.yaml`` to ``compose.yaml``.
 
+- Switched from Python 3.9 to Python 3.11 Docker base image.
+
 - Publish Docker images for platform ``linux/arm64`` (in addition to
   ``linux/amd64``).
 
