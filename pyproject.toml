@@ -1,9 +1,62 @@
 [build-system]
-requires = [
-    "setuptools >= 51.1.2",
-    "wheel",
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "Weitersager"
+dynamic = ["version"]
+description = "A proxy to forward messages received via HTTP to to IRC"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    { name = "Jochen Kupperschmidt", email = "homework@nwsnet.de" },
 ]
-build-backend = "setuptools.build_meta"
+keywords = [
+    "irc",
+    "webhook",
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Intended Audience :: Other Audience",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Communications :: Chat :: Internet Relay Chat",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: System :: Logging",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "blinker==1.8.2",
+    "irc==20.5.0",
+    "rtoml==0.11.0",
+    "werkzeug==3.0.4",
+]
+
+[project.scripts]
+weitersager = "weitersager.cli:main"
+weitersager-token = "weitersager.tokencli:main"
+
+[project.urls]
+Changelog = "https://github.com/homeworkprod/weitersager/blob/main/CHANGES.rst"
+Homepage = "https://homework.nwsnet.de/releases/1cda/#weitersager"
+"Source code" = "https://github.com/homeworkprod/weitersager"
+
+[tool.hatch.version]
+path = "weitersager/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+]
 
 [tool.mypy]
 python_version = "3.9"

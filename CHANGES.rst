@@ -25,6 +25,10 @@ Changelog
 - Publish Docker images for platform ``linux/arm64`` (in addition to
   ``linux/amd64``).
 
+- Migrated project metadata from ``setup.cfg`` to ``pyproject.toml``.
+
+- Changed build system from setuptools to Hatchling.
+
 - Switched code formatter and linter from Black to Ruff.
 
 
