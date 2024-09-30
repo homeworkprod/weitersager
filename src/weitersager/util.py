@@ -8,6 +8,7 @@ Utilities
 :License: MIT, see LICENSE for details.
 """
 
+from __future__ import annotations
 import logging
 from logging import Formatter, StreamHandler
 from threading import Thread
