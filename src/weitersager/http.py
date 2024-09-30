@@ -110,7 +110,7 @@ def _get_api_token(headers: Headers) -> Optional[str]:
     if not authorization_value:
         return None
 
-    prefix = 'Token '
+    prefix = 'Bearer '
     if not authorization_value.startswith(prefix):
         return None
 

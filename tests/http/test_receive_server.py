@@ -150,7 +150,7 @@ def build_request(server, data, *, api_token=None):
 
     headers = {'Content-Type': 'application/json'}
     if api_token:
-        headers['Authorization'] = f'Token {api_token}'
+        headers['Authorization'] = f'Bearer {api_token}'
 
     return Request(url, data=data, headers=headers, method='POST')
 
