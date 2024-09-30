@@ -16,7 +16,7 @@ Changelog
 
 - Updated irc to 20.5.0 (from 20.0.0).
 
-- Updated rtoml to 0.10.0 (from 0.7.1).
+- Updated rtoml to 0.11.0 (from 0.7.1).
 
 - Updated Werkzeug to 2.2.3 (from 2.1.2).
 
