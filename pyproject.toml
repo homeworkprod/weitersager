@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "Weitersager"
 dynamic = ["version"]
 description = "A proxy to forward messages received via HTTP to to IRC"
-readme = "README.md"
+readme = "README.rst"
 license = "MIT"
 requires-python = ">=3.9"
 authors = [
