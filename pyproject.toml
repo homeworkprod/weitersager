@@ -52,6 +52,8 @@ Homepage = "https://homework.nwsnet.de/releases/1cda/#weitersager"
 
 [tool.hatch.version]
 path = "src/weitersager/__init__.py"
+source = "code"
+expression = "VERSION"
 
 [tool.hatch.build.targets.sdist]
 include = [
