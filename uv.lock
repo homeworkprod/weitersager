@@ -326,10 +326,10 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "blinker", specifier = "==1.8.2" },
-    { name = "irc", specifier = "==20.5.0" },
-    { name = "rtoml", specifier = "==0.11.0" },
-    { name = "werkzeug", specifier = "==3.1.1" },
+    { name = "blinker", specifier = ">=1.8.2" },
+    { name = "irc", specifier = ">=20.5.0" },
+    { name = "rtoml", specifier = ">=0.11.0" },
+    { name = "werkzeug", specifier = ">=3.1.1" },
 ]
 
 [[package]]
