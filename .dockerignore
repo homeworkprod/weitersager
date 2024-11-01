@@ -7,10 +7,8 @@
 .mypy_cache
 .pytest_cache
 .scrutinizer.yml
-*.egg-info
 .venv
 assets
-build
 compose.yaml
 dist
 Dockerfile

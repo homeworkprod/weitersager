@@ -2,13 +2,11 @@
 __pycache__
 
 # virtual environment
-.venv/
+/.venv
 
 # testing
-.coverage
-.pytest_cache
+/.coverage
+/.pytest_cache
 
-# packaging/distribution
-build/
-dist/
-*.egg-info/
+# distribution artifacts
+/dist

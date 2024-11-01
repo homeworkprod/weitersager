@@ -7,6 +7,8 @@ Changelog
 
 - Updated Werkzeug to 3.1.1 (from 3.0.4).
 
+- Use uv as package and project manager.
+
 
 0.10 (2024-09-30)
 -----------------
