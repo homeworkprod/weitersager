@@ -6,6 +6,5 @@ include config_example.toml
 include config_example_docker.toml
 include Dockerfile
 include requirements.txt
-include requirements-test.txt
 graft tests
 global-exclude *.pyc
