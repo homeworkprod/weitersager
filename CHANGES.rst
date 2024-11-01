@@ -9,6 +9,8 @@ Changelog
 
 - Use uv as package and project manager.
 
+- Manage development dependencies via dependency groups and uv.
+
 
 0.10 (2024-09-30)
 -----------------

@@ -41,6 +41,12 @@ dependencies = [
     "werkzeug>=3.1.1",
 ]
 
+[dependency-groups]
+dev = [
+    "mypy==1.9.0",
+    "ruff==0.4.1",
+]
+
 [project.scripts]
 weitersager = "weitersager.cli:main"
 weitersager-token = "weitersager.tokencli:main"
