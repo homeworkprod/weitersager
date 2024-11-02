@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "Weitersager"
-dynamic = ["version"]
+version = "0.11-dev"
 description = "A proxy to forward messages received via HTTP to to IRC"
 readme = "README.rst"
 license = "MIT"
@@ -59,11 +59,6 @@ weitersager-token = "weitersager.tokencli:main"
 Changelog = "https://github.com/homeworkprod/weitersager/blob/main/CHANGES.rst"
 Homepage = "https://homework.nwsnet.de/releases/1cda/#weitersager"
 "Source code" = "https://github.com/homeworkprod/weitersager"
-
-[tool.hatch.version]
-path = "src/weitersager/__init__.py"
-source = "code"
-expression = "VERSION"
 
 [tool.hatch.build.targets.sdist]
 include = [

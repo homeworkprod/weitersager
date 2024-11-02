@@ -10,10 +10,10 @@ Command line entry point
 
 from __future__ import annotations
 from argparse import ArgumentParser, Namespace
+import importlib.metadata
 from pathlib import Path
 import sys
 
-from . import VERSION
 from .config import load_config
 from .processor import start
 from .util import configure_logging
@@ -21,9 +21,11 @@ from .util import configure_logging
 
 def parse_args(args: list[str]) -> Namespace:
     """Parse command line arguments."""
+    version = importlib.metadata.version('weitersager')
+
     parser = ArgumentParser()
     parser.add_argument(
-        '--version', action='version', version=f'Weitersager {VERSION}'
+        '--version', action='version', version=f'Weitersager {version}'
     )
     parser.add_argument('config_filename', type=Path)
     return parser.parse_args(args)
