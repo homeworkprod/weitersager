@@ -1,6 +1,6 @@
 services:
   weitersager:
-    image: ghcr.io/homeworkprod/weitersager:0.11
+    image: ghcr.io/homeworkprod/weitersager:0.11.1-dev
     ports:
       - "127.0.0.1:9000:8080"
     volumes:
