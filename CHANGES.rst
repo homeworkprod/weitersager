@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-0.11 (unreleased)
+0.11 (2024-11-02)
 -----------------
 
 - Updated Werkzeug to 3.1.1 (from 3.0.4).
