@@ -32,7 +32,7 @@ class Announcer:
 
     def announce(self, channel_name: str, text: str) -> None:
         """Announce a message."""
-        raise NotImplementedError()
+        raise NotImplementedError
 
     def shutdown(self) -> None:
         """Shut the announcer down."""
