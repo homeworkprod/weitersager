@@ -9,6 +9,8 @@ Changelog
 
 - Updated mypy to 1.13.0 (from 1.9.0).
 
+- Updated ruff to 0.7.2 (from 0.4.1).
+
 - Use uv as package and project manager.
 
 - Manage development, test dependencies via dependency groups and uv.
