@@ -7,6 +7,8 @@ Changelog
 
 - Updated Werkzeug to 3.1.1 (from 3.0.4).
 
+- Updated mypy to 1.13.0 (from 1.9.0).
+
 - Use uv as package and project manager.
 
 - Manage development, test dependencies via dependency groups and uv.

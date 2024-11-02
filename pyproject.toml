@@ -43,7 +43,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "mypy==1.9.0",
+    "mypy>=1.13.0",
     "ruff==0.4.1",
 ]
 test = [
