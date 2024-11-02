@@ -5,6 +5,5 @@ include compose.yaml
 include config_example.toml
 include config_example_docker.toml
 include Dockerfile
-include requirements.txt
 graft tests
 global-exclude *.pyc

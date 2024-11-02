@@ -11,6 +11,9 @@ Changelog
 
 - Manage development, test dependencies via dependency groups and uv.
 
+- Removed `requirements[-{dev, test}].txt` files. Use uv to install
+  dependencies.
+
 
 0.10 (2024-09-30)
 -----------------
