@@ -23,7 +23,7 @@ Changelog
 
 - Manage development, test dependencies via dependency groups and uv.
 
-- Removed `requirements[-{dev, test}].txt` files. Use uv to install
+- Removed ``requirements[-{dev, test}].txt`` files. Use uv to install
   dependencies.
 
 
