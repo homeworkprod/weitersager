@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-0.11.1 (unreleased)
+0.11.1 (2024-11-02)
 -------------------
 
 - Corrected project version in ``uv.lock``.
