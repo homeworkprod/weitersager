@@ -5,6 +5,8 @@ Changelog
 0.11.1 (unreleased)
 -------------------
 
+- Corrected project version in ``uv.lock``.
+
 
 0.11 (2024-11-02)
 -----------------
