@@ -11,6 +11,8 @@ Changelog
 
 - Updated mypy to 1.13.0 (from 1.9.0).
 
+- Updated pytest to 8.3.3 (from 8.1.1).
+
 - Updated ruff to 0.7.2 (from 0.4.1).
 
 - Use uv as package and project manager.
