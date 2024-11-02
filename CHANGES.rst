@@ -7,6 +7,8 @@ Changelog
 
 - Updated Werkzeug to 3.1.1 (from 3.0.4).
 
+- Updated coverage to 7.6.4 (from 7.4.4).
+
 - Updated mypy to 1.13.0 (from 1.9.0).
 
 - Updated ruff to 0.7.2 (from 0.4.1).
