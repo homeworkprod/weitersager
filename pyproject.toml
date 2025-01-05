@@ -116,3 +116,6 @@ combine-as-imports = true
 force-sort-within-sections = true
 lines-after-imports = 2
 order-by-type = false
+
+[tool.uv]
+required-version = ">=0.5.14"
