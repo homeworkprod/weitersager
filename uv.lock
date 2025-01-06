@@ -555,7 +555,7 @@ wheels = [
 
 [[package]]
 name = "weitersager"
-version = "0.12.0.dev0"
+version = "1.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "blinker" },

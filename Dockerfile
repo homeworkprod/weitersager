@@ -7,7 +7,7 @@ RUN useradd --create-home user
 USER user
 ENV PATH=/home/user/.local/bin:$PATH
 
-RUN pip install --no-cache-dir weitersager==0.12.0-dev
+RUN pip install --no-cache-dir weitersager==1.0.0
 
 EXPOSE 8080
 

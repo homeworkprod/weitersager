@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "Weitersager"
-version = "0.12.0-dev"
+version = "1.0.0"
 description = "A proxy to forward messages received via HTTP to to IRC"
 readme = "README.rst"
 license = "MIT"
