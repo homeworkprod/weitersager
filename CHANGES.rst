@@ -9,6 +9,8 @@ Changelog
 
 - Updated rtoml to 0.12.0 (from 0.11.0).
 
+- Updated Werkzeug to 3.1.3 (from 3.1.1).
+
 
 0.11.1 (2024-11-02)
 -------------------
