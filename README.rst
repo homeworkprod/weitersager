@@ -341,7 +341,7 @@ Weitersager was created, and is developed and maintained, by Jochen
 License
 =======
 
-Copyright (c) 2007-2024 `Jochen Kupperschmidt
+Copyright (c) 2007-2025 `Jochen Kupperschmidt
 <http://homework.nwsnet.de/>`_
 
 Weitersager is licensed under the `MIT License
