@@ -5,6 +5,8 @@ Changelog
 0.12.0 (unreleased)
 -------------------
 
+- Added support for Python 3.13.
+
 - Updated blinker to 1.9.0 (from 1.8.2).
 
 - Updated rtoml to 0.12.0 (from 0.11.0).
