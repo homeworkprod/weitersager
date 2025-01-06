@@ -546,7 +546,7 @@ dependencies = [
     { name = "werkzeug" },
 ]
 
-[package.dependency-groups]
+[package.dev-dependencies]
 dev = [
     { name = "mypy" },
     { name = "ruff" },
@@ -564,7 +564,7 @@ requires-dist = [
     { name = "werkzeug", specifier = ">=3.1.1" },
 ]
 
-[package.metadata.dependency-groups]
+[package.metadata.requires-dev]
 dev = [
     { name = "mypy", specifier = ">=1.13.0" },
     { name = "ruff", specifier = ">=0.7.2" },
