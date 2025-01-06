@@ -32,4 +32,4 @@ def test_create_announcer(server, expected_type):
 
     announcer = create_announcer(config)
 
-    assert type(announcer) == expected_type
+    assert type(announcer) is expected_type
