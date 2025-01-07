@@ -17,6 +17,7 @@ keywords = [
     "webhook",
 ]
 classifiers = [
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Other Audience",
     "Intended Audience :: System Administrators",
