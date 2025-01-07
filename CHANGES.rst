@@ -5,6 +5,10 @@ Changelog
 1.1.0 (unreleased)
 ------------------
 
+- Fix typo in project description.
+
+- Update transitive dependencies.
+
 
 1.0.0 (2025-01-06)
 ------------------
