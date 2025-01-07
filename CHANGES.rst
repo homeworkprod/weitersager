@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.0 (unreleased)
+1.0.1 (2025-01-07)
 ------------------
 
 - Fix typo in project description.
