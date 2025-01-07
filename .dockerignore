@@ -7,7 +7,6 @@
 .jj
 .mypy_cache
 .pytest_cache
-.scrutinizer.yml
 .venv
 assets
 compose.yaml
